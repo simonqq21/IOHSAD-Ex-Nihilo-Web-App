@@ -37,7 +37,7 @@ Base = declarative_base()
 class Form(Base):
     __tablename__ = 'Form'
     id = Column(Integer, primary_key=True)
-    form_name = Column(String)
+    form_name = Column(String, unique=True)
     
     questions = relationship("Question", back_populates="form")
     submissions = relationship("Submission", back_populates="form")
@@ -101,8 +101,6 @@ class Answer(Base):
         return f"Answer(submission_id={self.submission_id!r}, question_id={self.question_id!r}, \
             answer_string={self.answer_string!r})"
     
-Base.metadata.create_all(engine)
-
 # uncomment to drop all tables, for testing only
 # try:
 #     engine.execute('''DROP TABLE "User" CASCADE''')
@@ -129,6 +127,9 @@ Base.metadata.create_all(engine)
 # except Exception as err:
 #     print(err)
 #     pass
+Base.metadata.create_all(engine)
+
+
 
 # define table aliases
 f = aliased(Form, name='f')
@@ -137,16 +138,28 @@ s = aliased(Submission, name='s')
 u = aliased(User, name='u')
 a = aliased(Answer, name='a')
 
+def query(alias):
+    items = []
+    for instance in session.query(alias):
+        items.append(instance)
+    print(items)
+    
 # insert form types
-
-# formA = Form(form_name = "Form A")
-# formB = Form(form_name = "Form B")
-# session.add(formA)
-# commit()
-# session.add(formB)
-# commit()
+query(f)
+forms = []
+forms.append(Form(form_name = "Form A"))
+forms.append(Form(form_name = "Form B"))
+for form in forms:
+    session.add(form)
+    commit()
+print()
+query(f)
 
 # insert questions
+query(q)
+questions = []
+
+query(q)
 
 # insert 
 
