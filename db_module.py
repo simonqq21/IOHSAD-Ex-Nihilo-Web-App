@@ -51,14 +51,12 @@ class Question(Base):
     id = Column(Integer, primary_key = True)
     form_id = Column(ForeignKey('Form.id'))
     short_name = Column(String)
-    question_string = Column(String)
     
     form = relationship("Form", back_populates="questions")
     answers = relationship("Answer", back_populates="question")
     
     def __repr__(self):
-        return f"Question(id={self.id!r}, form_id={self.form_id!r}, \
-            short_name={self.short_name!r}, question_string={self.question_string!r})"
+        return f"Question(id={self.id!r}, form_id={self.form_id!r}, short_name={self.short_name!r})"
 
 # submissions table class
 class Submission(Base):
@@ -146,19 +144,100 @@ def query(alias):
     
 # insert form types
 query(f)
-forms = []
-forms.append(Form(form_name = "Form A"))
-forms.append(Form(form_name = "Form B"))
-for form in forms:
-    session.add(form)
+# items = []
+# for instance in session.query(f):
+#     session.delete(instance)
+#     commit()
+# print(items)
+formsdata = []
+formsdata.append(("Form A"))
+formsdata.append(("Form B"))
+# print(formsdata)
+for data in formsdata:
+    session.add(Form(form_name=data))
     commit()
 print()
 query(f)
 
 # insert questions
 query(q)
-questions = []
-
+questionsdata = []
+form_ids = {}
+form_ids["Form A"] = session.query(f.id).filter(f.form_name=="Form A").first()[0]
+form_ids["Form B"] = session.query(f.id).filter(f.form_name=="Form B").first()[0]
+# questions for Form A
+questionsdata.append((form_ids["Form A"], "name"))
+questionsdata.append((form_ids["Form A"], "age"))
+questionsdata.append((form_ids["Form A"], "sex"))
+questionsdata.append((form_ids["Form A"], "civilStatus"))
+questionsdata.append((form_ids["Form A"], "education"))
+questionsdata.append((form_ids["Form A"], "position"))
+questionsdata.append((form_ids["Form A"], "yearsWorked"))
+questionsdata.append((form_ids["Form A"], "workStatus"))
+questionsdata.append((form_ids["Form A"], "wage"))
+questionsdata.append((form_ids["Form A"], "benefits"))
+questionsdata.append((form_ids["Form A"], "benefitsReceived"))
+questionsdata.append((form_ids["Form A"], "hoursPerDay"))
+questionsdata.append((form_ids["Form A"], "chemicalUse"))
+questionsdata.append((form_ids["Form A"], "chemicalName"))
+questionsdata.append((form_ids["Form A"], "chemicalPurpose"))
+questionsdata.append((form_ids["Form A"], "chemExposureDuration"))
+questionsdata.append((form_ids["Form A"], "diseaseAccidented"))
+questionsdata.append((form_ids["Form A"], "treatmentBillSource"))
+questionsdata.append((form_ids["Form A"], "treatmentLocation"))
+questionsdata.append((form_ids["Form A"], "reproductiveProblem"))
+questionsdata.append((form_ids["Form A"], "knowOthersSickAccidented"))
+questionsdata.append((form_ids["Form A"], "yearlyPhysicalExamination"))
+questionsdata.append((form_ids["Form A"], "workPPE"))
+questionsdata.append((form_ids["Form A"], "workPPEFree"))
+questionsdata.append((form_ids["Form A"], "workHazards"))
+questionsdata.append((form_ids["Form A"], "wasteDisposal"))
+questionsdata.append((form_ids["Form A"], "DOLEInspection"))
+questionsdata.append((form_ids["Form A"], "safetyOfficerPresent"))
+# questions for Form B
+questionsdata.append((form_ids["Form B"], "name"))
+questionsdata.append((form_ids["Form B"], "address"))
+questionsdata.append((form_ids["Form B"], "age"))
+questionsdata.append((form_ids["Form B"], "sex"))
+questionsdata.append((form_ids["Form B"], "civilStatus"))
+questionsdata.append((form_ids["Form B"], "occupation"))
+questionsdata.append((form_ids["Form B"], "employingCompanyName"))
+questionsdata.append((form_ids["Form B"], "chiefComplaint"))
+questionsdata.append((form_ids["Form B"], "presentMedicalHistory"))
+questionsdata.append((form_ids["Form B"], "pastMedicalHistory"))
+questionsdata.append((form_ids["Form B"], "pastPersonalHistory"))
+questionsdata.append((form_ids["Form B"], "familyMedicalHistory"))
+questionsdata.append((form_ids["Form B"], "pastJob"))
+questionsdata.append((form_ids["Form B"], "pastJobDuration"))
+questionsdata.append((form_ids["Form B"], "currentJob"))
+questionsdata.append((form_ids["Form B"], "currentJobSection"))
+questionsdata.append((form_ids["Form B"], "currentJobDuration"))
+questionsdata.append((form_ids["Form B"], "currentJobDescription"))
+questionsdata.append((form_ids["Form B"], "currentJobHazards"))
+questionsdata.append((form_ids["Form B"], "medicalHistorySHEENT"))
+questionsdata.append((form_ids["Form B"], "medicalHistoryRespiratory"))
+questionsdata.append((form_ids["Form B"], "medicalHistoryCirculatory"))
+questionsdata.append((form_ids["Form B"], "medicalHistoryDigestive"))
+questionsdata.append((form_ids["Form B"], "medicalHistoryUrogenital"))
+questionsdata.append((form_ids["Form B"], "medicalHistoryEndocrine"))
+questionsdata.append((form_ids["Form B"], "medicalHistoryNervous"))
+questionsdata.append((form_ids["Form B"], "medicalHistoryMusculoskeletal"))
+questionsdata.append((form_ids["Form B"], "vitalSignBP"))
+questionsdata.append((form_ids["Form B"], "vitalSignPR"))
+questionsdata.append((form_ids["Form B"], "vitalSignTemp"))
+questionsdata.append((form_ids["Form B"], "vitalSignWeight"))
+questionsdata.append((form_ids["Form B"], "generalAppearance"))
+questionsdata.append((form_ids["Form B"], "physicalExaminationSHEENT"))
+questionsdata.append((form_ids["Form B"], "physicalExaminationLungs"))
+questionsdata.append((form_ids["Form B"], "physicalExaminationHeart"))
+questionsdata.append((form_ids["Form B"], "physicalExaminationAbdomen"))
+questionsdata.append((form_ids["Form B"], "physicalExaminationExtremities"))
+questionsdata.append((form_ids["Form B"], "diagnosis"))
+questionsdata.append((form_ids["Form B"], "management"))
+# for data in questionsdata:
+#     session.add(Question(form_name=data[0]))
+#     commit()
+print()
 query(q)
 
 # insert 

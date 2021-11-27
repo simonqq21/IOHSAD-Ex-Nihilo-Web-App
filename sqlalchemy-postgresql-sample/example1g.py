@@ -53,11 +53,11 @@ class ActorFilm(Base):
 # Base.metadata.create_all(engine)
 
 # code to drop all tables, for testing only
-try:
-    engine.execute("DROP TABLE simonque.Film CASCADE")
-except Exception as err:
-    print(err)
-    pass
+# try:
+#     engine.execute("DROP TABLE simonque.Film CASCADE")
+# except Exception as err:
+#     print(err)
+#     pass
 # try:
 #     engine.execute("DROP TABLE Actor CASCADE")
 # except Exception:
