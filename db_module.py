@@ -19,6 +19,14 @@ from sqlalchemy import asc, desc
 from datetime import datetime, time, timedelta 
 import psycopg2
 
+def commit():
+    try:
+        session.commit()
+    except Exception as err:
+        print(type(err))
+        # print(err)
+        session.rollback()
+
 # initialize psycopg2 engine to connect to postgresql db
 engine = create_engine("postgresql+psycopg2://simonque:12345678@localhost/swengdb", \
                        isolation_level="SERIALIZABLE")
@@ -28,7 +36,7 @@ Base = declarative_base()
 # forms table class
 class Form(Base):
     __tablename__ = 'Form'
-    id = Column(Integer, primary_key = True)
+    id = Column(Integer, primary_key=True)
     form_name = Column(String)
     
     questions = relationship("Question", back_populates="form")
@@ -122,7 +130,21 @@ Base.metadata.create_all(engine)
 #     print(err)
 #     pass
 
+# define table aliases
+f = aliased(Form, name='f')
+q = aliased(Question, name='q')
+s = aliased(Submission, name='s')
+u = aliased(User, name='u')
+a = aliased(Answer, name='a')
+
 # insert form types
+
+# formA = Form(form_name = "Form A")
+# formB = Form(form_name = "Form B")
+# session.add(formA)
+# commit()
+# session.add(formB)
+# commit()
 
 # insert questions
 
