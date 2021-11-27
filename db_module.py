@@ -52,6 +52,7 @@ class Question(Base):
     form_id = Column(ForeignKey('Form.id'))
     short_name = Column(String)
     
+    form_question = UniqueConstraint(form_id, short_name, name="form_question")
     form = relationship("Form", back_populates="questions")
     answers = relationship("Answer", back_populates="question")
     
@@ -66,6 +67,7 @@ class Submission(Base):
     user_id = Column(ForeignKey("User.id"))
     form_type = Column(ForeignKey('Form.id'))
     
+    user_form = UniqueConstraint(user_id, form_type, name="user_form")
     form = relationship("Form", back_populates="submissions")
     user = relationship("User", back_populates="submissions")
     answers = relationship("Answer", back_populates="submission")
@@ -150,11 +152,11 @@ query(f)
 #     commit()
 # print(items)
 formsdata = []
-formsdata.append(("Form A"))
-formsdata.append(("Form B"))
-# print(formsdata)
+formsdata.append(("Form A",))
+formsdata.append(("Form B",))
+print(formsdata)
 for data in formsdata:
-    session.add(Form(form_name=data))
+    session.add(Form(form_name=data[0]))
     commit()
 print()
 query(f)
@@ -234,9 +236,10 @@ questionsdata.append((form_ids["Form B"], "physicalExaminationAbdomen"))
 questionsdata.append((form_ids["Form B"], "physicalExaminationExtremities"))
 questionsdata.append((form_ids["Form B"], "diagnosis"))
 questionsdata.append((form_ids["Form B"], "management"))
-# for data in questionsdata:
-#     session.add(Question(form_name=data[0]))
-#     commit()
+# print(questionsdata)
+for data in questionsdata:
+    session.add(Question(form_id=data[0], short_name=data[1]))
+    commit()
 print()
 query(q)
 
