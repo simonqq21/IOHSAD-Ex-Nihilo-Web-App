@@ -91,8 +91,9 @@ class User(Base):
 # answers table class
 class Answer(Base):
     __tablename__ = 'Answer'
-    submission_id = Column(ForeignKey("Submission.id"), primary_key = True)
-    question_id = Column(ForeignKey('Question.id'), primary_key = True)
+    id = Column(Integer, primary_key=True)
+    submission_id = Column(ForeignKey("Submission.id"))
+    question_id = Column(ForeignKey('Question.id'))
     answer_string = Column(String)
     
     submission = relationship("Submission", back_populates="answers")
@@ -241,12 +242,29 @@ questionsAndAnswers (list of tuples) - list of tuples containing the question sh
 def submitForm(username, formName, questionsAndAnswers):
     global session, a, f, q, s, u
     submission = Submission()
-    # get the form with the form name 
+    user = session.query(u).where(u.username.like(username)).first()
+    print(user)
+    if user is None:
+        user = User(username=username)
+        session.add(user)
+        commit()
+    submission.user = user
+    
     form = session.query(f).where(f.form_name.like(formName)).first()
     print(form)
     if form is not None:
-        print(form.questions)
-    pass
+        submission.form = form
+
+        for qa in questionsAndAnswers:
+            # question = session.query(q).where(and_(q.short_name.like(qa[0]), q.form_id == form.id)).first()
+            question = session.query(q).where(q.short_name.like(qa[0])).first()
+            if question is not None:
+                print(question)
+                answer = Answer(answer_string = qa[1], question=question)
+                submission.answers.append(answer)
+        
+    session.add(submission)
+    commit()
 
 '''
 
@@ -351,8 +369,8 @@ insertForm("Form C", [])
 # addQuestionsToForm("Form Z", ["qZ"])
 # print(selectForm("Form Z").questions)
 # deleteForm("Form C")
-# addQuestionsToForm("Form C", ["qA", "qB"])
-# addQuestionsToForm("Form C", ["qC"])
+addQuestionsToForm("Form C", ["qA", "qB"])
+addQuestionsToForm("Form C", ["qC"])
 # print(selectForm("C").questions)
 # deleteQuestion("Form C", ["qA","qB"])
 # print(selectForm("C").questions)
