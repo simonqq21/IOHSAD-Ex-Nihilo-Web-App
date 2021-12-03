@@ -243,7 +243,47 @@ for data in questionsdata:
 print()
 query(q)
 
-# insert 
+'''method to insert new form with a set of questions
+If the form exists
+form_name (string) - form name
+questions (list of strings) - the list of short question names
+'''
+def insertForm(formName, questions):
+    global session
+    newForm = Form(form_name=formName)
+    session.add(newForm)
+    commit()
+    for question in questions:
+        newForm.questions.append(Question(short_name=question))
+        commit()
+    print("inserted")
 
+# method to select all form names
+def selectAllFormNames():
+    pass
+
+# method to select a form with all its questions
+def selectForm():
+    pass
+
+# method to rename a form
+def renameForm():
+    pass
+
+# method to add a question to a form that exists
+def addQuestionToForm():
+    pass
+
+
+# method to remove a question from a form that exists
+
+
+# method to delete a form together with all its questions
+
+
+# method to insert a form submission together with the user and all answers
+
+insertForm("Form C", ["qA", "qB", 'qC'])
+insertForm("Form A", ["qA", "qB", 'qC'])
 
 engine.dispose()
