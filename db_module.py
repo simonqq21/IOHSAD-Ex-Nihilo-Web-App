@@ -26,6 +26,7 @@ def commit():
         print(type(err))
         # print(err)
         session.rollback()
+        session.close()
 
 # initialize psycopg2 engine to connect to postgresql db
 engine = create_engine("postgresql+psycopg2://simonque:12345678@localhost/swengdb", \
@@ -39,8 +40,8 @@ class Form(Base):
     id = Column(Integer, primary_key=True)
     form_name = Column(String, unique=True)
     
-    questions = relationship("Question", back_populates="form")
-    submissions = relationship("Submission", back_populates="form")
+    questions = relationship("Question", back_populates="form", cascade="all, delete, delete-orphan")
+    submissions = relationship("Submission", back_populates="form", cascade="all, delete, delete-orphan")
     
     def __repr__(self):
         return f"Form(id={self.id!r}, form_name={self.form_name!r})"
@@ -54,7 +55,7 @@ class Question(Base):
     
     form_question = UniqueConstraint(form_id, short_name, name="form_question")
     form = relationship("Form", back_populates="questions")
-    answers = relationship("Answer", back_populates="question")
+    answers = relationship("Answer", back_populates="question", cascade="all, delete, delete-orphan")
     
     def __repr__(self):
         return f"Question(id={self.id!r}, form_id={self.form_id!r}, short_name={self.short_name!r})"
@@ -70,7 +71,7 @@ class Submission(Base):
     user_form = UniqueConstraint(user_id, form_type, name="user_form")
     form = relationship("Form", back_populates="submissions")
     user = relationship("User", back_populates="submissions")
-    answers = relationship("Answer", back_populates="submission")
+    answers = relationship("Answer", back_populates="submission", cascade="all, delete, delete-orphan")
     
     def __repr__(self):
         return f"Submission(id={self.id!r}, date={self.date!r}, user_id={self.user_id!r}, \
@@ -82,7 +83,7 @@ class User(Base):
     id = Column(Integer, primary_key = True)
     username = Column(String, unique=True)
     
-    submissions = relationship("Submission", back_populates="user")
+    submissions = relationship("Submission", back_populates="user", cascade="all, delete, delete-orphan")
     
     def __repr__(self):
         return f"User(id={self.id!r}, username={self.username!r})"
@@ -145,7 +146,7 @@ def query(alias):
     print(items)
     
 # insert form types
-query(f)
+# query(f)
 # items = []
 # for instance in session.query(f):
 #     session.delete(instance)
@@ -159,10 +160,10 @@ for data in formsdata:
     session.add(Form(form_name=data[0]))
     commit()
 print()
-query(f)
+# query(f)
 
 # insert questions
-query(q)
+# query(q)
 questionsdata = []
 form_ids = {}
 form_ids["Form A"] = session.query(f.id).filter(f.form_name=="Form A").first()[0]
@@ -236,7 +237,6 @@ questionsdata.append((form_ids["Form B"], "physicalExaminationAbdomen"))
 questionsdata.append((form_ids["Form B"], "physicalExaminationExtremities"))
 questionsdata.append((form_ids["Form B"], "diagnosis"))
 questionsdata.append((form_ids["Form B"], "management"))
-# print(questionsdata)
 for data in questionsdata:
     session.add(Question(form_id=data[0], short_name=data[1]))
     commit()
@@ -257,7 +257,6 @@ def insertForm(formName, questions):
     for question in questions:
         newForm.questions.append(Question(short_name=question))
         commit()
-    print("inserted")
 
 '''
 method to select all forms that currently exist in the database.
@@ -285,6 +284,7 @@ oldFormName (string)
 newFormName (string)
 '''
 def renameForm(oldFormName, newFormName):
+    global session, f
     form = session.query(f).where(f.form_name.like(f"{oldFormName}")).first()
     if form is not None:
         form.form_name = newFormName 
@@ -292,15 +292,25 @@ def renameForm(oldFormName, newFormName):
     
 '''
 method to add a question to a form that exists
+formName (string) - exact name of form 
+questionShortName (string) - question short name
 '''
-def addQuestionToForm():
-    pass
-
+def addQuestionToForm(formName, questionShortName):
+    global session, f, q
+    form = session.query(f).where(f.form_name.like(f"{formName}")).first()
+    if form is not None:
+        form.questions.append(Question(short_name=questionShortName))
+        commit()
 
 '''
 method to remove a question from a form that exists
 '''
-
+def deleteForm(formName):
+    global session, f 
+    form = session.query(f).where(f.form_name.like(f"{formName}")).first()
+    if form is not None:
+        session.delete(form)
+        commit()
 
 '''
 method to delete a form together with all its questions
@@ -312,11 +322,13 @@ method to insert a form submission together with the user and all answers
 '''
 
 # insertForm("Form C", ["qA", "qB", 'qC'])
-# insertForm("Form A", ["qA", "qB", 'qC'])
-# print(selectAllFormNames())
+print(selectAllFormNames())
 # print()
 # print(selectForm("C"))
-print()
-renameForm("Form C", "Form Z")
-print(selectAllFormNames())
+# print()
+# renameForm("Form C", "Form Z")
+# print(selectAllFormNames())
+# addQuestionToForm("Form Z", "qZ")
+# print(selectForm("Form Z").questions)
+# deleteForm("Form Z")
 engine.dispose()
