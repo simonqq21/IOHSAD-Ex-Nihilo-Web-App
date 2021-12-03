@@ -270,7 +270,7 @@ def selectAllFormNames():
     return formnames
 
 '''
-method to select a form given a keyword string
+method to select a single form given a keyword string
 Questions can be accessed from the form using the questions attribute of the form.
 formNameLike (string) - form name search string wildcard 
 '''
@@ -281,10 +281,15 @@ def selectForm(formNameLike):
 
 '''
 method to rename a form
+oldFormName (string)
+newFormName (string)
 '''
-def renameForm():
-    pass
-
+def renameForm(oldFormName, newFormName):
+    form = session.query(f).where(f.form_name.like(f"{oldFormName}")).first()
+    if form is not None:
+        form.form_name = newFormName 
+        commit()
+    
 '''
 method to add a question to a form that exists
 '''
@@ -309,7 +314,9 @@ method to insert a form submission together with the user and all answers
 # insertForm("Form C", ["qA", "qB", 'qC'])
 # insertForm("Form A", ["qA", "qB", 'qC'])
 # print(selectAllFormNames())
+# print()
+# print(selectForm("C"))
 print()
-print(selectForm("C"))
-
+renameForm("Form C", "Form Z")
+print(selectAllFormNames())
 engine.dispose()
