@@ -102,6 +102,13 @@ class Answer(Base):
         return f"Answer(submission_id={self.submission_id!r}, question_id={self.question_id!r}, \
             answer_string={self.answer_string!r})"
     
+# define table aliases
+f = aliased(Form, name='f')
+q = aliased(Question, name='q')
+s = aliased(Submission, name='s')
+u = aliased(User, name='u')
+a = aliased(Answer, name='a')
+
 # uncomment to drop all tables, for testing only
 # try:
 #     engine.execute('''DROP TABLE "User" CASCADE''')
@@ -130,41 +137,99 @@ class Answer(Base):
 #     pass
 Base.metadata.create_all(engine)
 
-
-
-# define table aliases
-f = aliased(Form, name='f')
-q = aliased(Question, name='q')
-s = aliased(Submission, name='s')
-u = aliased(User, name='u')
-a = aliased(Answer, name='a')
-
 def query(alias):
     items = []
     for instance in session.query(alias):
         items.append(instance)
     print(items)
+
+'''
+method to insert new form with a set of questions
+If the form exists
+form_name (string) - form name
+questions (list of strings) - the list of short question names
+'''
+def insertForm(formName, questions):
+    global session
+    newForm = Form(form_name=formName)
+    session.add(newForm)
+    commit()
+    for question in questions:
+        newForm.questions.append(Question(short_name=question))
+        commit()
+
+'''
+method to select all forms that currently exist in the database.
+'''
+def selectAllFormNames():
+    global session, f
+    formnames = []
+    for instance in session.query(f):
+        formnames.append(instance)
+    return formnames
+
+'''
+method to select a single form given a keyword string
+Questions can be accessed from the form using the questions attribute of the form.
+formNameLike (string) - form name search string wildcard 
+'''
+def selectForm(formNameLike):
+    global session, f
+    form = session.query(f).where(f.form_name.like(f"%{formNameLike}%")).first()
+    return form
+
+'''
+method to rename a form
+oldFormName (string)
+newFormName (string)
+'''
+def renameForm(oldFormName, newFormName):
+    global session, f
+    form = session.query(f).where(f.form_name.like(f"{oldFormName}")).first()
+    if form is not None:
+        form.form_name = newFormName 
+        commit()
     
-# insert form types
-# query(f)
-# items = []
-# for instance in session.query(f):
-#     session.delete(instance)
-#     commit()
-# print(items)
+'''
+method to add a question to a form that exists
+formName (string) - exact name of form 
+questionShortNames (list of string) - list of question short names
+'''
+def addQuestionsToForm(formName, questionShortNames):
+    global session, f, q
+    form = session.query(f).where(f.form_name.like(f"{formName}")).first()
+    if form is not None:
+        for name in questionShortNames:
+            form.questions.append(Question(short_name=name))
+            commit()
+
+'''
+method to remove a question from a form that exists
+'''
+
+
+'''
+method to delete a form together with all its questions
+'''
+def deleteForm(formName):
+    global session, f 
+    form = session.query(f).where(f.form_name.like(f"{formName}")).first()
+    if form is not None:
+        session.delete(form)
+        commit()
+
+'''
+method to insert a form submission together with the user and all answers
+'''
+
+# insert forms A and B
 formsdata = []
 formsdata.append(("Form A",))
 formsdata.append(("Form B",))
-print(formsdata)
-for data in formsdata:
-    session.add(Form(form_name=data[0]))
-    commit()
-print()
-# query(f)
 
 # insert questions
 # query(q)
-questionsdata = []
+questionsdata = {}
 form_ids = {}
 form_ids["Form A"] = session.query(f.id).filter(f.form_name=="Form A").first()[0]
 form_ids["Form B"] = session.query(f.id).filter(f.form_name=="Form B").first()[0]
@@ -240,95 +305,21 @@ questionsdata.append((form_ids["Form B"], "management"))
 for data in questionsdata:
     session.add(Question(form_id=data[0], short_name=data[1]))
     commit()
+    
+insertForm()
+
 print()
 query(q)
 
-'''
-method to insert new form with a set of questions
-If the form exists
-form_name (string) - form name
-questions (list of strings) - the list of short question names
-'''
-def insertForm(formName, questions):
-    global session
-    newForm = Form(form_name=formName)
-    session.add(newForm)
-    commit()
-    for question in questions:
-        newForm.questions.append(Question(short_name=question))
-        commit()
-
-'''
-method to select all forms that currently exist in the database.
-'''
-def selectAllFormNames():
-    global session, f
-    formnames = []
-    for instance in session.query(f):
-        formnames.append(instance)
-    return formnames
-
-'''
-method to select a single form given a keyword string
-Questions can be accessed from the form using the questions attribute of the form.
-formNameLike (string) - form name search string wildcard 
-'''
-def selectForm(formNameLike):
-    global session, f
-    form = session.query(f).where(f.form_name.like(f"%{formNameLike}%")).first()
-    return form
-
-'''
-method to rename a form
-oldFormName (string)
-newFormName (string)
-'''
-def renameForm(oldFormName, newFormName):
-    global session, f
-    form = session.query(f).where(f.form_name.like(f"{oldFormName}")).first()
-    if form is not None:
-        form.form_name = newFormName 
-        commit()
-    
-'''
-method to add a question to a form that exists
-formName (string) - exact name of form 
-questionShortName (string) - question short name
-'''
-def addQuestionToForm(formName, questionShortName):
-    global session, f, q
-    form = session.query(f).where(f.form_name.like(f"{formName}")).first()
-    if form is not None:
-        form.questions.append(Question(short_name=questionShortName))
-        commit()
-
-'''
-method to remove a question from a form that exists
-'''
-def deleteForm(formName):
-    global session, f 
-    form = session.query(f).where(f.form_name.like(f"{formName}")).first()
-    if form is not None:
-        session.delete(form)
-        commit()
-
-'''
-method to delete a form together with all its questions
-'''
-
-
-'''
-method to insert a form submission together with the user and all answers
-'''
-
-# insertForm("Form C", ["qA", "qB", 'qC'])
+# testing code
+insertForm("Form C", ["qA", "qB", 'qC'])
 print(selectAllFormNames())
-# print()
-# print(selectForm("C"))
-# print()
-# renameForm("Form C", "Form Z")
-# print(selectAllFormNames())
-# addQuestionToForm("Form Z", "qZ")
-# print(selectForm("Form Z").questions)
+print()
+print(selectForm("C"))
+print()
+renameForm("Form C", "Form Z")
+print(selectAllFormNames())
+addQuestionsToForm("Form Z", "qZ")
+print(selectForm("Form Z").questions)
 # deleteForm("Form Z")
 engine.dispose()
