@@ -205,12 +205,20 @@ def addQuestionsToForm(formName, questionShortNames):
 
 '''
 method to remove a question from a form that exists
+formName (string) - exact name of form 
+questionShortName (string) - question short name
 '''
 def deleteQuestion(formName, questionShortName):
-    # global session, q
-    # question = session.query(q).where(q.short_name.like(questionShortName))
-    pass
-
+    global session, q
+    fId = session.query(f.id).where(f.form_name.like(formName)).first()[0]
+    print(fId)
+    question = session.query(q).where(and_(q.short_name.like(questionShortName), q.form_id == fId)).first()
+    if question is not None:
+        print('a')
+        session.delete(question)
+        print('b')
+        commit()
+        print('c')
 '''
 method to delete a form together with all its questions
 '''
@@ -312,13 +320,19 @@ print()
 # testing code
 # insertForm("Form C", ["qA", "qB", 'qC'])
 # print()
-print(selectAllFormNames())
+# print(selectAllFormNames())
 # print()
 # print(selectForm("C"))
 # print()
 # renameForm("Form C", "Form Z")
-print(selectAllFormNames())
+# print(selectAllFormNames())
 # addQuestionsToForm("Form Z", ["qZ"])
 # print(selectForm("Form Z").questions)
 # deleteForm("Form Z")
+# addQuestionsToForm("Form C", ["qA"])
+# print(selectForm("C").questions)
+# deleteQuestion("Form C", "qA")
+
+# print(selectForm("C").questions)
+# print('d')
 engine.dispose()
