@@ -206,19 +206,18 @@ def addQuestionsToForm(formName, questionShortNames):
 '''
 method to remove a question from a form that exists
 formName (string) - exact name of form 
-questionShortName (string) - question short name
+questionShortNames (list of string) - list of question short names
 '''
-def deleteQuestion(formName, questionShortName):
+def deleteQuestion(formName, questionShortNames):
     global session, q
     fId = session.query(f.id).where(f.form_name.like(formName)).first()[0]
     print(fId)
-    question = session.query(q).where(and_(q.short_name.like(questionShortName), q.form_id == fId)).first()
-    if question is not None:
-        print('a')
-        session.delete(question)
-        print('b')
-        commit()
-        print('c')
+    for name in questionShortNames:
+        question = session.query(q).where(and_(q.short_name.like(name), q.form_id == fId)).first()
+        if question is not None:
+            session.delete(question)
+            commit()
+        
 '''
 method to delete a form together with all its questions
 '''
@@ -231,7 +230,12 @@ def deleteForm(formName):
 
 '''
 method to insert a form submission together with the user and all answers
+username
+form
+answers
 '''
+def submitForm():
+    pass
 
 # insert forms A and B
 formnames = []
@@ -331,8 +335,7 @@ print()
 # deleteForm("Form Z")
 # addQuestionsToForm("Form C", ["qA"])
 # print(selectForm("C").questions)
-# deleteQuestion("Form C", "qA")
+deleteQuestion("Form C", ["qA","qB"])
 
-# print(selectForm("C").questions)
-# print('d')
+print(selectForm("C").questions)
 engine.dispose()
