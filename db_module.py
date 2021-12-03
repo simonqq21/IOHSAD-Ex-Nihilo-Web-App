@@ -200,8 +200,12 @@ def addQuestionsToForm(formName, questionShortNames):
     form = session.query(f).where(f.form_name.like(formName)).first()
     if form is not None:
         for name in questionShortNames:
-            form.questions.append(Question(short_name=name))
-            commit()
+            try:
+                form.questions.append(Question(short_name=name))
+                commit()
+            except Exception as err:
+                print(type(err))
+            
 
 '''
 method to remove a question from a form that exists
@@ -230,12 +234,24 @@ def deleteForm(formName):
 
 '''
 method to insert a form submission together with the user and all answers
-username
-form
-answers
+username (string) - unique username
+formname (string) - form name
+questionsAndAnswers (list of tuples) - list of tuples containing the question short name and answer 
 '''
-def submitForm():
+def submitForm(username, formName, questionsAndAnswers):
+    global session, a, f, q, s, u
+    submission = Submission()
+    # get the form with the form name 
+    form = session.query(f).where(f.form_name.like(formName)).first()
+    print(form)
+    if form is not None:
+        print(form.questions)
     pass
+
+'''
+
+'''
+
 
 # insert forms A and B
 formnames = []
@@ -314,7 +330,8 @@ questions["Form B"].append("physicalExaminationHeart")
 questions["Form B"].append("physicalExaminationAbdomen")
 questions["Form B"].append("physicalExaminationExtremities")
 questions["Form B"].append("diagnosis")
-questions["Form B"].append("management")   
+questions["Form B"].append("management")  
+# insert forms A and B into the db 
 for fn in formnames: 
     insertForm(fn, questions[fn])
 
@@ -322,6 +339,7 @@ print()
 query(q)
 print()
 # testing code
+insertForm("Form C", [])
 # insertForm("Form C", ["qA", "qB", 'qC'])
 # print()
 # print(selectAllFormNames())
@@ -332,10 +350,12 @@ print()
 # print(selectAllFormNames())
 # addQuestionsToForm("Form Z", ["qZ"])
 # print(selectForm("Form Z").questions)
-# deleteForm("Form Z")
-# addQuestionsToForm("Form C", ["qA"])
+# deleteForm("Form C")
+# addQuestionsToForm("Form C", ["qA", "qB"])
+# addQuestionsToForm("Form C", ["qC"])
 # print(selectForm("C").questions)
-deleteQuestion("Form C", ["qA","qB"])
+# deleteQuestion("Form C", ["qA","qB"])
+# print(selectForm("C").questions)
 
-print(selectForm("C").questions)
+submitForm("tuser", "Form C", [("qC", "aC"), ("qB", "aB"), ("qA", "aA")])
 engine.dispose()
