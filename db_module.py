@@ -16,7 +16,7 @@ from sqlalchemy import and_, or_
 from sqlalchemy.pool import StaticPool 
 from sqlalchemy import UniqueConstraint
 from sqlalchemy import asc, desc
-from datetime import datetime, time, timedelta 
+from datetime import datetime, date, time, timedelta 
 import psycopg2
 
 def commit():
@@ -31,7 +31,7 @@ def commit():
 # initialize psycopg2 engine to connect to postgresql db
 engine = create_engine("postgresql+psycopg2://simonque:12345678@localhost/swengdb", \
                        isolation_level="SERIALIZABLE")
-session = Session(engine)
+session = Session(engine, autoflush=False)
 Base = declarative_base() 
 
 # forms table class
@@ -64,9 +64,9 @@ class Question(Base):
 class Submission(Base):
     __tablename__ = 'Submission'
     id = Column(Integer, primary_key = True)
-    date = Column(Date)
+    date = Column(Date, nullable=False)
     user_id = Column(ForeignKey("User.id"))
-    form_type = Column(ForeignKey('Form.id'))
+    form_type = Column(ForeignKey('Form.id'), nullable=False)
     
     user_form = UniqueConstraint(user_id, form_type, name="user_form")
     form = relationship("Form", back_populates="submissions")
@@ -235,13 +235,16 @@ def deleteForm(formName):
 
 '''
 method to insert a form submission together with the user and all answers
+date (date) - date submitted
 username (string) - unique username
 formname (string) - form name
 questionsAndAnswers (list of tuples) - list of tuples containing the question short name and answer 
 '''
-def submitForm(username, formName, questionsAndAnswers):
+def submitForm(submitDate, username, formName, questionsAndAnswers):
     global session, a, f, q, s, u
+    
     submission = Submission()
+    submission.date = submitDate
     user = session.query(u).where(u.username.like(username)).first()
     print(user)
     if user is None:
@@ -354,7 +357,7 @@ for fn in formnames:
     insertForm(fn, questions[fn])
 
 print()
-query(q)
+# query(q)
 print()
 # testing code
 insertForm("Form C", [])
@@ -375,5 +378,8 @@ addQuestionsToForm("Form C", ["qC"])
 # deleteQuestion("Form C", ["qA","qB"])
 # print(selectForm("C").questions)
 
-submitForm("tuser", "Form C", [("qC", "aC"), ("qB", "aB"), ("qA", "aA")])
+submitForm(date.today(), "tuser", "Form C", [("qC", "aC"), ("qB", "aB"), ("qA", "aA")])
+submitForm(date.today(), "tuser2", "Form C", [("qC", "aC2"), ("qB", "aB2"), ("qA", "aA2")])
+submitForm(date.today(), "tuser", "Form A", [("name", "Test1"), ("age", "232")])
+submitForm(date.today(), "tuser3", "Form C", [("qB", "aB2"), ("qA", "aA2")])
 engine.dispose()
