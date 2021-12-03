@@ -243,7 +243,8 @@ for data in questionsdata:
 print()
 query(q)
 
-'''method to insert new form with a set of questions
+'''
+method to insert new form with a set of questions
 If the form exists
 form_name (string) - form name
 questions (list of strings) - the list of short question names
@@ -258,32 +259,57 @@ def insertForm(formName, questions):
         commit()
     print("inserted")
 
-# method to select all form names
+'''
+method to select all forms that currently exist in the database.
+'''
 def selectAllFormNames():
-    pass
+    global session, f
+    formnames = []
+    for instance in session.query(f):
+        formnames.append(instance)
+    return formnames
 
-# method to select a form with all its questions
-def selectForm():
-    pass
+'''
+method to select a form given a keyword string
+Questions can be accessed from the form using the questions attribute of the form.
+formNameLike (string) - form name search string wildcard 
+'''
+def selectForm(formNameLike):
+    global session, f
+    form = session.query(f).where(f.form_name.like(f"%{formNameLike}%")).first()
+    return form
 
-# method to rename a form
+'''
+method to rename a form
+'''
 def renameForm():
     pass
 
-# method to add a question to a form that exists
+'''
+method to add a question to a form that exists
+'''
 def addQuestionToForm():
     pass
 
 
-# method to remove a question from a form that exists
+'''
+method to remove a question from a form that exists
+'''
 
 
-# method to delete a form together with all its questions
+'''
+method to delete a form together with all its questions
+'''
 
 
-# method to insert a form submission together with the user and all answers
+'''
+method to insert a form submission together with the user and all answers
+'''
 
-insertForm("Form C", ["qA", "qB", 'qC'])
-insertForm("Form A", ["qA", "qB", 'qC'])
+# insertForm("Form C", ["qA", "qB", 'qC'])
+# insertForm("Form A", ["qA", "qB", 'qC'])
+# print(selectAllFormNames())
+print()
+print(selectForm("C"))
 
 engine.dispose()
