@@ -19,4 +19,5 @@ formname parameter is the short name of the form
 '''
 @App.route('/forms/<formname>', methods=['GET'])
 def renderForm(formname):
+    
     return render_template(f"{formname}.html")
