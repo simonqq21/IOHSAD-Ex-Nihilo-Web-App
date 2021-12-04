@@ -8,3 +8,7 @@ import re
 @App.route('/index', methods=['GET'])
 def index():
     return render_template('index.html')
+
+@App.route('/forms/<formname>', methods['GET'])
+def renderForm(formname):
+    return render_template(f"{formname}.html")
