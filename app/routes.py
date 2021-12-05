@@ -16,7 +16,7 @@ def index():
 route for forms
 formname parameter is the short name of the form
 '''
-@App.route('/forms/<formname>', methods=['GET'])
+@App.route('/forms/<formname>', methods=['GET', 'POST'])
 def renderForm(formname):
-
-    return render_template(f"{formname}.html")
+    form = ComplaintForm()
+    return render_template(f"{formname}.html", title="Complaint Form", form=form)
