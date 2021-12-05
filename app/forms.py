@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, TelField, EmailField, TextAreaField
-from wtforms.validators import DataRequired
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField
+from wtforms.fields.html5 import TelField, EmailField
+from wtforms.validators import DataRequired, Email, InputRequired
 
 '''
 -Name of Company
@@ -10,9 +11,9 @@ from wtforms.validators import DataRequired
 then finally a large textbox for the nature of the complaint
 '''
 class ComplaintForm(FlaskForm):
-    companyName = StringField("Company Name", validators=[DataRequired()])
-    unionPresence = BooleanField()
-    unionHeadContactNo = TelField()
-    unionHeadEmail = EmailField()
-    contactNumber = TelField()
-    complaint = TextAreaField()
+    companyName = StringField("Company Name", validators=[DataRequired(), InputRequired()])
+    unionPresence = BooleanField("Union Present", validators=[DataRequired(), InputRequired()])
+    unionHeadContactNo = TelField("Union Head Contact No.")
+    unionHeadEmail = EmailField("Union Head Email Address", validators=[Email()])
+    contactNumber = TelField("Contact No.", validators=[DataRequired(), Email(), InputRequired()])
+    complaint = TextAreaField("Enter you complaint here.", validators=[DataRequired(), InputRequired()])
