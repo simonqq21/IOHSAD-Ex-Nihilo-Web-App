@@ -17,3 +17,4 @@ class ComplaintForm(FlaskForm):
     unionHeadEmail = EmailField("Union Head Email Address", validators=[Email()])
     contactNumber = TelField("Contact No.", validators=[DataRequired(), Email(), InputRequired()])
     complaint = TextAreaField("Enter you complaint here.", validators=[DataRequired(), InputRequired()])
+    submit = SubmitField("Submit Form")
