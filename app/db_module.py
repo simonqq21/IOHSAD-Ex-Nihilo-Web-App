@@ -81,6 +81,7 @@ class Submission(Base):
 class User(Base):
     __tablename__ = 'User'
     id = Column(Integer, primary_key = True)
+    emailPhone = Column(String, unique=True, nullable=False)
     username = Column(String, unique=True)
 
     submissions = relationship("Submission", back_populates="user", cascade="all, delete, delete-orphan")
@@ -236,19 +237,21 @@ def deleteForm(formName):
 '''
 method to insert a form submission together with the user and all answers
 date (date) - date submitted
-username (string) - unique username
+user (tuple of string) - user represented by tuple (<username>, <emailPhone>)
 formname (string) - form name
 questionsAndAnswers (list of tuples) - list of tuples containing the question short name and answer
 '''
-def submitForm(submitDate, username, formName, questionsAndAnswers):
+def submitForm(submitDate, user, formName, questionsAndAnswers):
     global session, a, f, q, s, u
 
     submission = Submission()
     submission.date = submitDate
+    username = user[0]
+    emailPhone = user[1]
     user = session.query(u).where(u.username.like(username)).first()
     print(user)
     if user is None:
-        user = User(username=username)
+        user = User(username=username, emailPhone=emailPhone)
         session.add(user)
         commit()
     submission.user = user

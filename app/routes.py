@@ -29,7 +29,7 @@ def renderForm(formname):
         Union present: {form.unionPresence.data}\n \
         Union head contact no: {form.unionHeadContactNo.data}\n \
         Union head email address: {form.unionHeadEmail.data}\n \
-        Contact number: {form.contactNumber.data}\n \
+        Contact number: {form.emailPhone.data}\n \
         Complaint: {form.complaint.data}")
 
     if form.validate_on_submit():
@@ -39,16 +39,17 @@ def renderForm(formname):
         Union present: {form.unionPresence.data}\n \
         Union head contact no: {form.unionHeadContactNo.data}\n \
         Union head email address: {form.unionHeadEmail.data}\n \
-        Contact number: {form.contactNumber.data}\n \
+        Contact number: {form.emailPhone.data}\n \
         Complaint: {form.complaint.data}")
 
         # insert the submission to the database
         username = form.username.data
+        emailPhone = form.emailPhone.data
         questionsAndAnswers = []
         for qa in form:
             if qa.label.field_id not in ("submit", "csrf_token"):
                 questionsAndAnswers.append((qa.label.field_id, qa.data))
         print(questionsAndAnswers)
-        submitForm(date.today(), username, "Form A", questionsAndAnswers)
+        submitForm(date.today(), (username, emailPhone), "Form A", questionsAndAnswers)
 
     return render_template(f"{formname}.html", title="Complaint Form", form=form)
