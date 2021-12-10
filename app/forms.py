@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField
 from wtforms.fields.html5 import TelField, EmailField
-from wtforms.validators import DataRequired, Email, InputRequired
+from wtforms.validators import DataRequired, Email, InputRequired, Optional
 
 '''
 -Name of Company
@@ -14,8 +14,8 @@ class ComplaintForm(FlaskForm):
     username = StringField("Unique Username*", validators=[DataRequired(), InputRequired()])
     companyName = StringField("Company Name* (Pangngalan ng kumpanya)*", validators=[DataRequired(), InputRequired()])
     unionPresence = BooleanField("Union Present* (Mayroon bang unyon ng mga manggagawa?)*")
-    unionHeadContactNo = TelField("Union Head Contact No. (Telepono ng pinuno ng unyon ng mga manggagawa)")
-    unionHeadEmail = EmailField("Union Head Email Address (Email address ng pinuno ng unyon ng mga manggagawa)", validators=[Email()])
+    unionHeadContactNo = TelField("Union Head Contact No. (Telepono ng pinuno ng unyon ng mga manggagawa)", validators=[Optional()])
+    unionHeadEmail = EmailField("Union Head Email Address (Email address ng pinuno ng unyon ng mga manggagawa)", validators=[Email(), Optional()])
     contactNumber = TelField("Contact No.* (Telepono)*", validators=[DataRequired(), InputRequired()])
     complaint = TextAreaField("Enter you complaint here* (I-type ang inyong reklamo dito*)", validators=[DataRequired(), InputRequired()])
     submit = SubmitField("Submit Form (Ipasa ang form)")
