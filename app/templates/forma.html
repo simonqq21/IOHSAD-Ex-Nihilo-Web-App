@@ -26,6 +26,15 @@
         </header>
 
         <div class="row justify-content-center">
+          {% with messages = get_flashed_messages() %}
+          {% if messages %}
+          <ul>
+            {% for message in messages %}
+            <li>{{message}}</li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+          {% endwith %}
           <form class="col-sm-8 shadow-lg p-5" method="POST" novalidate>
             {{form.hidden_tag()}}
             <div class="row p-3 mb-2">

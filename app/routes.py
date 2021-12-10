@@ -12,7 +12,9 @@ route for index page
 @App.route('/', methods=['GET'])
 @App.route('/index', methods=['GET'])
 def index():
+    flash("a")
     return render_template('index.html')
+    flash("a")
 
 '''
 route for forms
@@ -29,7 +31,15 @@ def renderForm(formname):
         Union head email address: {form.unionHeadEmail.data}\n \
         Contact number: {form.contactNumber.data}\n \
         Complaint: {form.complaint.data}")
-    if form.validate_on_submit():
 
-        flash(f"{form.companyName.data}")
+    if form.validate_on_submit():
+        flash("Validated")
+        flash(f"Username: {form.username.data}\n \
+        Company name: {form.companyName.data}\n \
+        Union present: {form.unionPresence.data}\n \
+        Union head contact no: {form.unionHeadContactNo.data}\n \
+        Union head email address: {form.unionHeadEmail.data}\n \
+        Contact number: {form.contactNumber.data}\n \
+        Complaint: {form.complaint.data}")
+
     return render_template(f"{formname}.html", title="Complaint Form", form=form)
