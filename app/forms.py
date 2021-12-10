@@ -11,11 +11,11 @@ from wtforms.validators import DataRequired, Email, InputRequired
 then finally a large textbox for the nature of the complaint
 '''
 class ComplaintForm(FlaskForm):
-    username = StringField("Unique Username", validators=[DataRequired(), InputRequired()])
-    companyName = StringField("Company Name", validators=[DataRequired(), InputRequired()])
-    unionPresence = BooleanField("Union Present", validators=[DataRequired(), InputRequired()])
-    unionHeadContactNo = TelField("Union Head Contact No.")
-    unionHeadEmail = EmailField("Union Head Email Address", validators=[Email()])
-    contactNumber = TelField("Contact No.", validators=[DataRequired(), Email(), InputRequired()])
-    complaint = TextAreaField("Enter you complaint here.", validators=[DataRequired(), InputRequired()])
-    submit = SubmitField("Submit Form")
+    username = StringField("Unique Username*", validators=[DataRequired(), InputRequired()])
+    companyName = StringField("Company Name* (Pangngalan ng kumpanya)*", validators=[DataRequired(), InputRequired()])
+    unionPresence = BooleanField("Union Present* (Mayroon bang unyon ng mga manggagawa?)*", validators=[DataRequired(), InputRequired()])
+    unionHeadContactNo = TelField("Union Head Contact No. (Telepono ng pinuno ng unyon ng mga manggagawa)")
+    unionHeadEmail = EmailField("Union Head Email Address (Email address ng pinuno ng unyon ng mga manggagawa)", validators=[Email()])
+    contactNumber = TelField("Contact No.* (Telepono)*", validators=[DataRequired(), Email(), InputRequired()])
+    complaint = TextAreaField("Enter you complaint here* (I-type ang inyong reklamo dito*)", validators=[DataRequired(), InputRequired()])
+    submit = SubmitField("Submit Form (Ipasa ang form)")
