@@ -1,9 +1,11 @@
 from flask import render_template, url_for, request, jsonify, send_from_directory
 
 from app import App
-from app.forms import ComplaintForm
 from datetime import datetime, date
+from app import db_module
+from app.forms import ComplaintForm
 
+print(ComplaintForm)
 '''
 route for index page
 '''
