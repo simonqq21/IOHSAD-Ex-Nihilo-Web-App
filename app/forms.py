@@ -11,6 +11,7 @@ from wtforms.validators import DataRequired, Email, InputRequired
 then finally a large textbox for the nature of the complaint
 '''
 class ComplaintForm(FlaskForm):
+    username = StringField("Unique Username", validators=[DataRequired(), InputRequired()])
     companyName = StringField("Company Name", validators=[DataRequired(), InputRequired()])
     unionPresence = BooleanField("Union Present", validators=[DataRequired(), InputRequired()])
     unionHeadContactNo = TelField("Union Head Contact No.")
