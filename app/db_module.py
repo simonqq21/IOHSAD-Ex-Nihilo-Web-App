@@ -23,8 +23,8 @@ def commit():
     try:
         session.commit()
     except Exception as err:
-        print(type(err))
-        # print(err)
+        # print(type(err))
+        print(err)
         session.rollback()
         session.close()
 

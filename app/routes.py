@@ -2,7 +2,7 @@ from flask import render_template, url_for, request, jsonify, send_from_director
 
 from app import App
 from datetime import datetime, date
-from app import db_module
+from app.db_module import submitForm
 from app.forms import ComplaintForm
 
 print(ComplaintForm)
@@ -41,5 +41,14 @@ def renderForm(formname):
         Union head email address: {form.unionHeadEmail.data}\n \
         Contact number: {form.contactNumber.data}\n \
         Complaint: {form.complaint.data}")
+
+        # insert the submission to the database
+        username = form.username.data
+        questionsAndAnswers = []
+        for qa in form:
+            if qa.label.field_id not in ("submit", "csrf_token"):
+                questionsAndAnswers.append((qa.label.field_id, qa.data))
+        print(questionsAndAnswers)
+        submitForm(date.today(), username, "Form A", questionsAndAnswers)
 
     return render_template(f"{formname}.html", title="Complaint Form", form=form)
