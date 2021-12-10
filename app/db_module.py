@@ -23,8 +23,8 @@ def commit():
     try:
         session.commit()
     except Exception as err:
-        # print(type(err))
-        print(err)
+        print(type(err))
+        # print(err)
         session.rollback()
         session.close()
 
@@ -65,10 +65,10 @@ class Submission(Base):
     __tablename__ = 'Submission'
     id = Column(Integer, primary_key = True)
     date = Column(Date, nullable=False)
-    user_id = Column(ForeignKey("User.id"))
+    user_id = Column(ForeignKey("User.id"), nullable=False)
     form_type = Column(ForeignKey('Form.id'), nullable=False)
 
-    user_form = UniqueConstraint(user_id, form_type, name="user_form")
+    # user_form = UniqueConstraint(user_id, form_type, name="user_form")
     form = relationship("Form", back_populates="submissions")
     user = relationship("User", back_populates="submissions")
     answers = relationship("Answer", back_populates="submission", cascade="all, delete, delete-orphan")
