@@ -11,12 +11,12 @@ from sqlalchemy.orm import Session, declarative_base, relationship, backref
 from sqlalchemy import Table, Column, ForeignKey, Integer, String, Float, Date, DateTime
 from sqlalchemy import select, insert, update, delete
 from sqlalchemy import func, cast
-from sqlalchemy.orm import Bundle, aliased 
+from sqlalchemy.orm import Bundle, aliased
 from sqlalchemy import and_, or_
-from sqlalchemy.pool import StaticPool 
+from sqlalchemy.pool import StaticPool
 from sqlalchemy import UniqueConstraint
 from sqlalchemy import asc, desc
-from datetime import datetime, date, time, timedelta 
+from datetime import datetime, date, time, timedelta
 import psycopg2
 
 def commit():
@@ -32,31 +32,31 @@ def commit():
 engine = create_engine("postgresql+psycopg2://simonque:12345678@localhost/swengdb", \
                        isolation_level="SERIALIZABLE")
 session = Session(engine, autoflush=False)
-Base = declarative_base() 
+Base = declarative_base()
 
 # forms table class
 class Form(Base):
     __tablename__ = 'Form'
     id = Column(Integer, primary_key=True)
     form_name = Column(String, unique=True)
-    
+
     questions = relationship("Question", back_populates="form", cascade="all, delete, delete-orphan")
     submissions = relationship("Submission", back_populates="form", cascade="all, delete, delete-orphan")
-    
+
     def __repr__(self):
         return f"Form(id={self.id!r}, form_name={self.form_name!r})"
-    
+
 # questions table class
 class Question(Base):
     __tablename__ = 'Question'
     id = Column(Integer, primary_key = True)
     form_id = Column(ForeignKey('Form.id'))
     short_name = Column(String)
-    
+
     form_question = UniqueConstraint(form_id, short_name, name="form_question")
     form = relationship("Form", back_populates="questions")
     answers = relationship("Answer", back_populates="question", cascade="all, delete, delete-orphan")
-    
+
     def __repr__(self):
         return f"Question(id={self.id!r}, form_id={self.form_id!r}, short_name={self.short_name!r})"
 
@@ -67,27 +67,27 @@ class Submission(Base):
     date = Column(Date, nullable=False)
     user_id = Column(ForeignKey("User.id"))
     form_type = Column(ForeignKey('Form.id'), nullable=False)
-    
+
     user_form = UniqueConstraint(user_id, form_type, name="user_form")
     form = relationship("Form", back_populates="submissions")
     user = relationship("User", back_populates="submissions")
     answers = relationship("Answer", back_populates="submission", cascade="all, delete, delete-orphan")
-    
+
     def __repr__(self):
         return f"Submission(id={self.id!r}, date={self.date!r}, user_id={self.user_id!r}, \
             form_type={self.form_type!r})"
-    
+
 # users table class
 class User(Base):
     __tablename__ = 'User'
     id = Column(Integer, primary_key = True)
     username = Column(String, unique=True)
-    
+
     submissions = relationship("Submission", back_populates="user", cascade="all, delete, delete-orphan")
-    
+
     def __repr__(self):
         return f"User(id={self.id!r}, username={self.username!r})"
-    
+
 # answers table class
 class Answer(Base):
     __tablename__ = 'Answer'
@@ -95,14 +95,14 @@ class Answer(Base):
     submission_id = Column(ForeignKey("Submission.id"))
     question_id = Column(ForeignKey('Question.id'))
     answer_string = Column(String)
-    
+
     submission = relationship("Submission", back_populates="answers")
     question = relationship("Question", back_populates="answers")
-    
+
     def __repr__(self):
         return f"Answer(submission_id={self.submission_id!r}, question_id={self.question_id!r}, \
             answer_string={self.answer_string!r})"
-    
+
 # define table aliases
 f = aliased(Form, name='f')
 q = aliased(Question, name='q')
@@ -172,7 +172,7 @@ def selectAllFormNames():
 '''
 method to select a single form given a keyword string
 Questions can be accessed from the form using the questions attribute of the form.
-formNameLike (string) - form name search string wildcard 
+formNameLike (string) - form name search string wildcard
 '''
 def selectForm(formNameLike):
     global session, f
@@ -188,12 +188,12 @@ def renameForm(oldFormName, newFormName):
     global session, f
     form = session.query(f).where(f.form_name.like(f"{oldFormName}")).first()
     if form is not None:
-        form.form_name = newFormName 
+        form.form_name = newFormName
         commit()
-    
+
 '''
 method to add a question to a form that exists
-formName (string) - exact name of form 
+formName (string) - exact name of form
 questionShortNames (list of string) - list of question short names
 '''
 def addQuestionsToForm(formName, questionShortNames):
@@ -206,14 +206,14 @@ def addQuestionsToForm(formName, questionShortNames):
                 commit()
             except Exception as err:
                 print(type(err))
-            
+
 
 '''
 method to remove a question from a form that exists
-formName (string) - exact name of form 
+formName (string) - exact name of form
 questionShortNames (list of string) - list of question short names
 '''
-def deleteQuestion(formName, questionShortNames):
+def deleteQuestions(formName, questionShortNames):
     global session, q
     fId = session.query(f.id).where(f.form_name.like(formName)).first()[0]
     print(fId)
@@ -222,12 +222,12 @@ def deleteQuestion(formName, questionShortNames):
         if question is not None:
             session.delete(question)
             commit()
-        
+
 '''
 method to delete a form together with all its questions
 '''
 def deleteForm(formName):
-    global session, f 
+    global session, f
     form = session.query(f).where(f.form_name.like(f"{formName}")).first()
     if form is not None:
         session.delete(form)
@@ -238,11 +238,11 @@ method to insert a form submission together with the user and all answers
 date (date) - date submitted
 username (string) - unique username
 formname (string) - form name
-questionsAndAnswers (list of tuples) - list of tuples containing the question short name and answer 
+questionsAndAnswers (list of tuples) - list of tuples containing the question short name and answer
 '''
 def submitForm(submitDate, username, formName, questionsAndAnswers):
     global session, a, f, q, s, u
-    
+
     submission = Submission()
     submission.date = submitDate
     user = session.query(u).where(u.username.like(username)).first()
@@ -252,7 +252,7 @@ def submitForm(submitDate, username, formName, questionsAndAnswers):
         session.add(user)
         commit()
     submission.user = user
-    
+
     form = session.query(f).where(f.form_name.like(formName)).first()
     print(form)
     if form is not None:
@@ -265,7 +265,7 @@ def submitForm(submitDate, username, formName, questionsAndAnswers):
                 print(question)
                 answer = Answer(answer_string = qa[1], question=question)
                 submission.answers.append(answer)
-        
+
     session.add(submission)
     commit()
 
@@ -311,6 +311,7 @@ questions["Form A"].append("workHazards")
 questions["Form A"].append("wasteDisposal")
 questions["Form A"].append("DOLEInspection")
 questions["Form A"].append("safetyOfficerPresent")
+
 # questions for Form B
 questions["Form B"] = []
 questions["Form B"].append("name")
@@ -351,10 +352,18 @@ questions["Form B"].append("physicalExaminationHeart")
 questions["Form B"].append("physicalExaminationAbdomen")
 questions["Form B"].append("physicalExaminationExtremities")
 questions["Form B"].append("diagnosis")
-questions["Form B"].append("management")  
-# insert forms A and B into the db 
-for fn in formnames: 
+questions["Form B"].append("management")
+# insert forms A and B into the db
+for fn in formnames:
     insertForm(fn, questions[fn])
+
+# extra questions
+addQuestionsToForm("Form A", ["companyName"])
+addQuestionsToForm("Form A", ["unionPresence"])
+addQuestionsToForm("Form A", ["unionHeadContactNo"])
+addQuestionsToForm("Form A", ["unionHeadEmail"])
+addQuestionsToForm("Form A", ["contactNumber"])
+addQuestionsToForm("Form A", ["complaint"])
 
 print()
 # query(q)
@@ -375,7 +384,7 @@ insertForm("Form C", [])
 addQuestionsToForm("Form C", ["qA", "qB"])
 addQuestionsToForm("Form C", ["qC"])
 # print(selectForm("C").questions)
-# deleteQuestion("Form C", ["qA","qB"])
+# deleteQuestions("Form C", ["qA","qB"])
 # print(selectForm("C").questions)
 
 # submitForm(date.today(), "tuser", "Form C", [("qC", "aC"), ("qB", "aB"), ("qA", "aA")])
