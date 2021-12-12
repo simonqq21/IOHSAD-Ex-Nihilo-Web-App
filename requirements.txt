@@ -1,40 +1,40 @@
-AnyQt @ file:///tmp/build/80754af9/anyqt_1620308448022/work
-baycomp @ file:///tmp/build/80754af9/baycomp_1594058960602/work
+AnyQt==0.0.13
+baycomp==1.0.2
 Bottleneck==1.3.2
 brotlipy==0.7.0
-CacheControl @ file:///Users/ktietz/demo/mc3/conda-bld/cachecontrol_1629143824253/work
+CacheControl==0.12.6
 certifi==2021.10.8
-cffi @ file:///tmp/build/80754af9/cffi_1625807838443/work
-chardet @ file:///tmp/build/80754af9/chardet_1607706746162/work
-charset-normalizer @ file:///tmp/build/80754af9/charset-normalizer_1630003229654/work
+cffi==1.14.6
+chardet==4.0.0
+charset-normalizer==2.0.4
 click==8.0.3
-commonmark @ file:///Users/ktietz/demo/mc3/conda-bld/commonmark_1630649545323/work
-cryptography @ file:///tmp/build/80754af9/cryptography_1635366571107/work
+commonmark==0.9.1
+cryptography==35.0.0
 cycler==0.11.0
-dictdiffer @ file:///tmp/build/80754af9/dictdiffer_1594059095757/work
+dictdiffer==0.8.0
 dnspython==2.1.0
-docutils @ file:///tmp/build/80754af9/docutils_1638528482764/work
-email-validator @ file:///tmp/build/80754af9/email-validator_1623674793554/work
+docutils==0.18.1
+email-validator==1.1.3
 et-xmlfile==1.1.0
 Flask==2.0.2
 Flask-WTF==1.0.0
 fonttools==4.25.0
 future==0.18.2
 greenlet==1.1.2
-gunicorn @ file:///tmp/build/80754af9/gunicorn_1617120647592/work
-h11 @ file:///tmp/build/80754af9/h11_1620423447028/work
+gunicorn==20.1.0
+h11==0.12.0
 h2==3.2.0
 hpack==3.0.0
-httpcore @ file:///tmp/build/80754af9/httpcore_1620428819128/work
-httpx @ file:///tmp/build/80754af9/httpx_1624368550453/work
+httpcore==0.13.3
+httpx==0.18.2
 hyperframe==5.2.0
-idna @ file:///home/linux1/recipes/ci/idna_1610986105248/work
-importlib-metadata @ file:///tmp/build/80754af9/importlib-metadata_1631916695836/work
+idna==2.10
+importlib-metadata==4.8.1
 itsdangerous==2.0.1
-jeepney @ file:///tmp/build/80754af9/jeepney_1627537048313/work
+jeepney==0.7.1
 Jinja2==3.0.3
-joblib @ file:///tmp/build/80754af9/joblib_1635411271373/work
-keyring @ file:///tmp/build/80754af9/keyring_1629321557132/work
+joblib==1.1.0
+keyring==23.1.0
 keyrings.alt==4.1.0
 kiwisolver==1.3.2
 llvmlite==0.37.0
@@ -42,50 +42,53 @@ lockfile==0.12.2
 MarkupSafe==2.0.1
 matplotlib==3.4.3
 mkl-fft==1.3.1
-mkl-random @ file:///tmp/build/80754af9/mkl_random_1626186064646/work
+mkl-random==1.2.2
 mkl-service==2.4.0
-msgpack @ file:///tmp/build/80754af9/msgpack-python_1612287151062/work
+msgpack==1.0.2
 munkres==1.1.4
-networkx @ file:///tmp/build/80754af9/networkx_1633639043937/work
-numba @ file:///tmp/build/80754af9/numba_1635185927556/work
-numexpr @ file:///tmp/build/80754af9/numexpr_1618856167419/work
+networkx==2.6.3
+numba==0.54.1
+numexpr==2.7.3
 numpy==1.21.4
-olefile @ file:///Users/ktietz/demo/mc3/conda-bld/olefile_1629805411829/work
-openpyxl @ file:///tmp/build/80754af9/openpyxl_1632777717936/work
-openTSNE @ file:///tmp/build/80754af9/opentsne_1594138692776/work
-orange-canvas-core @ file:///Users/ktietz/demo/mc3/conda-bld/orange-canvas-core_1630511069514/work
-orange-widget-base @ file:///tmp/build/80754af9/orange-widget-base_1594068927460/work
-Orange3 @ file:///tmp/build/80754af9/orange3_1594070640761/work
-packaging @ file:///tmp/build/80754af9/packaging_1637314298585/work
+olefile==0.46
+openpyxl==3.0.9
+openTSNE==0.4.3
+orange-canvas-core==0.1.15
+orange-widget-base==4.7.0
+Orange3==3.26.0
+packaging==21.3
 pandas==1.3.4
 Pillow==8.4.0
+pip==21.2.4
 psycopg2-binary==2.9.2
-pycparser @ file:///tmp/build/80754af9/pycparser_1636541352034/work
-pynndescent @ file:///tmp/build/80754af9/pynndescent_1625654046303/work
-pyOpenSSL @ file:///tmp/build/80754af9/pyopenssl_1635333100036/work
-pyparsing @ file:///tmp/build/80754af9/pyparsing_1635766073266/work
-pyqtgraph @ file:///tmp/build/80754af9/pyqtgraph_1594064840332/work
-PySocks @ file:///tmp/build/80754af9/pysocks_1605305779399/work
+pycparser==2.21
+pynndescent==0.5.4
+pyOpenSSL==21.0.0
+pyparsing==3.0.4
+pyqtgraph==0.11.0
+PySocks==1.7.1
 python-dateutil==2.8.2
 python-dotenv==0.19.2
-python-louvain @ file:///tmp/build/80754af9/python-louvain_1612304551119/work
+python-louvain==0.15
 pytz==2021.3
 PyYAML==6.0
-requests @ file:///tmp/build/80754af9/requests_1629994808627/work
-rfc3986 @ file:///Users/ktietz/demo/mc3/conda-bld/rfc3986_1629478296451/work
-scikit-learn @ file:///tmp/build/80754af9/scikit-learn_1635175459052/work
-scipy @ file:///tmp/build/80754af9/scipy_1630606796110/work
-SecretStorage @ file:///tmp/build/80754af9/secretstorage_1614022784285/work
+requests==2.26.0
+rfc3986==1.4.0
+scikit-learn==1.0.1
+scipy==1.7.1
+SecretStorage==3.3.1
 serverfiles==0.3.1
+setuptools==58.0.4
 sip==4.19.13
-six @ file:///tmp/build/80754af9/six_1623709665295/work
-sniffio @ file:///tmp/build/80754af9/sniffio_1614030475067/work
+six==1.16.0
+sniffio==1.2.0
 SQLAlchemy==1.4.27
-threadpoolctl @ file:///Users/ktietz/demo/mc3/conda-bld/threadpoolctl_1629802263681/work
-tornado @ file:///tmp/build/80754af9/tornado_1606942300299/work
+threadpoolctl==2.2.0
+tornado==6.1
 urllib3==1.26.7
 Werkzeug==2.0.2
+wheel==0.37.0
 WTForms==3.0.0
-xlrd @ file:///tmp/build/80754af9/xlrd_1608072521494/work
-XlsxWriter @ file:///tmp/build/80754af9/xlsxwriter_1636633762820/work
-zipp @ file:///tmp/build/80754af9/zipp_1633618647012/work
+xlrd==2.0.1
+XlsxWriter==3.0.2
+zipp==3.6.0
