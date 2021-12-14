@@ -1,0 +1,10 @@
+$(document).ready(function(){
+    $("#unionPresence").click(function(){
+        if($(this).is(":checked")){
+            $(".unionHeadDetails").show()
+        }
+        else{
+            $(".unionHeadDetails").hide()
+        }
+    });
+});
