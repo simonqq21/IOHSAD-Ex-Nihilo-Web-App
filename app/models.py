@@ -72,6 +72,37 @@ class Answer(db.Model):
         return f"Answer(submission_id={self.submission_id!r}, question_id={self.question_id!r}, \
             answer_string={self.answer_string!r})"
 
+# uncomment to drop all tables, for testing only
+# try:
+#     db.engine.execute('''DROP TABLE "User" CASCADE''')
+# except Exception as err:
+#     print(err)
+#     pass
+# try:
+#     db.engine.execute('DROP TABLE "Question" CASCADE')
+# except Exception as err:
+#     print(err)
+#     pass
+# try:
+#     db.engine.execute('DROP TABLE "Submission" CASCADE')
+# except Exception as err:
+#     print(err)
+#     pass
+# try:
+#     db.engine.execute('DROP TABLE "Form" CASCADE')
+# except Exception as err:
+#     print(err)
+#     pass
+# try:
+#     db.engine.execute('DROP TABLE "Answer" CASCADE')
+# except Exception as err:
+#     print(err)
+#     pass
+
+db.create_all()
+# uncomment to drop all tables, for testing only
+# db.drop_all()
+
 def commit():
     try:
         db.session.commit()
@@ -213,3 +244,121 @@ def submitForm(submitDate, user, formName, questionsAndAnswers):
 
         db.session.add(submission)
         commit()
+
+# insert forms A and B
+formnames = []
+formnames.append("Form A")
+formnames.append("Form B")
+
+# insert questions
+questions = {}
+# questions for Form A
+questions["Form A"] = []
+questions["Form A"].append("name")
+questions["Form A"].append("age")
+questions["Form A"].append("sex")
+questions["Form A"].append("civilStatus")
+questions["Form A"].append( "education")
+questions["Form A"].append("position")
+questions["Form A"].append("yearsWorked")
+questions["Form A"].append("workStatus")
+questions["Form A"].append("wage")
+questions["Form A"].append("benefits")
+questions["Form A"].append("benefitsReceived")
+questions["Form A"].append("hoursPerDay")
+questions["Form A"].append("chemicalUse")
+questions["Form A"].append("chemicalName")
+questions["Form A"].append("chemicalPurpose")
+questions["Form A"].append("chemExposureDuration")
+questions["Form A"].append("diseaseAccidented")
+questions["Form A"].append("treatmentBillSource")
+questions["Form A"].append("treatmentLocation")
+questions["Form A"].append("reproductiveProblem")
+questions["Form A"].append("knowOthersSickAccidented")
+questions["Form A"].append("yearlyPhysicalExamination")
+questions["Form A"].append("workPPE")
+questions["Form A"].append("workPPEFree")
+questions["Form A"].append("workHazards")
+questions["Form A"].append("wasteDisposal")
+questions["Form A"].append("DOLEInspection")
+questions["Form A"].append("safetyOfficerPresent")
+
+# questions for Form B
+questions["Form B"] = []
+questions["Form B"].append("name")
+questions["Form B"].append("address")
+questions["Form B"].append("age")
+questions["Form B"].append("sex")
+questions["Form B"].append("civilStatus")
+questions["Form B"].append("occupation")
+questions["Form B"].append("employingCompanyName")
+questions["Form B"].append("chiefComplaint")
+questions["Form B"].append("presentMedicalHistory")
+questions["Form B"].append("pastMedicalHistory")
+questions["Form B"].append("pastPersonalHistory")
+questions["Form B"].append("familyMedicalHistory")
+questions["Form B"].append("pastJob")
+questions["Form B"].append("pastJobDuration")
+questions["Form B"].append("currentJob")
+questions["Form B"].append("currentJobSection")
+questions["Form B"].append("currentJobDuration")
+questions["Form B"].append("currentJobDescription")
+questions["Form B"].append("currentJobHazards")
+questions["Form B"].append("medicalHistorySHEENT")
+questions["Form B"].append("medicalHistoryRespiratory")
+questions["Form B"].append("medicalHistoryCirculatory")
+questions["Form B"].append("medicalHistoryDigestive")
+questions["Form B"].append("medicalHistoryUrogenital")
+questions["Form B"].append("medicalHistoryEndocrine")
+questions["Form B"].append("medicalHistoryNervous")
+questions["Form B"].append("medicalHistoryMusculoskeletal")
+questions["Form B"].append("vitalSignBP")
+questions["Form B"].append("vitalSignPR")
+questions["Form B"].append("vitalSignTemp")
+questions["Form B"].append("vitalSignWeight")
+questions["Form B"].append("generalAppearance")
+questions["Form B"].append("physicalExaminationSHEENT")
+questions["Form B"].append("physicalExaminationLungs")
+questions["Form B"].append("physicalExaminationHeart")
+questions["Form B"].append("physicalExaminationAbdomen")
+questions["Form B"].append("physicalExaminationExtremities")
+questions["Form B"].append("diagnosis")
+questions["Form B"].append("management")
+# insert forms A and B into the db
+for fn in formnames:
+    insertForm(fn, questions[fn])
+
+# extra questions
+addQuestionsToForm("Form A", ["companyName"])
+addQuestionsToForm("Form A", ["unionPresence"])
+addQuestionsToForm("Form A", ["unionHeadContactNo"])
+addQuestionsToForm("Form A", ["unionHeadEmail"])
+addQuestionsToForm("Form A", ["contactNumber"])
+addQuestionsToForm("Form A", ["complaint"])
+
+# print()
+# query(q)
+# print()
+# testing code
+# insertForm("Form C", [])
+# insertForm("Form C", ["qA", "qB", 'qC'])
+# print()
+# print(selectAllFormNames())
+# print()
+# print(selectForm("C"))
+# print()
+# renameForm("Form C", "Form Z")
+# print(selectAllFormNames())
+# addQuestionsToForm("Form Z", ["qZ"])
+# print(selectForm("Form Z").questions)
+# deleteForm("Form C")
+# addQuestionsToForm("Form C", ["qA", "qB"])
+# addQuestionsToForm("Form C", ["qC"])
+# print(selectForm("C").questions)
+# deleteQuestions("Form C", ["qA","qB"])
+# print(selectForm("C").questions)
+
+# submitForm(date.today(), "tuser", "Form C", [("qC", "aC"), ("qB", "aB"), ("qA", "aA")])
+# submitForm(date.today(), "tuser2", "Form C", [("qC", "aC2"), ("qB", "aB2"), ("qA", "aA2")])
+# submitForm(date.today(), "tuser", "Form A", [("name", "Test1"), ("age", "232")])
+# submitForm(date.today(), "tuser3", "Form C", [("qB", "aB2"), ("qA", "aA2")])

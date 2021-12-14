@@ -9,5 +9,5 @@ App.config.from_object(Config)
 db = SQLAlchemy(App, session_options={"autoflush": False})
 migrate = Migrate(App, db)
 db.init_app(App)
-
+db.create_all()
 from app import routes, models
