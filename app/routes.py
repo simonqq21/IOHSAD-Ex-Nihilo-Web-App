@@ -2,7 +2,7 @@ from flask import render_template, url_for, request, jsonify, send_from_director
 
 from app import App
 from datetime import datetime, date
-from app.db_module import submitForm
+from app.models import submitForm
 from app.forms import ComplaintForm
 
 print(ComplaintForm)

@@ -6,6 +6,7 @@ Created on Thu Nov 25 20:02:57 2021
 @author: simonque
 """
 
+from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, declarative_base, relationship, backref
 from sqlalchemy import Table, Column, ForeignKey, Integer, String, Float, Date, DateTime
@@ -29,8 +30,12 @@ def commit():
         session.close()
 
 # initialize psycopg2 engine to connect to postgresql db
-engine = create_engine("postgresql+psycopg2://simonque:12345678@localhost/swengdb", \
-                       isolation_level="SERIALIZABLE")
+# engine = create_engine("postgresql+psycopg2://simonque:12345678@localhost/swengdb", \
+#                        isolation_level="SERIALIZABLE")
+# engine = create_engine("postgresql+psycopg2://vsxqeqdkklzuee:038ffcbdc2a437444a83f54ea02faa31cf88271facf02238842a904af05b8a09@ec2-52-201-168-60.compute-1.amazonaws.com:5432/d801gne8p6hm5b", \
+#                        isolation_level="SERIALIZABLE")
+engine = create_engine(, isolation_level="SERIALIZABLE")
+
 session = Session(engine, autoflush=False)
 Base = declarative_base()
 
@@ -372,7 +377,7 @@ print()
 # query(q)
 print()
 # testing code
-insertForm("Form C", [])
+# insertForm("Form C", [])
 # insertForm("Form C", ["qA", "qB", 'qC'])
 # print()
 # print(selectAllFormNames())
@@ -384,8 +389,8 @@ insertForm("Form C", [])
 # addQuestionsToForm("Form Z", ["qZ"])
 # print(selectForm("Form Z").questions)
 # deleteForm("Form C")
-addQuestionsToForm("Form C", ["qA", "qB"])
-addQuestionsToForm("Form C", ["qC"])
+# addQuestionsToForm("Form C", ["qA", "qB"])
+# addQuestionsToForm("Form C", ["qC"])
 # print(selectForm("C").questions)
 # deleteQuestions("Form C", ["qA","qB"])
 # print(selectForm("C").questions)
