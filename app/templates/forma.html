@@ -9,15 +9,15 @@
   </head>
   <body>
     <div class="container-fluid bg-light">
-        <header class="d-flex flex-wrap justify-content-left py-3 mb-4 shadow-lg">
-          <div class="col-sm-1 d-flex justify-content-center pe-1">
-                  <img src="{{ url_for('static', filename='img/IOHSAD_logo.png') }}" class="img-fluid" alt="IOHSAD logo">
-          </div>
-          <div class="col-sm-6">
-              <h1 class="row-sm-6">IOHSAD</h1>
-              <h4 class="row-sm-6">Safe Workplaces Now!</h4>
-          </div>
-        </header>
+      <header class="d-flex flex-wrap justify-content-left py-3 mb-4 shadow-lg">
+        <div class="col-sm-1">
+            <img src="{{ url_for('static', filename='img/IOHSAD_logo.png') }}" class="img-fluid" alt="IOHSAD logo">
+        </div>
+        <div class="col-sm-8">
+            <h1 class="row">IOHSAD</h1>
+            <h4 class="row">Safe Workplaces Now!</h4>
+        </div>
+      </header>
 
         <div class="row justify-content-center">
           {% with messages = get_flashed_messages() %}
