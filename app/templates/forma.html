@@ -10,14 +10,14 @@
   <body>
     <div class="container-fluid bg-light">
       <header class="d-flex flex-wrap justify-content-left py-3 mb-4 shadow-lg">
-        <div class="col-sm-1">
+        <div class="col-sm-1 me-4">
             <img src="{{ url_for('static', filename='img/IOHSAD_logo.png') }}" class="img-fluid" alt="IOHSAD logo">
         </div>
         <div class="col-sm-8">
             <h1 class="row">IOHSAD</h1>
             <h4 class="row">Safe Workplaces Now!</h4>
         </div>
-      </header>
+    </header>
 
         <div class="row justify-content-center">
           {% with messages = get_flashed_messages() %}
@@ -29,10 +29,54 @@
           </ul>
           {% endif %}
           {% endwith %}
+
           <form class="col-sm-8 shadow-lg p-5" method="POST" novalidate>
+            {{ form.hidden_tag() }}
+            <div class="mb3">
+              {{ form.emailPhone.label(class="form-label") }}
+              {{ form.emailPhone(class="form-control") }}
+            </div>
+
+            <div class="mb3">
+              {{ form.username.label(class="form-label") }}
+              {{ form.username(class="form-control") }}
+            </div>
+
+            <div class="mb3">
+              {{ form.companyName.label(class="form-label") }}
+              {{ form.companyName(class="form-control") }}
+            </div>
+
+            <div class="mb3 form-check">
+              {{ form.unionPresence.label(class="form-check-label") }}
+              {{ form.unionPresence(class="form-check-input") }}
+            </div>
+
+            <div class="mb3 unionHeadDetails">
+              {{ form.unionHeadContactNo.label(class="form-label") }}
+              {{ form.unionHeadContactNo(class="form-control") }}
+            </div>
+
+            <div class="mb3 unionHeadDetails">
+              {{ form.unionHeadEmail.label(class="form-label") }}
+              {{ form.unionHeadEmail(class="form-control") }}
+            </div>
+
+            <div class="mb3 ">
+              {{ form.complaint.label(class="form-label") }}
+              {{ form.complaint(class="form-control") }}
+            </div>
+
+            <div class="mb3 ">
+              {{ form.submit.label(class="form-label") }}
+              {{ form.submit(class="btn btn-primary") }}
+            </div>
+          </form>
+
+          <!--<form class="col-sm-8 shadow-lg p-5" method="POST" novalidate>
             {{form.hidden_tag()}}
             <div class="row p-3 mb-2">
-              <div class="col-sm-12">
+              <div class="col-sm-12 field">
                 <div class="row">
                   {{ form.emailPhone.label }}
                 </div>
@@ -41,7 +85,7 @@
                 </div>
               </div>
               
-              <div class="col-sm-12">
+              <div class="col-sm-12 field">
                 <div class="row">
                   {{ form.username.label }}
                 </div>
@@ -50,7 +94,7 @@
                 </div>
               </div>
 
-              <div class="col-sm-12">
+              <div class="col-sm-12 field">
                 <div class="row">
                   {{ form.companyName.label }}
                 </div>
@@ -59,7 +103,7 @@
                 </div>
               </div>
 
-              <div class="col-sm-12">
+              <div class="col-sm-12 field">
                 <div class="row">
                   {{ form.unionPresence.label }}
                 </div>
@@ -68,7 +112,7 @@
                 </div>
               </div>
 
-              <div class="col-sm-12 unionHeadDetails">
+              <div class="col-sm-12 unionHeadDetails field">
                 <div class="row">
                   {{ form.unionHeadContactNo.label }}
                 </div>
@@ -77,7 +121,7 @@
                 </div>
               </div>
 
-              <div class="col-sm-12 unionHeadDetails">
+              <div class="col-sm-12 unionHeadDetails field">
                 <div class="row">
                   {{ form.unionHeadEmail.label }}
                 </div>
@@ -86,7 +130,7 @@
                 </div>
               </div>
 
-              <div class="col-sm-12">
+              <div class="col-sm-12 field">
                 <div class="row">
                   {{ form.complaint.label }}
                 </div>
@@ -96,7 +140,7 @@
               </div>
             </div>
 
-            <div class="col-sm-12">
+            <div class="col-sm-12 field">
               <div class="row">
                 {{ form.submit.label }}
               </div>
@@ -105,7 +149,7 @@
               </div>
             </div>
 
-          </form>
+          </form>-->
         </div>
 
     </div>
