@@ -12,7 +12,7 @@ then finally a large textbox for the nature of the complaint
 '''
 class ComplaintForm(FlaskForm):
     username = StringField("Unique Username*", validators=[DataRequired(), InputRequired()])
-    companyName = StringField("Company Name* (Pangngalan ng kumpanya)*", validators=[DataRequired(), InputRequired()])
+    companyName = StringField("Company Name* (Pangalan ng kumpanya)*", validators=[DataRequired(), InputRequired()])
     unionPresence = BooleanField("Union Present* (Mayroon bang unyon ng mga manggagawa?)*")
     unionHeadContactNo = TelField("Union Head Contact No. (Telepono ng pinuno ng unyon ng mga manggagawa)", validators=[Optional()])
     unionHeadEmail = EmailField("Union Head Email Address (Email address ng pinuno ng unyon ng mga manggagawa)", validators=[Email(), Optional()])
