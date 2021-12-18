@@ -1,0 +1,7 @@
+how many reports between two dates
+how many reports per city (have to clarify if its really needed?)
+get a list of reports based on company name
+
+filter reports by form type
+download individual report as xlsx
+download multiple reports as xlsx
