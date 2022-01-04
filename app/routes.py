@@ -25,7 +25,7 @@ def renderForm(formname):
     print(formname)
     if formname == "forma":
         form = ComplaintForm()
-    else if formname == "COVID19Survey":
+    elif formname == "COVID19Survey":
         form = COVID19Survey()
 
     if request.method == 'POST':
