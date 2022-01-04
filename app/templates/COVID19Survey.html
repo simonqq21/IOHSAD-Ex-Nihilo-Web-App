@@ -33,13 +33,18 @@
           <form class="col-sm-8 shadow-lg p-5" method="POST" novalidate>
             {{ form.hidden_tag() }}
             <div class="mb-3">
-              {{ form.emailPhone.label(class="form-label") }}
-              {{ form.emailPhone(class="form-control") }}
+              {{ form.name.label(class="form-label") }}
+              {{ form.name(class="form-control") }}
             </div>
 
             <div class="mb-3">
-              {{ form.username.label(class="form-label") }}
-              {{ form.username(class="form-control") }}
+              {{ form.contactNo.label(class="form-label") }}
+              {{ form.contactNo(class="form-control") }}
+            </div>
+
+            <div class="mb-3">
+              {{ form.email.label(class="form-label") }}
+              {{ form.email(class="form-control") }}
             </div>
 
             <div class="mb-3">
@@ -47,109 +52,27 @@
               {{ form.companyName(class="form-control") }}
             </div>
 
-            <div class="mb-3 form-check">
-              {{ form.unionPresence.label(class="form-check-label") }}
-              {{ form.unionPresence(class="form-check-input") }}
+            <div class="mb-3">
+              {{ form.companyLocation.label(class="form-label") }}
+              {{ form.companyLocation(class="form-control") }}
             </div>
 
-            <div class="mb-3 unionHeadDetails">
-              {{ form.unionHeadContactNo.label(class="form-label") }}
-              {{ form.unionHeadContactNo(class="form-control") }}
-            </div>
-
-            <div class="mb-3 unionHeadDetails">
-              {{ form.unionHeadEmail.label(class="form-label") }}
-              {{ form.unionHeadEmail(class="form-control") }}
+            <div class="mb-3">
+              {{ form.freeMassTesting() }}
+              {{ form.freeMassTesting.label() }}<br>
             </div>
 
             <div class="mb-3 ">
-              {{ form.complaint.label(class="form-label") }}
-              {{ form.complaint(class="form-control") }}
+              {{ form.freeMassTestingDetails.label(class="form-label") }}
+              {{ form.freeMassTestingDetails(class="form-control") }}
             </div>
 
             <div class="mb-3 ">
-              <!--{{ form.submit.label(class="form-label") }}-->
               {{ form.submit(class="btn btn-primary") }}
             </div>
           </form>
 
-          <!--<form class="col-sm-8 shadow-lg p-5" method="POST" novalidate>
-            {{form.hidden_tag()}}
-            <div class="row p-3 mb-2">
-              <div class="col-sm-12 field">
-                <div class="row">
-                  {{ form.emailPhone.label }}
-                </div>
-                <div class="row">
-                  {{ form.emailPhone }}
-                </div>
-              </div>
 
-              <div class="col-sm-12 field">
-                <div class="row">
-                  {{ form.username.label }}
-                </div>
-                <div class="row">
-                  {{ form.username }}
-                </div>
-              </div>
-
-              <div class="col-sm-12 field">
-                <div class="row">
-                  {{ form.companyName.label }}
-                </div>
-                <div class="row">
-                  {{ form.companyName }}
-                </div>
-              </div>
-
-              <div class="col-sm-12 field">
-                <div class="row">
-                  {{ form.unionPresence.label }}
-                </div>
-                <div class="row">
-                  <p style="text-align:left">{{ form.unionPresence }}</p>
-                </div>
-              </div>
-
-              <div class="col-sm-12 unionHeadDetails field">
-                <div class="row">
-                  {{ form.unionHeadContactNo.label }}
-                </div>
-                <div class="row">
-                  {{ form.unionHeadContactNo }}
-                </div>
-              </div>
-
-              <div class="col-sm-12 unionHeadDetails field">
-                <div class="row">
-                  {{ form.unionHeadEmail.label }}
-                </div>
-                <div class="row">
-                  {{ form.unionHeadEmail }}
-                </div>
-              </div>
-
-              <div class="col-sm-12 field">
-                <div class="row">
-                  {{ form.complaint.label }}
-                </div>
-                <div class="row">
-                  {{ form.complaint }}
-                </div>
-              </div>
-            </div>
-
-            <div class="col-sm-12 field">
-              <div class="row">
-                {{ form.submit.label }}
-              </div>
-              <div class="row">
-                {{ form.submit }}
-              </div>
-            </div>
-
-          </form>-->
         </div>
 
     </div>
