@@ -3,7 +3,7 @@ from flask import render_template, url_for, request, jsonify, send_from_director
 from app import App
 from datetime import datetime, date
 from app.models import submitForm
-from app.forms import ComplaintForm
+from app.forms import ComplaintForm, COVID19Survey
 
 print(ComplaintForm)
 '''
@@ -22,7 +22,12 @@ formname parameter is the short name of the form
 '''
 @App.route('/forms/<formname>', methods=['GET', 'POST'])
 def renderForm(formname):
-    form = ComplaintForm()
+    print(formname)
+    if formname == "forma":
+        form = ComplaintForm()
+    else if formname == "COVID19Survey":
+        form = COVID19Survey()
+
     if request.method == 'POST':
         print(f"Username: {form.username.data}\n \
         Company name: {form.companyName.data}\n \
@@ -47,6 +52,7 @@ def renderForm(formname):
         emailPhone = form.emailPhone.data
         questionsAndAnswers = []
         for qa in form:
+            # ignore the submit and csrf token fields
             if qa.label.field_id not in ("submit", "csrf_token"):
                 questionsAndAnswers.append((qa.label.field_id, qa.data))
         print(questionsAndAnswers)
