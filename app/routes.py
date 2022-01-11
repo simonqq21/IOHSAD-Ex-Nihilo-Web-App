@@ -1,9 +1,14 @@
-from flask import render_template, url_for, request, jsonify, send_from_directory, flash
+from flask import redirect, render_template, url_for, request, jsonify, send_from_directory, flash
 
 from app import App
 from datetime import datetime, date
-from app.models import submitForm, User
+from app.models import submitForm, User, Administrator
+from app.forms import AdminLoginForm
 from app.forms import ComplaintForm, COVID19Survey
+
+from sqlalchemy import or_
+
+from flask_login import current_user, login_user
 
 '''
 route for index page
@@ -11,15 +16,44 @@ route for index page
 @App.route('/', methods=['GET'])
 @App.route('/index', methods=['GET'])
 def index():
-    flash("a")
     return render_template('index.html')
-    flash("a")
+
+# '''
+# route for administrator signup page
+# '''
+# @app.route('/admin', methods=['GET', 'POST'])
+# def login():
+#     pass
 
 '''
 route for administrator login page
 '''
-@app.route('/adminlogin', methods=['GET', 'POST'])
-def login():
+@App.route('/adminlogin', methods=['GET', 'POST'])
+def adminlogin():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    form = AdminLoginForm
+    if form.validate_on_submit():
+        admin = Administrator.query.filter_by(or_(username=form.emailusername.data, email=form.emailusername.data)).first()
+        if admin is None or not admin.check_password_hash(form.password.data):
+            flash('Invalid username or password.')
+            return redirect(url_for('adminlogin'))
+        login_user(admin, remember = form.remember_me.data)
+        return redirect(url_for('index'))
+    # return render_template()
+
+'''
+route for administrator logout page
+'''
+@App.route('/adminlogout', methods=['GET', 'POST'])
+def adminlogout():
+    pass
+
+'''
+route for administrative view page
+'''
+@App.route('/adminview', methods=['GET', 'POST'])
+def adminview():
     pass
 
 '''
@@ -71,4 +105,3 @@ def renderForm(formname):
 #    args = request.args
 #    User.username
 #    return 1
-
