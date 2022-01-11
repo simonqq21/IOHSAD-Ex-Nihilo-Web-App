@@ -1,6 +1,9 @@
 from app import db
 from datetime import date
 from sqlalchemy.orm import aliased
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
+from app import login
 
 # forms table class
 class Form(db.Model):
@@ -56,6 +59,27 @@ class User(db.Model):
 
     def __repr__(self):
         return f"User(id={self.id!r}, username={self.username!r})"
+
+# administrators class
+class Administrator(UserMixin, db.Model):
+    __tablename__ = 'Administrator'
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(120), nullable=False, index=True, unique=True)
+    email = db.Column(db.String(120), nullable=False, index=True, unique=True)
+    password_hash = db.Column(db.String(128))
+
+    def __repr__(self):
+        return f"Administrator(username={self.username!r}, email={self.email!r})"
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password_hash(self, password):
+        return check_password_hash(self.password_hash, password)
+
+@login.user_loader
+def load_admin(id):
+    return Administrator.query.get(int(id))
 
 # answers table class
 class Answer(db.Model):

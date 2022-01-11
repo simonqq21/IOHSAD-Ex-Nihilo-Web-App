@@ -5,7 +5,6 @@ from datetime import datetime, date
 from app.models import submitForm
 from app.forms import ComplaintForm, COVID19Survey
 
-print(ComplaintForm)
 '''
 route for index page
 '''
@@ -15,6 +14,13 @@ def index():
     flash("a")
     return render_template('index.html')
     flash("a")
+
+'''
+route for administrator login page
+'''
+@app.route('/adminlogin', methods=['GET', 'POST'])
+def login():
+    pass
 
 '''
 route for forms
