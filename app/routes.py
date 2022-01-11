@@ -2,7 +2,7 @@ from flask import render_template, url_for, request, jsonify, send_from_director
 
 from app import App
 from datetime import datetime, date
-from app.models import submitForm
+from app.models import submitForm, User
 from app.forms import ComplaintForm, COVID19Survey
 
 '''
@@ -65,3 +65,10 @@ def renderForm(formname):
         submitForm(date.today(), (username, emailPhone), "Form A", questionsAndAnswers)
 
     return render_template(f"{formname}.html", title="Complaint Form", form=form)
+
+#@App.route('/uniqueUsername', methods=['GET'])
+#def checkUsername():
+#    args = request.args
+#    User.username
+#    return 1
+
