@@ -26,6 +26,7 @@ caseCountOptions = [('1-10', "1-10 kaso"),
             ('50-100', "50-100 kaso"),
             ('>100', "mas marami pa sa 100 na kaso")]
 '''
+Generic Complaint Form
 -Name of Company
 -Presence of union (If yes, put down the contact details of the head of the union (contact number and email)
 -Contact Details of the one who submitted the form
@@ -43,6 +44,17 @@ class ComplaintForm(FlaskForm):
     submit = SubmitField("Submit Form (Ipasa ang form)")
 
 '''
+Administrator login form
+- email or username
+- password
+'''
+class AdminLoginForm(FlaskForm):
+    emailusername = StringField("Email or username:", validators=[DataRequired(), InputRequired()])
+    password = PasswordField("Password:", validators=[DataRequired(), InputRequired()])
+    login = SubmitField("Login")
+
+'''
+COVID-19 Health Protocol Assessment Form
  - Pangalan - StringField
  - Contact Number - TelField
  - E-mail address - EmailField
@@ -108,13 +120,6 @@ class ComplaintForm(FlaskForm):
  - May nakatayo bang occupational safety and health (OSH) committee? - BooleanField
  - Nagsagawa ba ng inspeksyon ang Department of Labor and Employment para subaybayan
     ang pagpapatupad ng kumpanya ng mga prevention and control measure para sa COVID-19? - BooleanField
-
-
-
-
-
-
-
 '''
 class COVID19Survey(FlaskForm):
     name = StringField("Pangalan*", validators=[DataRequired(), InputRequired()])
