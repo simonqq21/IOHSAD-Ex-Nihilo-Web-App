@@ -1,4 +1,5 @@
 from flask import redirect, render_template, url_for, request, jsonify, send_from_directory, flash
+from flask.helpers import make_response
 
 from app import App
 from datetime import datetime, date
@@ -100,8 +101,11 @@ def renderForm(formname):
 
     return render_template(f"{formname}.html", title="Complaint Form", form=form)
 
-#@App.route('/uniqueUsername', methods=['GET'])
-#def checkUsername():
-#    args = request.args
-#    User.username
-#    return 1
+@App.route('/uniqueUsername', methods=['GET'])
+def checkUsername():
+    username = request.form['username']
+    unique = User.check_unique_username(username)
+    res = 0
+    if unique == 1:
+        res = 1
+    return res
