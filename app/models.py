@@ -60,6 +60,12 @@ class User(db.Model):
     def __repr__(self):
         return f"User(id={self.id!r}, username={self.username!r})"
 
+    def check_unique_username(newUsername):
+        if User.query.filter_by(username = str(newUsername).first()):
+            return 0
+        else:
+            return 1
+
 # administrators class
 class Administrator(UserMixin, db.Model):
     __tablename__ = 'Administrator'
