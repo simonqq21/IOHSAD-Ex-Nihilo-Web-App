@@ -126,25 +126,27 @@ def exportFormSubmissions():
     question_ids = []
     i=0
     ws['A1'] = 'username'
-    for col in ws.iter_cols(min_row=1, max_row=1, min_col=2, max_col=len(questions)):
+    for col in ws.iter_cols(min_row=1, max_row=1, min_col=2, max_col=1 + len(questions)):
         for cell in col:
             cell.value = questions[i].short_name
             question_ids.append(questions[i].id)
             i += 1
 
+    print(question_ids)
     # write each submission row
     i = 0
-    for row in ws.iter_rows(min_row=2, min_col=1, max_row=len(submissions)):
+    for row in ws.iter_rows(min_row=2, min_col=1, max_row=1 + len(submissions)):
         submission = submissions[i]
         sid = submission.id
         # print(f"sid={sid}")
         answers = submission.answers
+        username = submission.user.username
+        print(username)
 
         i += 1
         j = 0
         for cell in row:
             if cell.column == 1:
-                username = submission.user.username
                 cell.value = username
 
             else:

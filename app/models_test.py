@@ -448,6 +448,10 @@ addQuestionsToForm("Form A", ["complaint"])
 #         session.delete(q)
 #         commit()
 
+for instance in session.query(s):
+    session.delete(instance)
+    commit()
+
 
 forma = selectForm('Form A')
 print(forma)
