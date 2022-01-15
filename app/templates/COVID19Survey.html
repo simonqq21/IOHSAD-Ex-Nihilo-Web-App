@@ -32,30 +32,38 @@
 
           <form class="col-sm-8 shadow-lg p-5" method="POST" novalidate>
             {{ form.hidden_tag() }}
-            <div class="mb-3">
-              {{ form.name.label(class="form-label") }}
-              {{ form.name(class="form-control") }}
+
+            <div id="page-1">
+              <div class="mb-3">
+                {{ form.name.label(class="form-label") }}
+                {{ form.name(class="form-control") }}
+              </div>
+
+              <div class="mb-3">
+                {{ form.contactNo.label(class="form-label") }}
+                {{ form.contactNo(class="form-control") }}
+              </div>
+
+              <div class="mb-3">
+                {{ form.email.label(class="form-label") }}
+                {{ form.email(class="form-control") }}
+              </div>
+
+              <div class="mb-3">
+                {{ form.companyName.label(class="form-label") }}
+                {{ form.companyName(class="form-control") }}
+              </div>
+
+              <div class="mb-3">
+                {{ form.companyLocation.label(class="form-label") }}
+                {{ form.companyLocation(class="form-control") }}
+              </div>
+
+              <div class="mb-3">
+                <input class="btn btn-primary" type="button" name="goto-page2" id="goto-page2">
+              </div>
             </div>
 
-            <div class="mb-3">
-              {{ form.contactNo.label(class="form-label") }}
-              {{ form.contactNo(class="form-control") }}
-            </div>
-
-            <div class="mb-3">
-              {{ form.email.label(class="form-label") }}
-              {{ form.email(class="form-control") }}
-            </div>
-
-            <div class="mb-3">
-              {{ form.companyName.label(class="form-label") }}
-              {{ form.companyName(class="form-control") }}
-            </div>
-
-            <div class="mb-3">
-              {{ form.companyLocation.label(class="form-label") }}
-              {{ form.companyLocation(class="form-control") }}
-            </div>
 
             <div class="mb-3">
               {{ form.freeMassTesting() }}
