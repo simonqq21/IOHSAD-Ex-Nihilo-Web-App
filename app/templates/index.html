@@ -16,6 +16,15 @@
             </div>
         </header>
         <div class="row justify-content-sm-center mb-5">
+          {% with messages = get_flashed_messages() %}
+          {% if messages %}
+          <ul>
+            {% for message in messages %}
+            <li>{{message}}</li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+          {% endwith %}
             <div class="col-sm-8 shadow-lg p-5">
                 <h2 class="row">We want to help!</h2>
                 <div class="row">

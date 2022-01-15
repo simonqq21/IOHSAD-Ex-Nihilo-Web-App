@@ -1,72 +1,86 @@
-from app import db
 from datetime import date
 from sqlalchemy.orm import aliased
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-from app import login
+from sqlalchemy import create_engine
+from sqlalchemy.orm import Session, declarative_base, relationship, backref
+from sqlalchemy import Table, Column, ForeignKey, Integer, String, Float, Date, DateTime
+from sqlalchemy import select, insert, update, delete
+from sqlalchemy import func, cast
+from sqlalchemy.orm import Bundle, aliased
+from sqlalchemy import and_, or_
+from sqlalchemy.pool import StaticPool
+from sqlalchemy import UniqueConstraint
+from sqlalchemy import asc, desc
+import psycopg2
+
+# initialize psycopg2 engine to connect to postgresql db
+engine = create_engine("postgresql+psycopg2://simonque:12345678@localhost/swengdb", isolation_level="SERIALIZABLE")
+session = Session(engine)
+Base = declarative_base()
 
 # forms table class
-class Form(db.Model):
+class Form(Base):
     __tablename__ = 'Form'
-    id = db.Column(db.Integer, primary_key=True)
-    form_name = db.Column(db.String, unique=True)
+    id = Column(Integer, primary_key=True)
+    form_name = Column(String, unique=True)
 
-    questions = db.relationship("Question", back_populates="form", cascade="all, delete, delete-orphan")
-    submissions = db.relationship("Submission", back_populates="form", cascade="all, delete, delete-orphan")
+    questions = relationship("Question", back_populates="form", cascade="all, delete, delete-orphan")
+    submissions = relationship("Submission", back_populates="form", cascade="all, delete, delete-orphan")
 
     def __repr__(self):
         return f"Form(id={self.id!r}, form_name={self.form_name!r})"
 
 # questions table class
-class Question(db.Model):
+class Question(Base):
     __tablename__ = 'Question'
-    id = db.Column(db.Integer, primary_key = True)
-    form_id = db.Column(db.ForeignKey('Form.id'))
-    short_name = db.Column(db.String)
+    id = Column(Integer, primary_key = True)
+    form_id = Column(ForeignKey('Form.id'))
+    short_name = Column(String)
 
-    form_question = db.UniqueConstraint(form_id, short_name, name="form_question")
-    form = db.relationship("Form", back_populates="questions")
-    answers = db.relationship("Answer", back_populates="question", cascade="all, delete, delete-orphan")
+    form_question = UniqueConstraint(form_id, short_name, name="form_question")
+    form = relationship("Form", back_populates="questions")
+    answers = relationship("Answer", back_populates="question", cascade="all, delete, delete-orphan")
 
     def __repr__(self):
         return f"Question(id={self.id!r}, form_id={self.form_id!r}, short_name={self.short_name!r})"
 
 # submissions table class
-class Submission(db.Model):
+class Submission(Base):
     __tablename__ = 'Submission'
-    id = db.Column(db.Integer, primary_key = True)
-    date = db.Column(db.Date, nullable=False, default=date.today())
-    user_id = db.Column(db.ForeignKey("User.id"), nullable=False)
-    form_type = db.Column(db.ForeignKey('Form.id'), nullable=False)
+    id = Column(Integer, primary_key = True)
+    date = Column(Date, nullable=False, default=date.today())
+    user_id = Column(ForeignKey("User.id"), nullable=False)
+    form_type = Column(ForeignKey('Form.id'), nullable=False)
 
     # user_form = UniqueConstraint(user_id, form_type, name="user_form")
-    form = db.relationship("Form", back_populates="submissions")
-    user = db.relationship("User", back_populates="submissions")
-    answers = db.relationship("Answer", back_populates="submission", cascade="all, delete, delete-orphan")
+    form = relationship("Form", back_populates="submissions")
+    user = relationship("User", back_populates="submissions")
+    answers = relationship("Answer", back_populates="submission", cascade="all, delete, delete-orphan")
 
     def __repr__(self):
         return f"Submission(id={self.id!r}, date={self.date!r}, user_id={self.user_id!r}, \
             form_type={self.form_type!r})"
 
 # users table class
-class User(db.Model):
+class User(Base):
     __tablename__ = 'User'
-    id = db.Column(db.Integer, primary_key = True)
-    emailPhone = db.Column(db.String, unique=True, nullable=False)
-    username = db.Column(db.String, unique=True)
+    id = Column(Integer, primary_key = True)
+    emailPhone = Column(String, unique=True, nullable=False)
+    username = Column(String, unique=True)
 
-    submissions = db.relationship("Submission", back_populates="user", cascade="all, delete, delete-orphan")
+    submissions = relationship("Submission", back_populates="user", cascade="all, delete, delete-orphan")
 
     def __repr__(self):
         return f"User(id={self.id!r}, username={self.username!r})"
 
 # administrators class
-class Administrator(UserMixin, db.Model):
+class Administrator(UserMixin, Base):
     __tablename__ = 'Administrator'
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(120), nullable=False, index=True, unique=True)
-    email = db.Column(db.String(120), nullable=False, index=True, unique=True)
-    password_hash = db.Column(db.String(128))
+    id = Column(Integer, primary_key=True)
+    username = Column(String(120), nullable=False, index=True, unique=True)
+    email = Column(String(120), nullable=False, index=True, unique=True)
+    password_hash = Column(String(128))
 
     def __repr__(self):
         return f"Administrator(username={self.username!r}, email={self.email!r})"
@@ -77,20 +91,17 @@ class Administrator(UserMixin, db.Model):
     def check_password_hash(self, password):
         return check_password_hash(self.password_hash, password)
 
-@login.user_loader
-def load_admin(id):
-    return Administrator.query.get(int(id))
 
 # answers table class
-class Answer(db.Model):
+class Answer(Base):
     __tablename__ = 'Answer'
-    id = db.Column(db.Integer, primary_key=True)
-    submission_id = db.Column(db.ForeignKey("Submission.id"))
-    question_id = db.Column(db.ForeignKey('Question.id'))
-    answer_string = db.Column(db.String)
+    id = Column(Integer, primary_key=True)
+    submission_id = Column(ForeignKey("Submission.id"))
+    question_id = Column(ForeignKey('Question.id'))
+    answer_string = Column(String)
 
-    submission = db.relationship("Submission", back_populates="answers")
-    question = db.relationship("Question", back_populates="answers")
+    submission = relationship("Submission", back_populates="answers")
+    question = relationship("Question", back_populates="answers")
 
     def __repr__(self):
         return f"Answer(submission_id={self.submission_id!r}, question_id={self.question_id!r}, \
@@ -98,47 +109,47 @@ class Answer(db.Model):
 
 # uncomment to drop all tables, for testing only
 # try:
-#     db.engine.execute('''DROP TABLE "User" CASCADE''')
+#     engine.execute('''DROP TABLE "User" CASCADE''')
 # except Exception as err:
 #     print(err)
 #     pass
 # try:
-#     db.engine.execute('DROP TABLE "Question" CASCADE')
+#     engine.execute('DROP TABLE "Question" CASCADE')
 # except Exception as err:
 #     print(err)
 #     pass
 # try:
-#     db.engine.execute('DROP TABLE "Submission" CASCADE')
+#     engine.execute('DROP TABLE "Submission" CASCADE')
 # except Exception as err:
 #     print(err)
 #     pass
 # try:
-#     db.engine.execute('DROP TABLE "Form" CASCADE')
+#     engine.execute('DROP TABLE "Form" CASCADE')
 # except Exception as err:
 #     print(err)
 #     pass
 # try:
-#     db.engine.execute('DROP TABLE "Answer" CASCADE')
+#     engine.execute('DROP TABLE "Answer" CASCADE')
 # except Exception as err:
 #     print(err)
 #     pass
 
-db.create_all()
+Base.metadata.create_all(engine)
 # uncomment to drop all tables, for testing only
-# db.drop_all()
+# drop_all()
 
 def commit():
     try:
-        db.session.commit()
+        session.commit()
     except Exception as err:
         print(type(err))
         # print(err)
-        db.session.rollback()
-        db.session.close()
+        session.rollback()
+        session.close()
 
 def query(alias):
     items = []
-    for instance in db.session.query(alias):
+    for instance in session.query(alias):
         items.append(instance)
     print(items)
 
@@ -159,7 +170,7 @@ questions (list of strings) - the list of short question names
 '''
 def insertForm(formName, questions):
     newForm = Form(form_name=formName)
-    db.session.add(newForm)
+    session.add(newForm)
     commit()
     for question in questions:
         newForm.questions.append(Question(short_name=question))
@@ -170,7 +181,7 @@ method to select all forms that currently exist in the database.
 '''
 def selectAllFormNames():
     formnames = []
-    for instance in db.session.query(f):
+    for instance in session.query(f):
         formnames.append(instance)
     return formnames
 
@@ -180,7 +191,7 @@ Questions can be accessed from the form using the questions attribute of the for
 formNameLike (string) - form name search string wildcard
 '''
 def selectForm(formNameLike):
-    form = db.session.query(f).where(f.form_name.like(f"%{formNameLike}%")).first()
+    form = session.query(f).where(f.form_name.like(f"%{formNameLike}%")).first()
     return form
 
 '''
@@ -189,7 +200,7 @@ oldFormName (string)
 newFormName (string)
 '''
 def renameForm(oldFormName, newFormName):
-    form = db.session.query(f).where(f.form_name.like(f"{oldFormName}")).first()
+    form = session.query(f).where(f.form_name.like(f"{oldFormName}")).first()
     if form is not None:
         form.form_name = newFormName
         commit()
@@ -200,7 +211,7 @@ formName (string) - exact name of form
 questionShortNames (list of string) - list of question short names
 '''
 def addQuestionsToForm(formName, questionShortNames):
-    form = db.session.query(f).where(f.form_name.like(formName)).first()
+    form = session.query(f).where(f.form_name.like(formName)).first()
     if form is not None:
         for name in questionShortNames:
             try:
@@ -216,21 +227,21 @@ formName (string) - exact name of form
 questionShortNames (list of string) - list of question short names
 '''
 def deleteQuestions(formName, questionShortNames):
-    fId = db.session.query(f.id).where(f.form_name.like(formName)).first()[0]
+    fId = session.query(f.id).where(f.form_name.like(formName)).first()[0]
     print(fId)
     for name in questionShortNames:
-        question = db.session.query(q).where(and_(q.short_name.like(name), q.form_id == fId)).first()
+        question = session.query(q).where(and_(q.short_name.like(name), q.form_id == fId)).first()
         if question is not None:
-            db.session.delete(question)
+            session.delete(question)
             commit()
 
 '''
 method to delete a form together with all its questions
 '''
 def deleteForm(formName):
-    form = db.session.query(f).where(f.form_name.like(f"{formName}")).first()
+    form = session.query(f).where(f.form_name.like(f"{formName}")).first()
     if form is not None:
-        db.session.delete(form)
+        session.delete(form)
         commit()
 
 '''
@@ -245,28 +256,28 @@ def submitForm(submitDate, user, formName, questionsAndAnswers):
     submission.date = submitDate
     username = user[0]
     emailPhone = user[1]
-    user = db.session.query(u).where(u.username.like(username)).first()
+    user = session.query(u).where(u.username.like(username)).first()
     print(user)
     if user is None:
         user = User(username=username, emailPhone=emailPhone)
-        db.session.add(user)
+        session.add(user)
         commit()
     submission.user = user
     print("Form")
-    form = db.session.query(f).where(f.form_name.like(formName)).first()
+    form = session.query(f).where(f.form_name.like(formName)).first()
     print(f'form={form}')
     if form is not None:
         submission.form = form
 
         for qa in questionsAndAnswers:
-            # question = db.session.query(q).where(and_(q.short_name.like(qa[0]), q.form_id == form.id)).first()
-            question = db.session.query(q).where(q.short_name.like(qa[0])).first()
+            # question = session.query(q).where(and_(q.short_name.like(qa[0]), q.form_id == form.id)).first()
+            question = session.query(q).where(q.short_name.like(qa[0])).first()
             if question is not None:
                 print(question)
                 answer = Answer(answer_string = qa[1], question=question)
                 submission.answers.append(answer)
 
-        db.session.add(submission)
+        session.add(submission)
         commit()
 
 # insert forms A and B
@@ -434,3 +445,7 @@ addQuestionsToForm("Form A", ["complaint"])
 
 forma = selectForm('Form A')
 print(forma)
+print(forma.submissions)
+print(forma.questions)
+for q in forma.questions:
+    print(q.answers)

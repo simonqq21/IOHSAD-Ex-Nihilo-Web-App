@@ -28,7 +28,7 @@ def index():
 '''
 route for administrator login page
 '''
-@App.route('/adminlogin', methods=['GET', 'POST'])
+@App.route('/admin', methods=['GET', 'POST'])
 def adminlogin():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
@@ -45,7 +45,7 @@ def adminlogin():
 '''
 route for administrator logout page
 '''
-@App.route('/adminlogout', methods=['GET', 'POST'])
+@App.route('/logout', methods=['GET', 'POST'])
 def adminlogout():
     pass
 
@@ -78,14 +78,14 @@ def renderForm(formname):
         Complaint: {form.complaint.data}")
 
     if form.validate_on_submit():
-        flash("Validated")
-        flash(f"Username: {form.username.data}\n \
-        Company name: {form.companyName.data}\n \
-        Union present: {form.unionPresence.data}\n \
-        Union head contact no: {form.unionHeadContactNo.data}\n \
-        Union head email address: {form.unionHeadEmail.data}\n \
-        Contact number: {form.emailPhone.data}\n \
-        Complaint: {form.complaint.data}")
+        # flash("Validated")
+        # flash(f"Username: {form.username.data}\n \
+        # Company name: {form.companyName.data}\n \
+        # Union present: {form.unionPresence.data}\n \
+        # Union head contact no: {form.unionHeadContactNo.data}\n \
+        # Union head email address: {form.unionHeadEmail.data}\n \
+        # Contact number: {form.emailPhone.data}\n \
+        # Complaint: {form.complaint.data}")
 
         # insert the submission to the database
         username = form.username.data
@@ -97,6 +97,8 @@ def renderForm(formname):
                 questionsAndAnswers.append((qa.label.field_id, qa.data))
         print(questionsAndAnswers)
         submitForm(date.today(), (username, emailPhone), "Form A", questionsAndAnswers)
+        flash("Your form has been submitted. ")
+        return redirect(url_for('index'))
 
     return render_template(f"{formname}.html", title="Complaint Form", form=form)
 
