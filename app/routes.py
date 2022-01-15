@@ -3,9 +3,10 @@ from flask.helpers import make_response
 
 from app import App
 from datetime import datetime, date
-from app.models import submitForm, User, Administrator
+from app.models import submitForm, User, Administrator, selectForm
 from app.forms import AdminLoginForm
 from app.forms import ComplaintForm, COVID19Survey
+from openpyxl import Workbook
 
 from sqlalchemy import or_
 
@@ -102,6 +103,61 @@ def renderForm(formname):
         return redirect(url_for('index'))
 
     return render_template(f"{formname}.html", title="Complaint Form", form=form)
+
+'''
+
+'''
+@App.route('/export', methods=['GET', 'POST'])
+def exportFormSubmissions():
+    wb = Workbook()
+
+    ws = wb.active
+    ws1 = wb.create_sheet("new sheet 1")
+
+    form = selectForm('Form A')
+    questions = form.questions
+    questions.sort(key=lambda q: q.id)
+    submissions = form.submissions
+    submissions.sort(key=lambda s: s.id)
+    print(questions)
+    #
+    # export general complaint form
+    # write header
+    question_ids = []
+    i=0
+    ws['A1'] = 'username'
+    for col in ws.iter_cols(min_row=1, max_row=1, min_col=2, max_col=len(questions)):
+        for cell in col:
+            cell.value = questions[i].short_name
+            question_ids.append(questions[i].id)
+            i += 1
+
+    # write each submission row
+    i = 0
+    for row in ws.iter_rows(min_row=2, min_col=1, max_row=len(submissions)):
+        submission = submissions[i]
+        sid = submission.id
+        # print(f"sid={sid}")
+        answers = submission.answers
+
+        i += 1
+        j = 0
+        for cell in row:
+            if cell.column == 1:
+                username = submission.user.username
+                cell.value = username
+
+            else:
+                qid = question_ids[j]
+                answer = [a for a in answers if a.question_id == qid and a.submission_id == sid]
+                print(answer)
+                if len(answer):
+                    cell.value = answer[0].answer_string
+                j += 1
+
+    wb.save("x.xlsx")
+    return redirect(url_for('index'))
+
 
 @App.route('/uniqueUsername', methods=['GET'])
 def checkUsername():

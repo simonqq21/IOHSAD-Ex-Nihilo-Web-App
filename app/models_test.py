@@ -25,7 +25,7 @@ class Form(Base):
     id = Column(Integer, primary_key=True)
     form_name = Column(String, unique=True)
 
-    questions = relationship("Question", back_populates="form", cascade="all, delete, delete-orphan")
+    questions = relationship("Question", back_populates="form", cascade="all, delete, delete-orphan", lazy='dynamic')
     submissions = relationship("Submission", back_populates="form", cascade="all, delete, delete-orphan")
 
     def __repr__(self):
@@ -219,7 +219,6 @@ def addQuestionsToForm(formName, questionShortNames):
                 commit()
             except Exception as err:
                 print(type(err))
-
 
 '''
 method to remove a question from a form that exists
@@ -443,9 +442,19 @@ addQuestionsToForm("Form A", ["complaint"])
 # submitForm(date.today(), "tuser", "Form A", [("name", "Test1"), ("age", "232")])
 # submitForm(date.today(), "tuser3", "Form C", [("qB", "aB2"), ("qA", "aA2")])
 
+# forma = selectForm('Form A')
+# for q in forma.questions:
+#     if q.id < 68:
+#         session.delete(q)
+#         commit()
+
+
 forma = selectForm('Form A')
 print(forma)
-print(forma.submissions)
+# print(forma.submissions)
 print(forma.questions)
 for q in forma.questions:
-    print(q.answers)
+    answers = q.answers
+    print(type(answers))
+    print(answers)
+    print([a for a in answers if a.submission_id == 1])
