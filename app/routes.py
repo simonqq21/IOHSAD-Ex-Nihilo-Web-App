@@ -10,7 +10,7 @@ from openpyxl import Workbook
 
 from sqlalchemy import or_
 
-from flask_login import current_user, login_user
+from flask_login import current_user, login_user, login_required
 
 '''
 route for index page
@@ -33,28 +33,37 @@ route for administrator login page
 @App.route('/admin', methods=['GET', 'POST'])
 def adminlogin():
     if current_user.is_authenticated:
-        return redirect(url_for('index'))
+        return render_template('adminview.html', title='Administrator View')
     form = AdminLoginForm()
     if form.validate_on_submit():
         admin = Administrator.query.filter_by(or_(username=form.emailusername.data, email=form.emailusername.data)).first()
+        # wrong username or password
         if admin is None or not admin.check_password_hash(form.password.data):
             flash('Invalid username or password.')
             return redirect(url_for('adminlogin'))
+        # correct username and password
         login_user(admin, remember = form.remember_me.data)
-        return redirect(url_for('index'))
+        next_page = request.args.get('next')
+        if not next_page or url_parse(next_page).netloc != '':
+            next_page = url_for('index')
+        return redirect(next_page)
+        return render_template('adminview.html', title='Administrator View')
     return render_template('adminlogin.html', title='Administrator Sign In', form=form)
 
 '''
 route for administrator logout page
 '''
 @App.route('/logout', methods=['GET', 'POST'])
+@login_required
 def adminlogout():
-    pass
+    logout_user()
+    return redirect(url_for('adminlogin'))
 
 '''
 route for administrative view page
 '''
 @App.route('/adminview', methods=['GET', 'POST'])
+@login_required
 def adminview():
     pass
 
@@ -107,8 +116,10 @@ def renderForm(formname):
 '''
 
 '''
-@App.route('/export', methods=['GET', 'POST'])
+@App.route('/export')
 def exportFormSubmissions():
+    formname = request.args.get('formname')
+
     wb = Workbook()
 
     ws = wb.active
