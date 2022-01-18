@@ -113,6 +113,9 @@ def renderForm(formname):
 
     return render_template(f"{formname}.html", title="Complaint Form", form=form)
 
+@App.route('/test')
+def test():
+    return redirect(url_for('exportFormSubmissions', formname='Form A'))
 '''
 
 '''
@@ -125,7 +128,7 @@ def exportFormSubmissions():
     ws = wb.active
     ws1 = wb.create_sheet("new sheet 1")
 
-    form = selectForm('Form A')
+    form = selectForm(formname)
     questions = form.questions
     questions.sort(key=lambda q: q.id)
     submissions = form.submissions
