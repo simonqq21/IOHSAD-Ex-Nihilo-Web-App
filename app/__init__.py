@@ -13,5 +13,6 @@ db.init_app(App)
 db.create_all()
 
 login = LoginManager(App)
+login.login_view = 'adminlogin'
 
 from app import routes, models
