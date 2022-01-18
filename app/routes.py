@@ -34,7 +34,7 @@ route for administrator login page
 def adminlogin():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
-    form = AdminLoginForm
+    form = AdminLoginForm()
     if form.validate_on_submit():
         admin = Administrator.query.filter_by(or_(username=form.emailusername.data, email=form.emailusername.data)).first()
         if admin is None or not admin.check_password_hash(form.password.data):
@@ -42,7 +42,7 @@ def adminlogin():
             return redirect(url_for('adminlogin'))
         login_user(admin, remember = form.remember_me.data)
         return redirect(url_for('index'))
-    # return render_template()
+    return render_template('adminlogin.html', title='Administrator Sign In', form=form)
 
 '''
 route for administrator logout page
