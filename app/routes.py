@@ -10,7 +10,7 @@ from openpyxl import Workbook
 
 from sqlalchemy import or_
 
-from flask_login import current_user, login_user, login_required
+from flask_login import current_user, login_user, login_required, logout_user
 
 '''
 route for index page
@@ -36,17 +36,17 @@ def adminlogin():
         return render_template('adminview.html', title='Administrator View')
     form = AdminLoginForm()
     if form.validate_on_submit():
-        admin = Administrator.query.filter_by(or_(username=form.emailusername.data, email=form.emailusername.data)).first()
+        admin = Administrator.query.where(or_(Administrator.username==form.emailusername.data, Administrator.email==form.emailusername.data)).first()
         # wrong username or password
         if admin is None or not admin.check_password_hash(form.password.data):
             flash('Invalid username or password.')
             return redirect(url_for('adminlogin'))
         # correct username and password
         login_user(admin, remember = form.remember_me.data)
-        next_page = request.args.get('next')
-        if not next_page or url_parse(next_page).netloc != '':
-            next_page = url_for('index')
-        return redirect(next_page)
+        # next_page = request.args.get('next')
+        # if not next_page or url_parse(next_page).netloc != '':
+        #     next_page = url_for('index')
+        # return redirect(next_page)
         return render_template('adminview.html', title='Administrator View')
     return render_template('adminlogin.html', title='Administrator Sign In', form=form)
 

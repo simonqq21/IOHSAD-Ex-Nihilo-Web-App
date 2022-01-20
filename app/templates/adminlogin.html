@@ -8,20 +8,35 @@
     <body>
         <div class="container-fluid bg-light">
             <div class="row justify-content-center">
-                <form class="col-sm-5 shadow-lg p-5">
+                <form class="col-sm-5 shadow-lg p-5" method="POST" novalidate>
+                  {{ form.hidden_tag() }}
                     <div class="mb-3">
-                        <label for="username">Username</label>
-                        <input type="text" name="username" id="username">
+                      {{ form.emailusername.label(class="form-label") }}
+                      {{ form.emailusername(class="form-control") }}
+                        <!-- <label for="username">Username</label>
+                        <input type="text" name="username" id="username"> -->
                     </div>
 
                     <div class="mb-3">
-                        <label for="password">Password</label>
-                        <input type="password" name="password" id="password">
+                      {{ form.password.label(class="form-label") }}
+                      {{ form.password(class="form-control") }}
+                        <!-- <label for="password">Password</label>
+                        <input type="password" name="password" id="password"> -->
                     </div>
 
                     <div class="mb-3">
-                        <label for="login">Login</label>
-                        <input class="btn btn-primary" type="button" name="login" id="login">
+                      {{ form.remember_me.label(class="form-label") }}
+                      {{ form.remember_me() }}
+                      <!-- class="form-control" -->
+                        <!-- <label for="password">Password</label>
+                        <input type="password" name="password" id="password"> -->
+                    </div>
+
+                    <div class="mb-3">
+                      {{ form.login.label(class="form-label") }}
+                      {{ form.login(class="form-control") }}
+                        <!-- <label for="login">Login</label>
+                        <input class="btn btn-primary" type="button" name="login" id="login"> -->
                     </div>
                 </form>
             </div>

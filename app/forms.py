@@ -51,6 +51,7 @@ Administrator login form
 class AdminLoginForm(FlaskForm):
     emailusername = StringField("Email or username:", validators=[DataRequired(), InputRequired()])
     password = PasswordField("Password:", validators=[DataRequired(), InputRequired()])
+    remember_me = BooleanField("Remember Me")
     login = SubmitField("Login")
 
 '''
