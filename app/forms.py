@@ -128,8 +128,7 @@ class COVID19Survey(FlaskForm):
     email = EmailField("E-mail address*", validators=[DataRequired(), InputRequired()])
     companyName = StringField("Pangalan ng Kumpanya*", validators=[DataRequired(), InputRequired()])
     companyLocation = SelectField("Lokasyon ng Kumpanya*", choices=PHRegions, validators=[DataRequired(), InputRequired()])
-    freeMassTesting = BooleanField("Nagsagawa ba ng free mass testing ang kumpanya sa hanay ng mga manggagawa?*",
-        default="Oo", false_values=(False, "Wala"), validators=[DataRequired(), InputRequired()])
+    freeMassTesting = BooleanField("Nagsagawa ba ng free mass testing ang kumpanya sa hanay ng mga manggagawa?*", default="Oo", false_values=(False, "Wala"), validators=[DataRequired(), InputRequired()])
     freeMassTestingDetails = StringField("Kung oo, paano tinukoy ang mga dapat sumailalim sa test? Anong klaseng test \
         (rapid antibody test o rt-PCR/swab test) at saan ito isinagawa?")
     dailyHealthMonitoring = BooleanField("Nagsasagawa ba ang kumpanya ng daily health monitoring tulad ng pag-check ng \
