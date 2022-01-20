@@ -34,6 +34,7 @@
             {{ form.hidden_tag() }}
 
             <div id="page-1">
+              page 1
               <div class="mb-3">
                 {{ form.name.label(class="form-label") }}
                 {{ form.name(class="form-control") }}
@@ -64,15 +65,27 @@
               </div>
             </div>
 
+            <div id="page-2">
+              page 2
+              <div class="mb-3">
+                {{ form.freeMassTesting() }}
+                {{ form.freeMassTesting.label() }}<br>
+              </div>
+  
+              <div class="mb-3 ">
+                {{ form.freeMassTestingDetails.label(class="form-label") }}
+                {{ form.freeMassTestingDetails(class="form-control") }}
+              </div>
 
-            <div class="mb-3">
-              {{ form.freeMassTesting() }}
-              {{ form.freeMassTesting.label() }}<br>
-            </div>
+              <div class="mb-3">
+                {{ form.dailyHealthMonitoring.label(class="form-label") }}
+                {{ form.daylyHealthMonitoring(class="form-control") }}
+              </div>
 
-            <div class="mb-3 ">
-              {{ form.freeMassTestingDetails.label(class="form-label") }}
-              {{ form.freeMassTestingDetails(class="form-control") }}
+              <div class="mb-3">
+                distancing
+              </div>
+
             </div>
 
             <div class="mb-3 ">
