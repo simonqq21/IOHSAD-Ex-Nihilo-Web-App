@@ -121,10 +121,10 @@ def test():
 '''
 @App.route('/export')
 def exportFormSubmissions():
+    # get the form name 
     formname = request.args.get('formname')
 
     wb = Workbook()
-
     ws = wb.active
     ws1 = wb.create_sheet("new sheet 1")
 
