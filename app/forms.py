@@ -137,11 +137,10 @@ class COVID19Survey(FlaskForm):
     distancing = BooleanField("Naipatutupad ba ang physical at social distancing sa iba’t ibang erya ng \
         lugar-paggawa – production area, canteen, pantry, office, locker area, exit and \
         entrance, at iba pa?*", default="Oo", false_values=(False, "Wala"), validators=[DataRequired(), InputRequired()])
-#    distancingHardToImplementArea = StringField("Saang erya sa lugar-paggawa pinakamahirap ipatupad ang physical at social distancing?*", \
-#        validators=[DataRequired(), InputRequired()])
-#    supplements = BooleanField("Nagbigay ba ng libreng mga bitamina o iba pang pagkain/suplay na makatutulong \
-#        sa pagpapalakas ng resistensya ng mga manggagawa?*", default="Oo", false_values=(False, "Wala"), validators=[DataRequired(), InputRequired()])
-#    supplementList = StringField("Kung oo, anu-ano ang mga ito?")
+    distancingHardToImplementArea = StringField("Saang erya sa lugar-paggawa pinakamahirap ipatupad ang physical at social distancing?*", validators=[DataRequired(), InputRequired()])
+    supplements = BooleanField("Nagbigay ba ng libreng mga bitamina o iba pang pagkain/suplay na makatutulong \
+        sa pagpapalakas ng resistensya ng mga manggagawa?*", default="Oo", false_values=(False, "Wala"), validators=[DataRequired(), InputRequired()])
+    supplementList = StringField("Kung oo, anu-ano ang mga ito?")
 #    mhprograms = BooleanField("May programa ba para sa mental health ng mga manggagawa ang kumpanya?*", default="Oo", \
 #        false_values=(False, "Wala"), validators=[DataRequired(), InputRequired()])
 #    freePPE = BooleanField("Nagbibigay ba ang kumpanya ng libreng personal protective equipment (PPE) sa \
