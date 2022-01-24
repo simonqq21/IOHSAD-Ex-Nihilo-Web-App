@@ -144,10 +144,130 @@
                 {{ form.hoursPerDay.label(class="form-label") }}
                 {{ form.hoursPerDay(class="form-control") }}
               </div>
+
+              <div class="mb-3">
+                {{ form.overtime.label(class="form-check-label") }}
+                {{ form.overtime(class="form-check") }}
+              </div>
+
+              <div class="mb-3">
+                {{ form.covidInformationCampaign.label(class="form-check-label") }}
+                {{ form.covidInformationCampaign(class="form-check") }}
+              </div>
+
+              <div class="mb-3">
+                {{ form.covidInformationCampaignDetails.label(class="form-check-label") }}
+                {{ form.covidInformationCampaignDetails(class="form-check") }}
+              </div>
+
+              <div class="mb-3">
+                {{ form.freeSafeTransportation.label(class="form-check-label") }}
+                {{ form.freeSafeTransportation(class="form-check") }}
+              </div>
+
+              <div class="mb-3">
+                {{ form.freeSafeTransportationDetails.label(class="form-label") }}
+                {{ form.freeSafeTransportationDetails(class="form-control") }}
+              </div>
+
+              <div class="mb-3">
+                {{ form.freeSafeAccomodation.label(class="form-check-label") }}
+                {{ form.freeSafeAccomodation(class="form-check") }}
+              </div>
+
+              <div class="mb-3">
+                {{ form.freeSafeAccomodationDetails.label(class="form-label") }}
+                {{ form.freeSafeAccomodationDetails(class="form-control") }}
+              </div>
+
+              <div class="mb-3">
+                {{ form.freeMedicalCheckup.label(class="form-check-label") }}
+                {{ form.freeMedicalCheckup(class="form-check") }}
+              </div>
+
+              <div class="mb-3">
+                {{ form.covidRiskAssessment.label(class="form-check-label") }}
+                {{ form.covidRiskAssessment(class="form-check") }}
+              </div>
+
+              <div class="mb-3">
+                {{ form.isolationRoomPresent.label(class="form-check-label") }}
+                {{ form.isolationRoomPresent(class="form-check") }}
+              </div>
+
+              <div class="mb-3">
+                {{ form.actionTakenForCOVID.label(class="form-label") }}
+                {{ form.actionTakenForCOVID(class="form-control") }}
+              </div>
+
+              <div class="mb-3">
+                {{ form.COVIDCaseConfirmed.label(class="form-check-label") }}
+                {{ form.COVIDCaseConfirmed(class="form-check") }}
+              </div>
+
+              <div class="mb-3">
+                {{ form.numberOfCOVIDCasesConfirmed(class="form-select") }}
+              </div>
+
+              <div class="mb-3">
+                {{ form.companyPaysForTreatment.label(class="form-check-label") }}
+                {{ form.companyPaysForTreatment(class="form-check") }}
+              </div>
+
+              <div class="mb-3">
+                {{ form.contactTracing.label(class="form-check-label") }}
+                {{ form.contactTracing(class="form-check") }}
+              </div>
+
+              <div class="mb-3">
+                {{ form.quarantineProcessForContacted.label(class="form-check-label") }}
+                {{ form.quarantineProcessForContacted(class="form-check") }}
+              </div>
+
+              <div class="mb-3">
+                <input class="btn btn-primary" value="Next" type="button" name="goto-page4" id="goto-page4">
+              </div>
             </div>
 
-            <div class="mb-3 ">
-              {{ form.submit(class="btn btn-primary") }}
+            <div id="page-4">
+              <div class="mb-3">
+                {{ form.sickSalary.label(class="form-check-label") }}
+                {{ form.sickSalary(class="form-check") }}
+              </div>
+
+              <div class="mb-3">
+                {{ form.sickHealthMonitoring.label(class="form-check-label") }}
+                {{ form.sickHealthMonitoring(class="form-check") }}
+              </div>
+
+              <div class="mb-3">
+                {{ form.healthInsurance.label(class="form-check-label") }}
+                {{ form.healthInsurance(class="form-check") }}
+              </div>
+
+              <div class="mb-3">
+                {{ form.hazardPay.label(class="form-check-label") }}
+                {{ form.hazardPay(class="form-check") }}
+              </div>
+
+              <div class="mb-3">
+                {{ form.admissionOfVulnerable.label(class="form-check-label") }}
+                {{ form.admissionOfVulnerable(class="form-check") }}
+              </div>
+
+              <div class="mb-3">
+                {{ form.OSHCommittee.label(class="form-check-label") }}
+                {{ form.OSHCommittee(class="form-check") }}
+              </div>
+
+              <div class="mb-3">
+                {{ form.DOLEInspection.label(class="form-check-label") }}
+                {{ form.DOLEInspection(class="form-check") }}
+              </div>
+
+              <div class="mb-3">
+                {{ form.submit(class="btn btn-primary") }}
+              </div>
             </div>
           </form>
 
