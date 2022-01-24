@@ -141,18 +141,16 @@ class COVID19Survey(FlaskForm):
     supplements = BooleanField("Nagbigay ba ng libreng mga bitamina o iba pang pagkain/suplay na makatutulong \
         sa pagpapalakas ng resistensya ng mga manggagawa?*", default="Oo", false_values=(False, "Wala"), validators=[DataRequired(), InputRequired()])
     supplementList = StringField("Kung oo, anu-ano ang mga ito?")
-#    mhprograms = BooleanField("May programa ba para sa mental health ng mga manggagawa ang kumpanya?*", default="Oo", \
-#        false_values=(False, "Wala"), validators=[DataRequired(), InputRequired()])
-#    freePPE = BooleanField("Nagbibigay ba ang kumpanya ng libreng personal protective equipment (PPE) sa \
-#        mga manggagawa?*", default="Oo", false_values=(False, "Wala"), validators=[DataRequired(), InputRequired()])
-#    freePPEDetails = StringField("Anu-ano ang mga PPE na ipinamimigay at gaano kadalas palitan?")
-#    adequateSoapAndWater = BooleanField("May sapat bang suplay ng tubig at sabon sa lugar-paggawa para sa madalas na \
-#        paghuhugas ng mga kamay ng manggagawa?*", default="Oo", false_values=(False, "Wala"), validators=[DataRequired(), InputRequired()])
-#    freeRubbingAlcohol = BooleanField("May ipanamimigay bang libreng alcohol o hand sanitizer ang kumpanya sa mga manggagawa?*", \
-#        default="Oo", false_values=(False, "Wala"), validators=[DataRequired(), InputRequired()])
-#    regularDisinfection = BooleanField("Nagsasagawa ba ng regular na disinfection ang kumpanya sa iba’t ibang erya sa \
-#        loob ng lugar-paggawa?*", default="Oo", false_values=(False, "Wala"), validators=[DataRequired(), InputRequired()])
-#    hoursPerDay = IntegerField("Ilang oras ang pasok ninyo sa trabaho ngayong panahon ng pandemya?*")
+    mhprograms = BooleanField("May programa ba para sa mental health ng mga manggagawa ang kumpanya?*", default="Oo", false_values=(False, "Wala"), validators=[DataRequired(), InputRequired()])
+    freePPE = BooleanField("Nagbibigay ba ang kumpanya ng libreng personal protective equipment (PPE) sa \
+        mga manggagawa?*", default="Oo", false_values=(False, "Wala"), validators=[DataRequired(), InputRequired()])
+    freePPEDetails = StringField("Anu-ano ang mga PPE na ipinamimigay at gaano kadalas palitan?")
+    adequateSoapAndWater = BooleanField("May sapat bang suplay ng tubig at sabon sa lugar-paggawa para sa madalas na \
+        paghuhugas ng mga kamay ng manggagawa?*", default="Oo", false_values=(False, "Wala"), validators=[DataRequired(), InputRequired()])
+    freeRubbingAlcohol = BooleanField("May ipanamimigay bang libreng alcohol o hand sanitizer ang kumpanya sa mga manggagawa?*", default="Oo", false_values=(False, "Wala"), validators=[DataRequired(), InputRequired()])
+    regularDisinfection = BooleanField("Nagsasagawa ba ng regular na disinfection ang kumpanya sa iba’t ibang erya sa \
+        loob ng lugar-paggawa?*", default="Oo", false_values=(False, "Wala"), validators=[DataRequired(), InputRequired()])
+    hoursPerDay = IntegerField("Ilang oras ang pasok ninyo sa trabaho ngayong panahon ng pandemya?*")
 #    overtime = BooleanField("May overtime bang ipinapatupad ang kumpanya?*", default="Oo", false_values=(False, "Wala"), validators=[DataRequired(), InputRequired()])
 #    covidInformationCampaign = BooleanField("Nagsasagawa ba ng information and awareness campaign ang kumpanya hinggil sa \
 #        COVID-19 at kung paano magiging ligtas sa impeksyon ang mga manggagawa at mapigilan \
