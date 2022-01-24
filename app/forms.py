@@ -184,7 +184,7 @@ class COVID19Survey(FlaskForm):
     hazardPay = BooleanField("May hazard pay bang natatanggap ang mga manggagawa?*", default="Oo", false_values=(False, "Wala"), validators=[DataRequired(), InputRequired()])
     admissionOfVulnerable = BooleanField("Pinapapasok ba ang bulnerableng seksyon ng mga manggagawa (may mga comorbidity \
         o pre-existing illness, high risk pregnancy o 60 years old and above)?*", default="Oo", false_values=(False, "Wala"), validators=[DataRequired(), InputRequired()])
-#    OSHCommittee = BooleanField("May nakatayo bang occupational safety and health (OSH) committee?*", default="Oo", false_values=(False, "Wala"), validators=[DataRequired(), InputRequired()])
-#    DOLEInspection = BooleanField("Nagsagawa ba ng inspeksyon ang Department of Labor and Employment para subaybayan \
-#        ang pagpapatupad ng kumpanya ng mga prevention and control measure para sa COVID-19?*", default="Oo", false_values=(False, "Wala"), validators=[DataRequired(), InputRequired()])
+    OSHCommittee = BooleanField("May nakatayo bang occupational safety and health (OSH) committee?*", default="Oo", false_values=(False, "Wala"), validators=[DataRequired(), InputRequired()])
+    DOLEInspection = BooleanField("Nagsagawa ba ng inspeksyon ang Department of Labor and Employment para subaybayan \
+        ang pagpapatupad ng kumpanya ng mga prevention and control measure para sa COVID-19?*", default="Oo", false_values=(False, "Wala"), validators=[DataRequired(), InputRequired()])
     submit = SubmitField("Submit Form (Ipasa ang form)")
