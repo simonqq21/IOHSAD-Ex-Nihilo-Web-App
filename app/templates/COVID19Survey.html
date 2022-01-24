@@ -103,12 +103,47 @@
               </div>
 
               <div class="mb-3">
+                {{ form.mhprograms.label(class="form-check-label") }}
+                {{ form.mhprograms(class="form-check") }}
+              </div>
+
+              <div class="mb-3">
+                {{ form.freePPE.label(class="form-check-label") }}
+                {{ form.freePPE(class="form-check") }}
+              </div>
+
+              <div class="mb-3">
+                {{ form.freePPEDetails.label(class="form-label") }}
+                {{ form.freePPEDetails(class="form-control") }}
+              </div>
+
+              <div class="mb-3">
+                {{ form.adequateSoapAndWater.label(class="form-check-label") }}
+                {{ form.adequateSoapAndWater(class="form-check") }}
+              </div>
+
+              <div class="mb-3">
+                {{ form.freeRubbingAlcohol.label(class="form-check-label") }}
+                {{ form.freeRubbingAlcohol(class="form-check") }}
+              </div>
+
+              <div class="mb-3">
+                {{ form.regularDisinfection.label(class="form-check-label") }}
+                {{ form.regularDisinfection(class="form-check") }}
+              </div>
+
+              <div class="mb-3">
                 <input class="btn btn-primary" value="Next" type="button" name="goto-page3" id="goto-page3">
               </div>
             </div>
 
             <div id="page-3">
               page 3
+
+              <div class="mb-3">
+                {{ form.hoursPerDay.label(class="form-label") }}
+                {{ form.hoursPerDay(class="form-control") }}
+              </div>
             </div>
 
             <div class="mb-3 ">
