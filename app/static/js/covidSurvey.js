@@ -4,7 +4,7 @@ $(document).ready(() => {
     var page2 = $("#page-2");
     var page3 = $("#page-3");
     var page4 = $("#page-4");
-    updatePage(currentPage)
+    updatePage(currentPage);
 
     function updatePage(currentPage){
         switch(currentPage){
@@ -42,6 +42,11 @@ $(document).ready(() => {
 
     $(".next-page").click(() => {
         currentPage++;
-        updatePage(currentPage)
+        updatePage(currentPage);
     })
+
+    $(".previous-page").click(() => {
+        currentPage--;
+        updatePage(currentPage);
+    });
 });

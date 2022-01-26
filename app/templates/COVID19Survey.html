@@ -61,7 +61,9 @@
               </div>
 
               <div class="mb-3">
-                <input class="btn btn-primary next-page" value="Next" type="button" name="goto-page2" id="goto-page2">
+                <ul class="pagination">
+                  <li class="page-item"><input class="btn btn-primary next-page" value="Next" type="button" name="goto-page2" id="goto-page2"></li>
+                </ul>
               </div>
             </div>
 
@@ -133,7 +135,10 @@
               </div>
 
               <div class="mb-3">
-                <input class="btn btn-primary next-page" value="Next" type="button" name="goto-page3">
+                <ul class="pagination">
+                  <li class="page-item"><input class="btn btn-primary previous-page" type="button" value="Previous"></li>
+                  <li class="page-item"><input class="btn btn-primary next-page" value="Next" type="button" name="goto-page3"></li>
+                </ul>
               </div>
             </div>
 
@@ -226,6 +231,10 @@
               </div>
 
               <div class="mb-3">
+                <ul class="pagination">
+                  <li class="page-item"><input class="btn btn-primary previous-page" value="Previous" type="button" name="goto-page4"></li>
+                  <li class="page-item"><input class="btn btn-primary next-page" value="Next" type="button" name="goto-page4"></li>
+                </ul>
                 <input class="btn btn-primary next-page" value="Next" type="button" name="goto-page4">
               </div>
             </div>
@@ -268,7 +277,10 @@
               </div>
 
               <div class="mb-3">
-                {{ form.submit(class="btn btn-primary") }}
+                <ul class="pagination">
+                  <li class="page-item"><input class="btn btn-primary previous-page" value="Previous" type="button" name="goto-page4"></li>
+                  <li class="page-item">{{ form.submit(class="btn btn-primary") }}</li>
+                </ul>
               </div>
             </div>
           </form>
