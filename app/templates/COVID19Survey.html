@@ -222,7 +222,7 @@
                 {{ form.quarantineProcessForContacted.label(class="col-sm-11 form-check-label") }}
               </div>
 
-              <div class="mb-3 row">               
+              <div class="mb-3 row justify-content-end">               
                   <input class="btn btn-primary previous-page col-sm-1 order-first me-5" value="Previous" type="button" name="goto-page4">
                   <input class="btn btn-primary next-page col-sm-1 order-last" value="Next" type="button" name="goto-page4">               
               </div>
@@ -264,10 +264,9 @@
                 {{ form.DOLEInspection.label(class="col-sm-11 form-check-label") }}
               </div>
 
-              <div class="mb-3">
-                <ul class="pagination">
+              <div class="mb-3 justify-content-end">
                   <input class="btn btn-primary previous-page col-sm-1 me-5 order-first" value="Previous" type="button" name="goto-page4">
-                  {{ form.submit(class="btn btn-primary order-last") }}
+                  {{ form.submit(class="btn btn-primary order-last col-sm-1 me-5") }}
               </div>
             </div>
           </form>
