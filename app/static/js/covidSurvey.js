@@ -5,6 +5,7 @@ $(document).ready(() => {
     var page3 = $("#page-3");
     var page4 = $("#page-4");
     updatePage(currentPage);
+    $("#goto-page2").prop('disabled', true);
 
     function updatePage(currentPage){
         switch(currentPage){
