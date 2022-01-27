@@ -59,10 +59,8 @@
                 {{ form.companyLocation(class="form-control") }}
               </div>
 
-              <div class="mb-3">
-                <ul class="pagination">
-                  <li class="page-item"><input class="btn btn-primary next-page" value="Next" type="button" name="goto-page2" id="goto-page2"></li>
-                </ul>
+              <div class="mb-3 row">
+                  <input class="btn btn-primary next-page col-sm-1 order-last" value="Next" type="button" name="goto-page2" id="goto-page2">
               </div>
             </div>
 
@@ -132,11 +130,9 @@
                 {{ form.regularDisinfection.label(class="form-check-label") }}
               </div>
 
-              <div class="mb-3">
-                <ul class="pagination">
-                  <li class="page-item"><input class="btn btn-primary previous-page" type="button" value="Previous"></li>
-                  <li class="page-item"><input class="btn btn-primary next-page" value="Next" type="button" name="goto-page3"></li>
-                </ul>
+              <div class="mb-3 row">
+                  <input class="btn btn-primary previous-page col-sm-1 order-first" type="button" value="Previous"></li>
+                  <input class="btn btn-primary next-page col-sm-1 order-last" value="Next" type="button" name="goto-page3">
               </div>
             </div>
 
@@ -226,11 +222,9 @@
                 {{ form.quarantineProcessForContacted.label(class="form-check-label") }}
               </div>
 
-              <div class="mb-3">
-                <ul class="pagination">
-                  <li class="page-item"><input class="btn btn-primary previous-page" value="Previous" type="button" name="goto-page4"></li>
-                  <li class="page-item"><input class="btn btn-primary next-page" value="Next" type="button" name="goto-page4"></li>
-                </ul>
+              <div class="mb-3 row">               
+                  <input class="btn btn-primary previous-page col-sm-1 order-first" value="Previous" type="button" name="goto-page4">
+                  <input class="btn btn-primary next-page col-sm-1 order-last" value="Next" type="button" name="goto-page4">               
               </div>
             </div>
 
