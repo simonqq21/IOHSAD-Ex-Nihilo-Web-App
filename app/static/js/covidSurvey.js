@@ -53,8 +53,7 @@ $(document).ready(() => {
     });
 
     $("#contactNo").keyup(() =>{
-        var validNumber = $.isNumeric($("#contactNo"));
-        if(validNumber){
+        if($.isNumeric($("#contactNo").val())){
             $("#contactNo-error").text("valid contact number");
             $("#goto-page2").prop('disabled', true);
         }
