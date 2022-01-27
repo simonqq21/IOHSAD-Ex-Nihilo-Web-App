@@ -31,8 +31,9 @@
           {% endwith %}
 
           <form class="col-sm-8 shadow-lg p-5" method="POST" novalidate>
-            <div class="form-title">
-              <h1>COVID-19 Health Protocol Form</h1>
+            <div class="form-title row">
+              <h1 class="col-sm-10">COVID-19 Health Protocol Form</h1>
+              <a href="/"><input class="btn btn-primary col-sm-2" type="button" value="Select Another Form"></a>
             </div>
             {{ form.hidden_tag() }}
 
