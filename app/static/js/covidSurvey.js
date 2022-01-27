@@ -42,7 +42,7 @@ $(document).ready(() => {
     }
 
     $("#name").keyup(() =>{
-        if($(this).val().length < 0){
+        if($("#name").val().length < 0){
             $("#name-error").text("invalid name");
             $("#goto-page2").prop('disabled', true);
         }
@@ -53,7 +53,7 @@ $(document).ready(() => {
     });
 
     $("#contactNo").keyup(() =>{
-        var validNumber = $.isNumeric(this);
+        var validNumber = $.isNumeric($("#contactNo"));
         if(validNumber){
             $("#contactNo-error").text("valid contact number");
             $("#goto-page2").prop('disabled', true);
