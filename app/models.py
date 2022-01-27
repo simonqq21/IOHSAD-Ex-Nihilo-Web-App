@@ -4,6 +4,7 @@ from sqlalchemy.orm import aliased
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from app import login
+from sqlalchemy import or_, and_
 
 # forms table class
 class Form(db.Model):
@@ -52,7 +53,7 @@ class Submission(db.Model):
 class User(db.Model):
     __tablename__ = 'User'
     id = db.Column(db.Integer, primary_key = True)
-    emailPhone = db.Column(db.String, unique=True, nullable=False)
+    contactNumber = db.Column(db.String, unique=True, nullable=False)
     username = db.Column(db.String, unique=True)
 
     submissions = db.relationship("Submission", back_populates="user", cascade="all, delete, delete-orphan")
@@ -242,7 +243,7 @@ def deleteForm(formName):
 '''
 method to insert a form submission together with the user and all answers
 date (date) - date submitted
-user (tuple of string) - user represented by tuple (<username>, <emailPhone>)
+user (tuple of string) - user represented by tuple (<username>, <contactNumber>)
 formname (string) - form name
 questionsAndAnswers (list of tuples) - list of tuples containing the question short name and answer
 '''
@@ -250,11 +251,11 @@ def submitForm(submitDate, user, formName, questionsAndAnswers):
     submission = Submission()
     submission.date = submitDate
     username = user[0]
-    emailPhone = user[1]
+    contactNumber = user[1]
     user = db.session.query(u).where(u.username.like(username)).first()
     print(user)
     if user is None:
-        user = User(username=username, emailPhone=emailPhone)
+        user = User(username=username, contactNumber=contactNumber)
         db.session.add(user)
         commit()
     submission.user = user
@@ -266,10 +267,11 @@ def submitForm(submitDate, user, formName, questionsAndAnswers):
 
         for qa in questionsAndAnswers:
             # question = db.session.query(q).where(and_(q.short_name.like(qa[0]), q.form_id == form.id)).first()
-            question = db.session.query(q).where(q.short_name.like(qa[0])).first()
+            question = db.session.query(q).where(and_(q.short_name.like(qa[0]), q.form_id == submission.form.id)).first()
             if question is not None:
                 print(question)
                 answer = Answer(answer_string = qa[1], question=question)
+                print(answer)
                 submission.answers.append(answer)
 
         db.session.add(submission)

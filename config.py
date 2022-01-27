@@ -9,3 +9,6 @@ class Config(object):
 
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+
+    UPLOAD_FOLDER = APP_ROOT + '/files'
