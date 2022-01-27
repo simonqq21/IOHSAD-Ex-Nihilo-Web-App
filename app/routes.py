@@ -6,11 +6,12 @@ from datetime import datetime, date
 from app.models import submitForm, User, Administrator, selectForm
 from app.forms import AdminLoginForm
 from app.forms import ComplaintForm, COVID19Survey
-from openpyxl import Workbook
-
+from app import db
 from sqlalchemy import or_
 
 from flask_login import current_user, login_user, login_required, logout_user
+
+from openpyxl import Workbook
 
 '''
 route for index page
@@ -36,7 +37,8 @@ def adminlogin():
         return render_template('adminview.html', title='Administrator View')
     form = AdminLoginForm()
     if form.validate_on_submit():
-        admin = Administrator.query.where(or_(Administrator.username==form.emailusername.data, Administrator.email==form.emailusername.data)).first()
+        admin = Administrator.query.where(or_(
+        Administrator.username==form.emailusername.data, Administrator.email==form.emailusername.data)).first()
         # wrong username or password
         if admin is None or not admin.check_password_hash(form.password.data):
             flash('Invalid username or password.')
@@ -79,35 +81,26 @@ def renderForm(formname):
     elif formname == "COVID19Survey":
         form = COVID19Survey()
 
-    if request.method == 'POST':
-        print(f"Username: {form.username.data}\n \
-        Company name: {form.companyName.data}\n \
-        Union present: {form.unionPresence.data}\n \
-        Union head contact no: {form.unionHeadContactNo.data}\n \
-        Union head email address: {form.unionHeadEmail.data}\n \
-        Contact number: {form.emailPhone.data}\n \
-        Complaint: {form.complaint.data}")
+    # if request.method == 'POST':
+    #     print(f"Username: {form.username.data}\n \
+    #     Company name: {form.companyName.data}\n \
+    #     Union present: {form.unionPresence.data}\n \
+    #     Union head contact no: {form.unionHeadContactNo.data}\n \
+    #     Union head email address: {form.unionHeadEmail.data}\n \
+    #     Contact number: {form.emailPhone.data}\n \
+    #     Complaint: {form.complaint.data}")
 
     if form.validate_on_submit():
-        # flash("Validated")
-        # flash(f"Username: {form.username.data}\n \
-        # Company name: {form.companyName.data}\n \
-        # Union present: {form.unionPresence.data}\n \
-        # Union head contact no: {form.unionHeadContactNo.data}\n \
-        # Union head email address: {form.unionHeadEmail.data}\n \
-        # Contact number: {form.emailPhone.data}\n \
-        # Complaint: {form.complaint.data}")
-
         # insert the submission to the database
         username = form.username.data
-        emailPhone = form.emailPhone.data
+        contactNumber = form.contactNumber.data
         questionsAndAnswers = []
         for qa in form:
             # ignore the submit and csrf token fields
             if qa.label.field_id not in ("submit", "csrf_token"):
                 questionsAndAnswers.append((qa.label.field_id, qa.data))
         print(questionsAndAnswers)
-        submitForm(date.today(), (username, emailPhone), "Form A", questionsAndAnswers)
+        submitForm(date.today(), (username, contactNumber), "Form A", questionsAndAnswers)
         flash("Your form has been submitted. ")
         return redirect(url_for('index'))
 
@@ -121,7 +114,7 @@ def test():
 '''
 @App.route('/export')
 def exportFormSubmissions():
-    # get the form name 
+    # get the form name
     formname = request.args.get('formname')
 
     wb = Workbook()
@@ -151,29 +144,31 @@ def exportFormSubmissions():
     i = 0
     for row in ws.iter_rows(min_row=2, min_col=1, max_row=1 + len(submissions)):
         submission = submissions[i]
-        sid = submission.id
-        # print(f"sid={sid}")
+        submission_id = submission.id
         answers = submission.answers
+        print(answers)
         username = submission.user.username
         print(username)
 
         i += 1
         j = 0
+        # for each question per row
         for cell in row:
+            # write username in first column
             if cell.column == 1:
                 cell.value = username
-
+            # other questions
             else:
-                qid = question_ids[j]
-                answer = [a for a in answers if a.question_id == qid and a.submission_id == sid]
+                question_id = question_ids[j]
+                answer = [a for a in answers if a.question_id == question_id and a.submission_id == submission_id]
                 print(answer)
                 if len(answer):
                     cell.value = answer[0].answer_string
                 j += 1
 
-    wb.save("x.xlsx")
-    return redirect(url_for('index'))
-
+    wb.save("files/x.xlsx")
+    print(App.config['UPLOAD_FOLDER'])
+    return send_from_directory(App.config['UPLOAD_FOLDER'], 'x.xlsx', as_attachment=True)
 
 @App.route('/uniqueUsername', methods=['GET'])
 def checkUsername():
