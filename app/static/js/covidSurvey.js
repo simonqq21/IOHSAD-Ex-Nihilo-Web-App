@@ -40,6 +40,10 @@ $(document).ready(() => {
         }
     }
 
+    function checkValid(page){
+        
+    }
+
     $(".next-page").click(() => {
         currentPage++;
         updatePage(currentPage);
