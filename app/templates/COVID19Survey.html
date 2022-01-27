@@ -59,7 +59,7 @@
                 {{ form.companyLocation(class="form-control") }}
               </div>
 
-              <div class="mb-3 row">
+              <div class="mb-3 row justify-content-end">
                   <input class="btn btn-primary next-page col-sm-1 order-last" value="Next" type="button" name="goto-page2" id="goto-page2">
               </div>
             </div>
@@ -131,7 +131,7 @@
               </div>
 
               <div class="mb-3 row justify-content-end">
-                  <input class="btn btn-primary previous-page col-sm-1 order-first" type="button" value="Previous">
+                  <input class="btn btn-primary previous-page col-sm-1 order-first me-5" type="button" value="Previous">
                   <input class="btn btn-primary next-page col-sm-1 order-last" value="Next" type="button" name="goto-page3">
               </div>
             </div>
@@ -223,7 +223,7 @@
               </div>
 
               <div class="mb-3 row">               
-                  <input class="btn btn-primary previous-page col-sm-1 order-first" value="Previous" type="button" name="goto-page4">
+                  <input class="btn btn-primary previous-page col-sm-1 order-first me-5" value="Previous" type="button" name="goto-page4">
                   <input class="btn btn-primary next-page col-sm-1 order-last" value="Next" type="button" name="goto-page4">               
               </div>
             </div>
@@ -266,9 +266,8 @@
 
               <div class="mb-3">
                 <ul class="pagination">
-                  <li class="page-item"><input class="btn btn-primary previous-page" value="Previous" type="button" name="goto-page4"></li>
-                  <li class="page-item">{{ form.submit(class="btn btn-primary") }}</li>
-                </ul>
+                  <input class="btn btn-primary previous-page col-sm-1 me-5 order-first" value="Previous" type="button" name="goto-page4">
+                  {{ form.submit(class="btn btn-primary order-last") }}
               </div>
             </div>
           </form>
