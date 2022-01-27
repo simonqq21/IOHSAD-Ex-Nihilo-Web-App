@@ -30,11 +30,10 @@
           {% endif %}
           {% endwith %}
 
-          <form class="col-sm-10 shadow-lg p-5" method="POST" novalidate>
+          <form class="col-sm-10 shadow-lg p-5 was-validated" method="POST" novalidate>
             {{ form.hidden_tag() }}
 
             <div id="page-1">
-              page 1
               <div class="mb-3">
                 {{ form.name.label(class="form-label") }}
                 {{ form.name(class="form-control") }}
@@ -67,8 +66,7 @@
               </div>
             </div>
 
-            <div id="page-2">
-              page 2
+            <div id="page-2">             
               <div class="mb-3 .form-check">
                 {{ form.freeMassTesting(class="form-check-input") }}
                 {{ form.freeMassTesting.label(class="form-check-label") }}
@@ -143,8 +141,6 @@
             </div>
 
             <div id="page-3">
-              page 3
-
               <div class="mb-3">
                 {{ form.hoursPerDay.label(class="form-label") }}
                 {{ form.hoursPerDay(class="form-control") }}
@@ -239,7 +235,6 @@
             </div>
 
             <div id="page-4">
-              page 4
               <div class="mb-3 .form-check">
                 {{ form.sickSalary(class="form-check-input") }}
                 {{ form.sickSalary.label(class="form-check-label") }}
