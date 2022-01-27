@@ -30,7 +30,10 @@
           {% endif %}
           {% endwith %}
 
-          <form class="col-sm-8 shadow-lg p-5" method="POST">
+          <form class="col-sm-8 shadow-lg p-5" method="POST" novalidate>
+            <div class="form-title">
+              <h1>COVID-19 Health Protocol Form</h1>
+            </div>
             {{ form.hidden_tag() }}
 
             <div id="page-1">
