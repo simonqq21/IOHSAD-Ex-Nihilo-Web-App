@@ -40,8 +40,42 @@ $(document).ready(() => {
         }
     }
 
-    function checkValid(page){
-        
+    $("#name").keyup(() =>{
+        if($(this).val().length < 0){
+            $("#name-error").text("invalid name");
+            $("#goto-page2").prop('disabled', true);
+        }
+        else{
+            $("#name-error").text("valid name");
+            $("#goto-page2").prop('disabled', false);
+        }
+    });
+
+    $("#contactNo").keyup(() =>{
+        if($.isNumeric(this)){
+            $("#contactNo-error").text("valid contact number");
+            $("#goto-page2").prop('disabled', true);
+        }
+        else{
+            $("#contactNo-error").text("invalid contact number");
+            $("#goto-page2").prop('disabled', false);
+        }
+    });
+
+    $("#email").keyup(() =>{
+        if(validateEmail($(this).val())){
+            $("#email-error").text("valid email");
+            $("#goto-page2").prop('disabled', true);
+        }
+        else{
+            $("#email-error").text("invalid email");
+            $("#goto-page2").prop('disabled', false);
+        }
+    });
+
+    function validateEmail(email){
+        var EmailRegex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        return EmailRegex.test(email);
     }
 
     $(".next-page").click(() => {
