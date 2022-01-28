@@ -45,7 +45,7 @@ $(document).ready(() => {
         var contactNo = $("#contactNo");
         var email = $("#email");
         var companyName = $("#companyName");
-        var errors = {};
+        var errors = [];
 
         if(name.val().trim() == "" || contactNo.val().trim() == "" || email.val().trim() == "" || companyName.val().trim() == ""){
             alert("Fields should not be empty");
