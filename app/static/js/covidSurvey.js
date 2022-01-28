@@ -40,39 +40,6 @@ $(document).ready(() => {
         }
     }
 
-    /*$("#name").keyup(() =>{
-        if($("#name").val().length < 0){
-            $("#name-error").text("invalid name");
-            $("#goto-page2").prop('disabled', true);
-        }
-        else{
-            $("#name-error").text("valid name");
-            $("#goto-page2").prop('disabled', false);
-        }
-    });
-
-    $("#contactNo").keyup(() =>{
-        if($.isNumeric($("#contactNo").val())){
-            $("#contactNo-error").text("valid contact number");
-            $("#goto-page2").prop('disabled', true);
-        }
-        else{
-            $("#contactNo-error").text("invalid contact number");
-            $("#goto-page2").prop('disabled', false);
-        }
-    });
-
-    $("#email").keyup(() =>{
-        if(validateEmail($(this).val())){
-            $("#email-error").text("valid email");
-            $("#goto-page2").prop('disabled', true);
-        }
-        else{
-            $("#email-error").text("invalid email");
-            $("#goto-page2").prop('disabled', false);
-        }
-    });*/
-
     function validatePage1(){
         var name = $("#name");
         var contactNo = $("#contactNo");
@@ -110,17 +77,12 @@ $(document).ready(() => {
     }
 
     function validateContactNo(contactNo){
-        var phoneno = /^\d{11}$/;
-        if(contactNo.value.match(phoneno)){
-            return true;
-        }
-        else{
-            return false;
-        }
+        var phoneno = new RegExp('/^\d{11}$/');
+        return phoneno.test(contactNo);
     }
 
     function validateEmail(email){
-        var EmailRegex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        var EmailRegex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
         return EmailRegex.test(email);
     }
 
