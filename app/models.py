@@ -445,10 +445,10 @@ print(forma)
 
 masterAdmin = Administrator(username = 'IOHSAD', email = 'testemail')
 masterAdmin.set_password('iohsad2022')
-session.add(masterAdmin)
+db.session.add(masterAdmin)
 commit()
 
 adm = aliased(Administrator, name='adm')
-masterAdmin = session.query(adm).where(or_(adm.username.like("IOHSAD"), adm.email.like('testemail'))).first()
+masterAdmin = db.session.query(adm).where(or_(adm.username.like("IOHSAD"), adm.email.like('testemail'))).first()
 masterAdmin.email = '2newemail'
 commit()
