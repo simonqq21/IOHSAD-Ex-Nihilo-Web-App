@@ -52,7 +52,7 @@ $(document).ready(() => {
             return false;
         }
 
-        if(validateContactNo(contactNo.val())){
+        if($.isNumeric(contactNo.val())){
             $("#contactNo-error").text("");
         }
         else{
@@ -74,11 +74,6 @@ $(document).ready(() => {
         else{
             return false;
         }
-    }
-
-    function validateContactNo(contactNo){
-        var phoneno = new RegExp('/^\d{11}$/');
-        return phoneno.test(contactNo);
     }
 
     function validateEmail(email){
