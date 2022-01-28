@@ -68,7 +68,7 @@ $(document).ready(() => {
             errors.push("email");
         }
 
-        if(errors.length() == 0){
+        if(errors.length == 0){
             return true;
         }
         else{
