@@ -41,7 +41,7 @@ $(document).ready(() => {
         }
     }
 
-    $("#name").keyup(() =>{
+    /*$("#name").keyup(() =>{
         if($("#name").val().length < 0){
             $("#name-error").text("invalid name");
             $("#goto-page2").prop('disabled', true);
@@ -72,12 +72,69 @@ $(document).ready(() => {
             $("#email-error").text("invalid email");
             $("#goto-page2").prop('disabled', false);
         }
-    });
+    });*/
+
+    function validatePage1(){
+        var name = $("#name");
+        var contactNo = $("#contactNo");
+        var email = $("#email");
+        var companyName = $("#companyName");
+        var errors = {};
+
+        if(name.val().trim() == "" || contactNo.val().trim() == "" || email.val().trim() == "" || companyName.val().trim() == ""){
+            alert("Fields should not be empty");
+            return false;
+        }
+
+        if(validateContactNo(contactNo.val())){
+            $("#contactNo-error").text("");
+        }
+        else{
+            $("#contactNo-error").text("invalid phone number");
+            errors.push("contactNo");
+        }
+
+        if(validateEmail(email.val())){
+            $("#email-error").text("");
+        }
+        else{
+            $("#email-error").text("invalid email");
+            errors.push("email");
+        }
+
+        if(errors.length() == 0){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    function validateContactNo(contactNo){
+        var phoneno = /^\d{11}$/;
+        if(contactNo.value.match(phoneno)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 
     function validateEmail(email){
         var EmailRegex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
         return EmailRegex.test(email);
     }
+
+    $("#goto-page2").click(() => {
+        if(validatePage1()){
+            currentPage++;
+            updatePage(currentPage);
+        }
+        else{
+            currentPage = 1;
+            updatePage(currentPage);
+        }
+    });
 
     $(".next-page").click(() => {
         currentPage++;
