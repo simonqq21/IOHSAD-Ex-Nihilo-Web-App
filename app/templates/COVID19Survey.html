@@ -30,28 +30,35 @@
           {% endif %}
           {% endwith %}
 
-          <form class="col-sm-8 shadow-lg p-5" method="POST">
+          <form class="col-sm-8 shadow-lg p-5" method="POST" novalidate>
+            <div class="form-title row">
+              <h1 class="col-sm-10">COVID-19 Health Protocol Form</h1>
+            </div>
             {{ form.hidden_tag() }}
 
             <div id="page-1">
               <div class="mb-3">
                 {{ form.name.label(class="form-label") }}
                 {{ form.name(class="form-control") }}
+                <p id="name-error"></p>
               </div>
 
               <div class="mb-3">
                 {{ form.contactNo.label(class="form-label") }}
                 {{ form.contactNo(class="form-control") }}
+                <p id="contactNo-error"></p>
               </div>
 
               <div class="mb-3">
                 {{ form.email.label(class="form-label") }}
                 {{ form.email(class="form-control") }}
+                <p id="email-error"></p>
               </div>
 
               <div class="mb-3">
                 {{ form.companyName.label(class="form-label") }}
                 {{ form.companyName(class="form-control") }}
+                <p id="companyName-error"></p>
               </div>
 
               <div class="mb-3">
@@ -60,7 +67,7 @@
               </div>
 
               <div class="mb-3 row justify-content-end">
-                  <input class="btn btn-primary next-page col-sm-1 order-last" value="Next" type="button" name="goto-page2" id="goto-page2">
+                  <input class="btn btn-primary col-sm-1 order-last" value="Next" type="button" name="goto-page2" id="goto-page2">
               </div>
             </div>
 
@@ -269,6 +276,7 @@
                   {{ form.submit(class="btn btn-primary order-last col-sm-3") }}
               </div>
             </div>
+            <a href="/"><input class="btn btn-primary col-sm-2" type="button" value="Select Another Form"></a>
           </form>
 
 

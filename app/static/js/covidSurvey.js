@@ -40,9 +40,57 @@ $(document).ready(() => {
         }
     }
 
-    function checkValid(page){
-        
+    function validatePage1(){
+        var name = $("#name");
+        var contactNo = $("#contactNo");
+        var email = $("#email");
+        var companyName = $("#companyName");
+        var errors = [];
+
+        if(name.val().trim() == "" || contactNo.val().trim() == "" || email.val().trim() == "" || companyName.val().trim() == ""){
+            alert("Fields should not be empty");
+            return false;
+        }
+
+        if($.isNumeric(contactNo.val())){
+            $("#contactNo-error").text("");
+        }
+        else{
+            $("#contactNo-error").text("invalid phone number");
+            errors.push("contactNo");
+        }
+
+        if(validateEmail(email.val())){
+            $("#email-error").text("");
+        }
+        else{
+            $("#email-error").text("invalid email");
+            errors.push("email");
+        }
+
+        if(errors.length == 0){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
+
+    function validateEmail(email){
+        var EmailRegex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
+        return EmailRegex.test(email);
+    }
+
+    $("#goto-page2").click(() => {
+        if(validatePage1()){
+            currentPage++;
+            updatePage(currentPage);
+        }
+        else{
+            currentPage = 1;
+            updatePage(currentPage);
+        }
+    });
 
     $(".next-page").click(() => {
         currentPage++;
