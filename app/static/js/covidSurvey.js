@@ -41,23 +41,23 @@ $(document).ready(() => {
     }
 
     function validatePage1(){
-        var name = $("#name");
-        var contactNo = $("#contactNo");
+        var username = $("#username");
+        var contactNumber = $("#contactNumber");
         var email = $("#email");
         var companyName = $("#companyName");
         var errors = [];
 
-        if(name.val().trim() == "" || contactNo.val().trim() == "" || email.val().trim() == "" || companyName.val().trim() == ""){
+        if(username.val().trim() == "" || contactNumber.val().trim() == "" || email.val().trim() == "" || companyName.val().trim() == ""){
             alert("Fields should not be empty");
             return false;
         }
 
-        if($.isNumeric(contactNo.val())){
-            $("#contactNo-error").text("");
+        if($.isNumeric(contactNumber.val())){
+            $("#contactNumber-error").text("");
         }
         else{
-            $("#contactNo-error").text("invalid phone number");
-            errors.push("contactNo");
+            $("#contactNumber-error").text("invalid phone number");
+            errors.push("contactNumber");
         }
 
         if(validateEmail(email.val())){

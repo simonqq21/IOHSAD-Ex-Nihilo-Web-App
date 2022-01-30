@@ -105,8 +105,7 @@ def renderForm(formname):
             if qa.label.field_id not in ("submit", "csrf_token"):
                 questionsAndAnswers.append((qa.label.field_id, qa.data))
         print(questionsAndAnswers)
-        print('a')
-        submitForm(date.today(), (username, contactNumber), "Form A", questionsAndAnswers)
+        submitForm(date.today(), (username, contactNumber), formname, questionsAndAnswers)
         flash("Your form has been submitted. ")
         return redirect(url_for('index'))
 
