@@ -89,17 +89,23 @@ def renderForm(formname):
     #     Union head email address: {form.unionHeadEmail.data}\n \
     #     Contact number: {form.emailPhone.data}\n \
     #     Complaint: {form.complaint.data}")
-
+    # print(form)
+    print(form.validate_on_submit())
     if form.validate_on_submit():
+    # if request.method == 'POST':
         # insert the submission to the database
+        print('validate')
         username = form.username.data
         contactNumber = form.contactNumber.data
+        print(username)
+        print(contactNumber)
         questionsAndAnswers = []
         for qa in form:
             # ignore the submit and csrf token fields
             if qa.label.field_id not in ("submit", "csrf_token"):
                 questionsAndAnswers.append((qa.label.field_id, qa.data))
         print(questionsAndAnswers)
+        print('a')
         submitForm(date.today(), (username, contactNumber), "Form A", questionsAndAnswers)
         flash("Your form has been submitted. ")
         return redirect(url_for('index'))
@@ -109,8 +115,13 @@ def renderForm(formname):
 @App.route('/test')
 def test():
     return redirect(url_for('exportFormSubmissions', formname='Form A'))
-'''
 
+@App.route('/test2')
+def test2():
+    return redirect(url_for('exportFormSubmissions', formname='COVID19Survey'))
+
+
+'''
 '''
 @App.route('/export')
 def exportFormSubmissions():

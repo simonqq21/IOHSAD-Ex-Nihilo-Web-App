@@ -361,8 +361,8 @@ questions["Form A"] = []
 # questions["Form B"].append("management")
 
 questions["COVID19Survey"] = []
-questions["COVID19Survey"].append("name")
-questions["COVID19Survey"].append("contactNo")
+questions["COVID19Survey"].append("username")
+questions["COVID19Survey"].append("contactNumber")
 questions["COVID19Survey"].append("email")
 questions["COVID19Survey"].append("companyName")
 questions["COVID19Survey"].append("companyLocation")
