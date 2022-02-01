@@ -281,42 +281,42 @@ def submitForm(submitDate, user, formName, questionsAndAnswers):
 
 # insert forms A and B
 formnames = []
-formnames.append("Form A")
+formnames.append("complaintForm")
 formnames.append("COVID19Survey")
 # formnames.append("Form B")
 
 # insert questions
 questions = {}
-# questions for Form A
-questions["Form A"] = []
-# questions["Form A"].append("name")
-# questions["Form A"].append("age")
-# questions["Form A"].append("sex")
-# questions["Form A"].append("civilStatus")
-# questions["Form A"].append( "education")
-# questions["Form A"].append("position")
-# questions["Form A"].append("yearsWorked")
-# questions["Form A"].append("workStatus")
-# questions["Form A"].append("wage")
-# questions["Form A"].append("benefits")
-# questions["Form A"].append("benefitsReceived")
-# questions["Form A"].append("hoursPerDay")
-# questions["Form A"].append("chemicalUse")
-# questions["Form A"].append("chemicalName")
-# questions["Form A"].append("chemicalPurpose")
-# questions["Form A"].append("chemExposureDuration")
-# questions["Form A"].append("diseaseAccidented")
-# questions["Form A"].append("treatmentBillSource")
-# questions["Form A"].append("treatmentLocation")
-# questions["Form A"].append("reproductiveProblem")
-# questions["Form A"].append("knowOthersSickAccidented")
-# questions["Form A"].append("yearlyPhysicalExamination")
-# questions["Form A"].append("workPPE")
-# questions["Form A"].append("workPPEFree")
-# questions["Form A"].append("workHazards")
-# questions["Form A"].append("wasteDisposal")
-# questions["Form A"].append("DOLEInspection")
-# questions["Form A"].append("safetyOfficerPresent")
+# questions for complaintForm
+questions["complaintForm"] = []
+# questions["complaintForm"].append("name")
+# questions["complaintForm"].append("age")
+# questions["complaintForm"].append("sex")
+# questions["complaintForm"].append("civilStatus")
+# questions["complaintForm"].append( "education")
+# questions["complaintForm"].append("position")
+# questions["complaintForm"].append("yearsWorked")
+# questions["complaintForm"].append("workStatus")
+# questions["complaintForm"].append("wage")
+# questions["complaintForm"].append("benefits")
+# questions["complaintForm"].append("benefitsReceived")
+# questions["complaintForm"].append("hoursPerDay")
+# questions["complaintForm"].append("chemicalUse")
+# questions["complaintForm"].append("chemicalName")
+# questions["complaintForm"].append("chemicalPurpose")
+# questions["complaintForm"].append("chemExposureDuration")
+# questions["complaintForm"].append("diseaseAccidented")
+# questions["complaintForm"].append("treatmentBillSource")
+# questions["complaintForm"].append("treatmentLocation")
+# questions["complaintForm"].append("reproductiveProblem")
+# questions["complaintForm"].append("knowOthersSickAccidented")
+# questions["complaintForm"].append("yearlyPhysicalExamination")
+# questions["complaintForm"].append("workPPE")
+# questions["complaintForm"].append("workPPEFree")
+# questions["complaintForm"].append("workHazards")
+# questions["complaintForm"].append("wasteDisposal")
+# questions["complaintForm"].append("DOLEInspection")
+# questions["complaintForm"].append("safetyOfficerPresent")
 
 # questions for Form B
 # questions["Form B"] = []
@@ -408,12 +408,12 @@ questions["COVID19Survey"].append("DOLEInspection")
 for fn in formnames:
     insertForm(fn, questions[fn])
 
-addQuestionsToForm("Form A", ["companyName"])
-addQuestionsToForm("Form A", ["unionPresence"])
-addQuestionsToForm("Form A", ["unionHeadContactNo"])
-addQuestionsToForm("Form A", ["unionHeadEmail"])
-addQuestionsToForm("Form A", ["contactNumber"])
-addQuestionsToForm("Form A", ["complaint"])
+addQuestionsToForm("complaintForm", ["companyName"])
+addQuestionsToForm("complaintForm", ["unionPresence"])
+addQuestionsToForm("complaintForm", ["unionHeadContactNo"])
+addQuestionsToForm("complaintForm", ["unionHeadEmail"])
+addQuestionsToForm("complaintForm", ["contactNumber"])
+addQuestionsToForm("complaintForm", ["complaint"])
 
 # print()
 # query(q)
@@ -439,11 +439,11 @@ addQuestionsToForm("Form A", ["complaint"])
 
 # submitForm(date.today(), "tuser", "Form C", [("qC", "aC"), ("qB", "aB"), ("qA", "aA")])
 # submitForm(date.today(), "tuser2", "Form C", [("qC", "aC2"), ("qB", "aB2"), ("qA", "aA2")])
-# submitForm(date.today(), "tuser", "Form A", [("name", "Test1"), ("age", "232")])
+# submitForm(date.today(), "tuser", "complaintForm", [("name", "Test1"), ("age", "232")])
 # submitForm(date.today(), "tuser3", "Form C", [("qB", "aB2"), ("qA", "aA2")])
 
-# forma = selectForm('Form A')
-# for q in forma.questions:
+# complaintForm = selectForm('complaintForm')
+# for q in complaintForm.questions:
 #     if q.id < 68:
 #         session.delete(q)
 #         commit()
@@ -453,11 +453,11 @@ for instance in session.query(s):
     commit()
 
 
-forma = selectForm('Form A')
-print(forma)
-# print(forma.submissions)
-print(forma.questions)
-for q in forma.questions:
+complaintForm = selectForm('complaintForm')
+print(complaintForm)
+# print(complaintForm.submissions)
+print(complaintForm.questions)
+for q in complaintForm.questions:
     answers = q.answers
     print(type(answers))
     print(answers)

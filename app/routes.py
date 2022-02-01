@@ -76,7 +76,7 @@ formname parameter is the short name of the form
 @App.route('/forms/<formname>', methods=['GET', 'POST'])
 def renderForm(formname):
     print(formname)
-    if formname == "forma":
+    if formname == "complaintForm":
         form = ComplaintForm()
     elif formname == "COVID19Survey":
         form = COVID19Survey()
@@ -113,7 +113,7 @@ def renderForm(formname):
 
 @App.route('/test')
 def test():
-    return redirect(url_for('exportFormSubmissions', formname='Form A'))
+    return redirect(url_for('exportFormSubmissions', formname='complaintForm'))
 
 @App.route('/test2')
 def test2():

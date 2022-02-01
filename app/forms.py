@@ -21,6 +21,11 @@ PHRegions = [('R1', "Region 1 (Ilocos Region)"),
             ('CAR', "CAR (Cordillera Administrative Region)"),
             ('NCR', "NCR (National Capital Region)")]
 
+hoursPerDayOptions = [('1-4', "1-4 oras"),
+            ('4-6', "4-6 oras"),
+            ('6-8', "6-8 oras"),
+            ('8++', "higit sa 8 oras")]
+
 caseCountOptions = [('1-10', "1-10 kaso"),
             ('10-50', "10-50 kaso"),
             ('50-100', "50-100 kaso"),
@@ -150,7 +155,7 @@ class COVID19Survey(FlaskForm):
     freeRubbingAlcohol = BooleanField("May ipanamimigay bang libreng alcohol o hand sanitizer ang kumpanya sa mga manggagawa?*", default="Oo", validators=[])
     regularDisinfection = BooleanField("Nagsasagawa ba ng regular na disinfection ang kumpanya sa iba’t ibang erya sa \
         loob ng lugar-paggawa?*", default="Oo", validators=[])
-    hoursPerDay = IntegerField("Ilang oras ang pasok ninyo sa trabaho ngayong panahon ng pandemya?*")
+    hoursPerDay = SelectField("Ilang oras ang pasok ninyo sa trabaho ngayong panahon ng pandemya?*", choices=hoursPerDayOptions, validators=[DataRequired(), InputRequired()])
     overtime = BooleanField("May overtime bang ipinapatupad ang kumpanya?*", validators=[])
     covidInformationCampaign = BooleanField("Nagsasagawa ba ng information and awareness campaign ang kumpanya hinggil sa \
         COVID-19 at kung paano magiging ligtas sa impeksyon ang mga manggagawa at mapigilan \
