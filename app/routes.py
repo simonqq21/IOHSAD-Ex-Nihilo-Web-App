@@ -1,6 +1,6 @@
 from flask import redirect, render_template, url_for, request, jsonify, send_from_directory, flash
 from flask.helpers import make_response
-
+import os
 from app import App
 from datetime import datetime, date
 from app.models import submitForm, User, Administrator, selectForm
@@ -12,6 +12,10 @@ from sqlalchemy import or_
 from flask_login import current_user, login_user, login_required, logout_user
 
 from openpyxl import Workbook
+
+def create_path(path):
+    if not os.path.exists(path):
+        os.makedirs(path)
 
 '''
 route for index page
@@ -175,7 +179,7 @@ def exportFormSubmissions():
                 if len(answer):
                     cell.value = answer[0].answer_string
                 j += 1
-
+    create_path("files/")
     wb.save("files/x.xlsx")
     print(App.config['UPLOAD_FOLDER'])
     return send_from_directory(App.config['UPLOAD_FOLDER'], 'x.xlsx', as_attachment=True)
