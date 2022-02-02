@@ -77,27 +77,42 @@ $(document).ready(() => {
     }
 
     function validatePage2(){
-        var distancingHardToImplement = $("#distancingHardToImplement").val().trim();
-        if(distancingHardToImplement == ""){
+        var distancingHardToImplement = $("#distancingHardToImplement");
+        var errors = [];
+        if(distancingHardToImplement.val().trim() == ""){
             $("#distancingHardToImplement-error").text("This answer is required and should not be blank");
-            return false;
+            errors.push("distancingHardToImplement");
         }
         else{
             $("#distancingHardToImplement-error").text("");
+        }
+
+        if(errors.length == 0){
             return true;
+        }
+        else{
+            return false;
         }
     }
 
     function validatePage3(){
-        var actionTakenForCovid = $("#actionTakenForCovid").val().trim();
-        if(actionTakenForCovid == ""){
+        var actionTakenForCovid = $("#actionTakenForCovid");
+        var errors = [];
+        if(actionTakenForCovid.val().trim() == ""){
             $("actionTakenForCovid-error").text("This answer is required and should not be blank");
-            return false;
+            errors.push("actionTakenForCovid");
         }
         else{
             $("actionTakenForCovid-error").text("");
+        }
+
+        if(errors.length == 0){
             return true;
         }
+        else{
+            return false;
+        }
+
     }
 
     function validateEmail(email){
