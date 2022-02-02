@@ -77,9 +77,9 @@ $(document).ready(() => {
     }
 
     function validatePage2(){
-        var distancingHardToImplement = $("#distancingHardToImplement");
+        var distancingHardToImplementArea = $("#distancingHardToImplementArea");
         var errors = [];
-        if(distancingHardToImplement.val().trim() == ""){
+        if(distancingHardToImplementArea.val().trim() == ""){
             $("#distancingHardToImplement-error").text("This answer is required and should not be blank");
             errors.push("distancingHardToImplement");
         }
