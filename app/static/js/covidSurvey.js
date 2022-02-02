@@ -99,11 +99,11 @@ $(document).ready(() => {
         var actionTakenForCovid = $("#actionTakenForCOVID");
         var errors = [];
         if(actionTakenForCovid.val().trim() == ""){
-            $("actionTakenForCovid-error").text("This answer is required and should not be blank");
+            $("#actionTakenForCovid-error").text("This answer is required and should not be blank");
             errors.push("actionTakenForCovid");
         }
         else{
-            $("actionTakenForCovid-error").text("");
+            $("#actionTakenForCovid-error").text("");
         }
 
         if(errors.length == 0){
