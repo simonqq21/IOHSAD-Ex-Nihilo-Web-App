@@ -96,7 +96,7 @@ $(document).ready(() => {
     }
 
     function validatePage3(){
-        var actionTakenForCovid = $("#actionTakenForCovid");
+        var actionTakenForCovid = $("#actionTakenForCOVID");
         var errors = [];
         if(actionTakenForCovid.val().trim() == ""){
             $("actionTakenForCovid-error").text("This answer is required and should not be blank");
