@@ -138,11 +138,6 @@ $(document).ready(() => {
         }
     });
 
-    $(".next-page").click(() => {
-        currentPage++;
-        updatePage(currentPage);
-    })
-
     $(".previous-page").click(() => {
         currentPage--;
         updatePage(currentPage);
