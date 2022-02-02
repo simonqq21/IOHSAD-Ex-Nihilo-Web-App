@@ -95,6 +95,7 @@
               <div class="mb-3">
                 {{ form.distancingHardToImplementArea.label(class="form-label") }}
                 {{ form.distancingHardToImplementArea(class="form-control") }}
+                <p id="distancingHardToImplement-error"></p>
               </div>
 
               <div class="mb-3 .form-check">
@@ -139,14 +140,14 @@
 
               <div class="mb-3 row justify-content-end">
                   <input class="btn btn-primary previous-page col-sm-1 order-first me-5" type="button" value="Previous">
-                  <input class="btn btn-primary next-page col-sm-1 order-last" value="Next" type="button" name="goto-page3" id="goto-page3">
+                  <input class="btn btn-primary col-sm-1 order-last" value="Next" type="button" name="goto-page3" id="goto-page3">
               </div>
             </div>
 
             <div id="page-3">
               <div class="mb-3">
                 {{ form.hoursPerDay.label(class="form-label") }}
-                {{ form.hoursPerDay(class="form-control") }}
+                {{ form.hoursPerDay(class="form-select") }}
               </div>
 
               <div class="mb-3 .form-check">
@@ -202,6 +203,7 @@
               <div class="mb-3">
                 {{ form.actionTakenForCOVID.label(class="form-label") }}
                 {{ form.actionTakenForCOVID(class="form-control") }}
+                <p id="actionTakenForCovid-error"></p>
               </div>
 
               <div class="mb-3 .form-check">
@@ -271,7 +273,7 @@
                 {{ form.DOLEInspection.label(class="col-sm-11 form-check-label") }}
               </div>
 
-              <div class="mb-3 justify-content-end">
+              <div class="mb-3 justify-content-end d-flex">
                   <input class="btn btn-primary previous-page col-sm-1 me-5 order-first" value="Previous" type="button" name="goto-page4">
                   {{ form.submit(class="btn btn-primary order-last col-sm-3") }}
               </div>

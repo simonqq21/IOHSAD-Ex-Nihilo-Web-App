@@ -76,6 +76,30 @@ $(document).ready(() => {
         }
     }
 
+    function validatePage2(){
+        var distancingHardToImplement = $("#distancingHardToImplement").val();
+        if(distancingHardToImplement == ""){
+            $("#distancingHardToImplement-error").text("This answer is required and should not be blank");
+            return false;
+        }
+        else{
+            $("#distancingHardToImplement-error").text("");
+            return true;
+        }
+    }
+
+    function validatePage3(){
+        var actionTakenForCovid = $("#actionTakenForCovid").val();
+        if(actionTakenForCovid == ""){
+            $("actionTakenForCovid-error").text("This answer is required and should not be blank");
+            return false;
+        }
+        else{
+            $("actionTakenForCovid-error").text("");
+            return true;
+        }
+    }
+
     function validateEmail(email){
         var EmailRegex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
         return EmailRegex.test(email);
@@ -88,6 +112,28 @@ $(document).ready(() => {
         }
         else{
             currentPage = 1;
+            updatePage(currentPage);
+        }
+    });
+
+    $("#goto-page3").click(() => {
+        if(validatePage2()){
+            currentPage++;
+            updatePage(currentPage);
+        }
+        else{
+            currentPage = 2;
+            updatePage(currentPage);
+        }
+    });
+
+    $("#goto-page4").click(() => {
+        if(validatePage2()){
+            currentPage++;
+            updatePage(currentPage);
+        }
+        else{
+            currentPage = 3;
             updatePage(currentPage);
         }
     });
