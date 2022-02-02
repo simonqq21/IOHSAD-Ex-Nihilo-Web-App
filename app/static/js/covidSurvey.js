@@ -77,7 +77,7 @@ $(document).ready(() => {
     }
 
     function validatePage2(){
-        var distancingHardToImplement = $("#distancingHardToImplement").val();
+        var distancingHardToImplement = $("#distancingHardToImplement").val().trim();
         if(distancingHardToImplement == ""){
             $("#distancingHardToImplement-error").text("This answer is required and should not be blank");
             return false;
@@ -89,7 +89,7 @@ $(document).ready(() => {
     }
 
     function validatePage3(){
-        var actionTakenForCovid = $("#actionTakenForCovid").val();
+        var actionTakenForCovid = $("#actionTakenForCovid").val().trim();
         if(actionTakenForCovid == ""){
             $("actionTakenForCovid-error").text("This answer is required and should not be blank");
             return false;
@@ -128,7 +128,7 @@ $(document).ready(() => {
     });
 
     $("#goto-page4").click(() => {
-        if(validatePage2()){
+        if(validatePage3()){
             currentPage++;
             updatePage(currentPage);
         }
