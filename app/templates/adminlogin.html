@@ -17,7 +17,7 @@
                     <div class="mb-3">
                       {{ form.emailusername.label(class="form-label") }}
                       {{ form.emailusername(class="form-control") }}
-                      {{% for error in form.username.errors %}}
+                      {{% for error in form.emailusername.errors %}}
                         <p>{{ error }}</p>
                       {{% endfor %}}
                     </div>
