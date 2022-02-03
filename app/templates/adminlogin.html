@@ -18,7 +18,7 @@
                       {{ form.emailusername.label(class="form-label") }}
                       {{ form.emailusername(class="form-control") }}
                       {{% for error in form.username.errors %}}
-                        <p>[{{ error }}]</p>
+                        <p>{{ error }}</p>
                       {{% endfor %}}
                     </div>
 
@@ -26,7 +26,7 @@
                       {{ form.password.label(class="form-label") }}
                       {{ form.password(class="form-control") }}
                       {{% for error in form.password.errors %}}
-                        <p>[{{ error }}]</p>
+                        <p>{{ error }}</p>
                       {{% endfor %}}
                     </div>
 
