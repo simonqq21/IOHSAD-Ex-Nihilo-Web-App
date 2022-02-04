@@ -25,18 +25,12 @@ route for index page
 def index():
     return render_template('index.html')
 
-# '''
-# route for administrator signup page
-# '''
-# @app.route('/admin', methods=['GET', 'POST'])
-# def login():
-#     pass
-
 '''
 route for administrator login page
 '''
 @App.route('/admin', methods=['GET', 'POST'])
 def adminlogin():
+    print(current_user.is_authenticated)
     if current_user.is_authenticated:
         return render_template('adminview.html', title='Administrator View')
     form = AdminLoginForm()
@@ -49,10 +43,10 @@ def adminlogin():
             return redirect(url_for('adminlogin'))
         # correct username and password
         login_user(admin, remember = form.remember_me.data)
-        # next_page = request.args.get('next')
-        # if not next_page or url_parse(next_page).netloc != '':
-        #     next_page = url_for('index')
-        # return redirect(next_page)
+        next_page = request.args.get('next')
+        if not next_page or url_parse(next_page).netloc != '':
+            next_page = url_for('index')
+        return redirect(next_page)
         return render_template('adminview.html', title='Administrator View')
     return render_template('adminlogin.html', title='Administrator Sign In', form=form)
 
@@ -115,18 +109,10 @@ def renderForm(formname):
 
     return render_template(f"{formname}.html", title="Complaint Form", form=form)
 
-@App.route('/test')
-def test():
-    return redirect(url_for('exportFormSubmissions', formname='complaintForm'))
-
-@App.route('/test2')
-def test2():
-    return redirect(url_for('exportFormSubmissions', formname='COVID19Survey'))
-
-
 '''
 '''
 @App.route('/export')
+@login_required
 def exportFormSubmissions():
     # get the form name
     formname = request.args.get('formname')
