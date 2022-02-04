@@ -43,10 +43,10 @@ def adminlogin():
             return redirect(url_for('adminlogin'))
         # correct username and password
         login_user(admin, remember = form.remember_me.data)
-        next_page = request.args.get('next')
-        if not next_page or url_parse(next_page).netloc != '':
-            next_page = url_for('index')
-        return redirect(next_page)
+        # next_page = request.args.get('next')
+        # if not next_page or url_parse(next_page).netloc != '':
+        #     next_page = url_for('index')
+        # return redirect(next_page)
         return render_template('adminview.html', title='Administrator View')
     return render_template('adminlogin.html', title='Administrator Sign In', form=form)
 
