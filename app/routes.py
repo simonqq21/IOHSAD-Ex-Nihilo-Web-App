@@ -5,7 +5,8 @@ from app import App
 from datetime import datetime, date
 from app.models import submitForm, User, Administrator, selectForm
 from app.forms import AdminLoginForm
-from app.forms import ComplaintForm, COVID19Survey
+from app.forms import AccidentalInjuryForm, AccidentalDeathForm, OSHViolationForm, \
+NonCompensationForm, COVID19Survey
 from app import db
 from sqlalchemy import or_
 
@@ -74,8 +75,14 @@ formname parameter is the short name of the form
 @App.route('/forms/<formname>', methods=['GET', 'POST'])
 def renderForm(formname):
     print(formname)
-    if formname == "complaintForm":
-        form = ComplaintForm()
+    if formname == "accidentalInjuryForm":
+        form = AccidentalInjuryForm()
+    elif formname == "accidentalDeathForm":
+        form = AccidentalDeathForm()
+    elif formname == "OSHViolationForm":
+        form = OSHViolationForm()
+    elif formname == "nonCompensationForm":
+        form = NonCompensationForm()
     elif formname == "COVID19Survey":
         form = COVID19Survey()
 

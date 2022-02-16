@@ -31,21 +31,79 @@ caseCountOptions = [('1-10', "1-10 kaso"),
             ('50-100', "50-100 kaso"),
             ('>100', "mas marami pa sa 100 na kaso")]
 '''
-Generic Complaint Form
+Accidental Injury Form
 -Name of Company
 -Presence of union (If yes, put down the contact details of the head of the union (contact number and email)
 -Contact Details of the one who submitted the form
 
 then finally a large textbox for the nature of the complaint
 '''
-class ComplaintForm(FlaskForm):
+class AccidentalInjuryForm(FlaskForm):
     username = StringField("Unique Username*", validators=[DataRequired(), InputRequired()])
     companyName = StringField("Company Name* (Pangalan ng kumpanya)*", validators=[DataRequired(), InputRequired()])
     unionPresence = BooleanField("Union Present* (Mayroon bang unyon ng mga manggagawa?)*")
     unionHeadContactNo = TelField("Union Head Contact No. (Telepono ng pinuno ng unyon ng mga manggagawa)", validators=[Optional()])
     unionHeadEmail = EmailField("Union Head Email Address (Email address ng pinuno ng unyon ng mga manggagawa)", validators=[Email(), Optional()])
     contactNumber = StringField("Contact No. (Telepono)*", validators=[DataRequired(), InputRequired()])
-    complaint = TextAreaField("Enter you complaint here* (I-type ang inyong reklamo dito*)", validators=[DataRequired(), InputRequired()])
+    complaint = TextAreaField("Enter you complaint here regarding the accident that resulted in an injury* \
+        (I-type ang inyong reklamo dito ukol sa aksidenteng nagresulta sa pagkasugat*)", validators=[DataRequired(), InputRequired()])
+    submit = SubmitField("Submit Form (Ipasa ang form)")
+
+'''
+Accidental Death Form
+-Name of Company
+-Presence of union (If yes, put down the contact details of the head of the union (contact number and email)
+-Contact Details of the one who submitted the form
+
+then finally a large textbox for the nature of the complaint
+'''
+class AccidentalDeathForm(FlaskForm):
+    username = StringField("Unique Username*", validators=[DataRequired(), InputRequired()])
+    companyName = StringField("Company Name* (Pangalan ng kumpanya)*", validators=[DataRequired(), InputRequired()])
+    unionPresence = BooleanField("Union Present* (Mayroon bang unyon ng mga manggagawa?)*")
+    unionHeadContactNo = TelField("Union Head Contact No. (Telepono ng pinuno ng unyon ng mga manggagawa)", validators=[Optional()])
+    unionHeadEmail = EmailField("Union Head Email Address (Email address ng pinuno ng unyon ng mga manggagawa)", validators=[Email(), Optional()])
+    contactNumber = StringField("Contact No. (Telepono)*", validators=[DataRequired(), InputRequired()])
+    complaint = TextAreaField("Enter you complaint here regarding the accident that resulted in death* \
+        (I-type ang inyong reklamo dito ukol sa aksidenteng nagresulta sa kamatayan*)", validators=[DataRequired(), InputRequired()])
+    submit = SubmitField("Submit Form (Ipasa ang form)")
+
+'''
+OSH Violation Form
+-Name of Company
+-Presence of union (If yes, put down the contact details of the head of the union (contact number and email)
+-Contact Details of the one who submitted the form
+
+then finally a large textbox for the nature of the complaint
+'''
+class OSHViolationForm(FlaskForm):
+    username = StringField("Unique Username*", validators=[DataRequired(), InputRequired()])
+    companyName = StringField("Company Name* (Pangalan ng kumpanya)*", validators=[DataRequired(), InputRequired()])
+    unionPresence = BooleanField("Union Present* (Mayroon bang unyon ng mga manggagawa?)*")
+    unionHeadContactNo = TelField("Union Head Contact No. (Telepono ng pinuno ng unyon ng mga manggagawa)", validators=[Optional()])
+    unionHeadEmail = EmailField("Union Head Email Address (Email address ng pinuno ng unyon ng mga manggagawa)", validators=[Email(), Optional()])
+    contactNumber = StringField("Contact No. (Telepono)*", validators=[DataRequired(), InputRequired()])
+    complaint = TextAreaField("Enter you complaint here regarding the occupational safety and health violation* \
+        (I-type ang inyong reklamo dito ukol sa paglabag sa mga pangkalusugang at pangkaligtasang aspeto ng trabaho*)", validators=[DataRequired(), InputRequired()])
+    submit = SubmitField("Submit Form (Ipasa ang form)")
+
+'''
+Non Compensation Form
+-Name of Company
+-Presence of union (If yes, put down the contact details of the head of the union (contact number and email)
+-Contact Details of the one who submitted the form
+
+then finally a large textbox for the nature of the complaint
+'''
+class NonCompensationForm(FlaskForm):
+    username = StringField("Unique Username*", validators=[DataRequired(), InputRequired()])
+    companyName = StringField("Company Name* (Pangalan ng kumpanya)*", validators=[DataRequired(), InputRequired()])
+    unionPresence = BooleanField("Union Present* (Mayroon bang unyon ng mga manggagawa?)*")
+    unionHeadContactNo = TelField("Union Head Contact No. (Telepono ng pinuno ng unyon ng mga manggagawa)", validators=[Optional()])
+    unionHeadEmail = EmailField("Union Head Email Address (Email address ng pinuno ng unyon ng mga manggagawa)", validators=[Email(), Optional()])
+    contactNumber = StringField("Contact No. (Telepono)*", validators=[DataRequired(), InputRequired()])
+    complaint = TextAreaField("Enter you complaint here about non-compensation* \
+        (I-type ang inyong reklamo dito ukol sa hindi pag-kompensado*)", validators=[DataRequired(), InputRequired()])
     submit = SubmitField("Submit Form (Ipasa ang form)")
 
 '''

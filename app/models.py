@@ -253,15 +253,12 @@ def submitForm(submitDate, user, formName, questionsAndAnswers):
     username = user[0]
     contactNumber = user[1]
     user = db.session.query(u).where(u.username.like(username)).first()
-    print(user)
     if user is None:
         user = User(username=username, contactNumber=contactNumber)
         db.session.add(user)
         commit()
     submission.user = user
-    print("Form")
     form = db.session.query(f).where(f.form_name.like(formName)).first()
-    print(f'form={form}')
     if form is not None:
         submission.form = form
 
@@ -269,9 +266,7 @@ def submitForm(submitDate, user, formName, questionsAndAnswers):
             # question = db.session.query(q).where(and_(q.short_name.like(qa[0]), q.form_id == form.id)).first()
             question = db.session.query(q).where(and_(q.short_name.like(qa[0]), q.form_id == submission.form.id)).first()
             if question is not None:
-                print(question)
                 answer = Answer(answer_string = qa[1], question=question)
-                print(answer)
                 submission.answers.append(answer)
 
         db.session.add(submission)
@@ -279,14 +274,20 @@ def submitForm(submitDate, user, formName, questionsAndAnswers):
 
 # insert forms A and B
 formnames = []
-formnames.append("complaintForm")
+generalComplaintForms = ["accidentalInjuryForm",
+                        "accidentalDeathForm",
+                        "OSHViolationForm",
+                        "nonCompensationForm"]
+for formname in generalComplaintForms:
+    formnames.append(formname)
 formnames.append("COVID19Survey")
 # formnames.append("Form B")
 
 # insert questions
 questions = {}
 # questions for complaintForm
-questions["complaintForm"] = []
+for formname in generalComplaintForms:
+    questions[formname] = []
 # questions["complaintForm"].append("name")
 # questions["complaintForm"].append("age")
 # questions["complaintForm"].append("sex")
@@ -406,12 +407,13 @@ questions["COVID19Survey"].append("DOLEInspection")
 for fn in formnames:
     insertForm(fn, questions[fn])
 
-addQuestionsToForm("complaintForm", ["companyName"])
-addQuestionsToForm("complaintForm", ["unionPresence"])
-addQuestionsToForm("complaintForm", ["unionHeadContactNo"])
-addQuestionsToForm("complaintForm", ["unionHeadEmail"])
-addQuestionsToForm("complaintForm", ["contactNumber"])
-addQuestionsToForm("complaintForm", ["complaint"])
+for formname in generalComplaintForms:
+    addQuestionsToForm(formname, ["companyName"])
+    addQuestionsToForm(formname, ["unionPresence"])
+    addQuestionsToForm(formname, ["unionHeadContactNo"])
+    addQuestionsToForm(formname, ["unionHeadEmail"])
+    addQuestionsToForm(formname, ["contactNumber"])
+    addQuestionsToForm(formname, ["complaint"])
 
 addQuestionsToForm("COVID19Survey", ["username"])
 addQuestionsToForm("COVID19Survey", ["contactNumber"])
