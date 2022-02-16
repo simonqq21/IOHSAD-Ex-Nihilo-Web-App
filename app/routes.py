@@ -165,10 +165,10 @@ def exportFormSubmissions():
                 if len(answer):
                     cell.value = answer[0].answer_string
                 j += 1
-    create_path("files/")
-    wb.save("files/x.xlsx")
-    print(App.config['UPLOAD_FOLDER'])
-    return send_from_directory(App.config['UPLOAD_FOLDER'], 'x.xlsx', as_attachment=True)
+    create_path(App.config['UPLOAD_FOLDER'])
+    filename = f'{formname}_{datetime.now().strftime("%Y%m%d")}.xlsx'
+    wb.save(App.config['UPLOAD_FOLDER'] + '/' + filename)
+    return send_from_directory(App.config['UPLOAD_FOLDER'], filename, as_attachment=True)
 
 @App.route('/uniqueUsername', methods=['GET'])
 def checkUsername():
