@@ -17,23 +17,25 @@
                     <div class="mb-3">
                       {{ form.emailusername.label(class="form-label") }}
                       {{ form.emailusername(class="form-control") }}
-                      <!--{% for error in form.emailusername.errors %}
-                        <p>{{ error }}</p>
-                      {% endfor %}-->
                     </div>
 
                     <div class="mb-3">
                       {{ form.password.label(class="form-label") }}
                       {{ form.password(class="form-control") }}
-                      <!--{% for error in form.password.errors %}
-                        <p>{{ error }}</p>
-                      {% endfor %}-->
                     </div>
 
                     <div class="mb-3 form-check">
                       {{ form.remember_me(class="form-check-input") }}
                       {{ form.remember_me.label(class="form-check-label") }}
                     </div>
+
+                    {% with messages = get_flashed_messages() %}
+                      {% if messages %}
+                        {% for message in messages %}
+                          {{ message }}
+                        {% endfor %}
+                      {% endif %}
+                    {% endwith %}
 
                     <div class="mb-3">
                       {{ form.login(class="w-100 btn btn-primary") }}
