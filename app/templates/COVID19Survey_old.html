@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>{{ title }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/covidSurvey.js') }}"></script>
+  </head>
+  <body>
+    <div class="container-fluid bg-light">
+      <header class="d-flex align-items-center flex-wrap justify-content-left py-3 mb-4 shadow-lg">
+        <div class="col-sm-1 me-4">
+            <img src="{{ url_for('static', filename='img/IOHSAD_logo.png') }}" class="img-fluid" alt="IOHSAD logo">
+        </div>
+        <div class="col-sm-8">
+            <h1 class="row">IOHSAD</h1>
+            <h4 class="row">Safe Workplaces Now!</h4>
+        </div>
+      </header>
+
+        <div class="row justify-content-center">
+          {% with messages = get_flashed_messages() %}
+          {% if messages %}
+          <ul>
+            {% for message in messages %}
+            <li>{{message}}</li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+          {% endwith %}
+
+          <form class="col-sm-8 shadow-lg p-5" method="POST" novalidate>
+            <div class="form-title row">
+              <h1 class="col-sm-10">COVID-19 Health Protocol Form</h1>
+            </div>
+            {{ form.hidden_tag() }}
+
+            <div class="mb-3">
+              {{ form.username.label(class="form-label") }}
+              {{ form.username(class="form-control") }}
+              <p id="username-error" class="text-danger"></p>
+            </div>
+
+            <div class="mb-3">
+              {{ form.contactNumber.label(class="form-label") }}
+              {{ form.contactNumber(class="form-control") }}
+              <p id="contactNumber-error" class="text-danger"></p>
+            </div>
+
+            <div class="mb-3">
+              {{ form.fullname.label(class="form-label") }}
+              {{ form.fullname(class="form-control") }}
+              <p id="" class="text-danger"></p>
+            </div>
+
+            <div class="mb-3">
+              {{ form.shiftdate.label(class="form-label") }}
+              {{ form.shiftdate(class="form-control") }}
+              <p id="" class="text-danger"></p>
+            </div>
+
+            <div class="mb-3">
+              {{ form.shifttime.label(class="form-label") }}
+              {{ form.shifttime(class="form-control") }}
+              <p id="" class="text-danger"></p>
+            </div>
+
+            <div class="form-label">
+              {{ form.symptoms }}
+            </div>
+
+            <div class="mb-3">
+              {{ form.fever.label(class="form-label") }}
+              {{ form.fever(class="form-control") }}
+              <p id="" class="text-danger"></p>
+            </div>
+
+            <div class="mb-3">
+              {{ form.coughcolds.label(class="form-label") }}
+              {{ form.coughcolds(class="form-control") }}
+              <p id="" class="text-danger"></p>
+            </div>
+
+            <div class="mb-3">
+              {{ form.bodypain.label(class="form-label") }}
+              {{ form.bodypain(class="form-control") }}
+              <p id="" class="text-danger"></p>
+            </div>
+
+            <div class="mb-3">
+              {{ form.sorethroat.label(class="form-label") }}
+              {{ form.sorethroat(class="form-control") }}
+              <p id="" class="text-danger"></p>
+            </div>
+
+            <div class="mb-3">
+              {{ form.contact.label(class="form-label") }}
+              {{ form.contact(class="form-control") }}
+              <p id="" class="text-danger"></p>
+            </div>
+
+            <div class="mb-3">
+              {{ form.directcare.label(class="form-label") }}
+              {{ form.directcare(class="form-control") }}
+              <p id="" class="text-danger"></p>
+            </div>
+
+            <div class="mb-3">
+              {{ form.internationalTravel.label(class="form-label") }}
+              {{ form.internationalTravel(class="form-control") }}
+              <p id="" class="text-danger"></p>
+            </div>
+
+            <div class="mb-3">
+              {{ form.domesticTravel.label(class="form-label") }}
+              {{ form.domesticTravel(class="form-control") }}
+              <p id="" class="text-danger"></p>
+            </div>
+
+            <div class="mb-3">
+              {{ form.complaint.label(class="form-label") }}
+              {{ form.complaint(class="form-control") }}
+              <p id="" class="text-danger"></p>
+            </div>
+
+            <div class="mb-3 justify-content-end d-flex">
+                <input class="btn btn-primary previous-page col-sm-1 me-5 order-first" value="Previous" type="button" name="goto-page4">
+                {{ form.submit(class="btn btn-primary order-last col-sm-3") }}
+            </div>
+            <!-- <div id="page-1">
+              <div class="mb-3">
+                {{ form.username.label(class="form-label") }}
+                {{ form.username(class="form-control") }}
+                <p id="username-error" class="text-danger"></p>
+              </div>
+
+              <div class="mb-3">
+                {{ form.contactNumber.label(class="form-label") }}
+                {{ form.contactNumber(class="form-control") }}
+                <p id="contactNumber-error" class="text-danger"></p>
+              </div>
+
+              <div class="mb-3">
+                {{ form.email.label(class="form-label") }}
+                {{ form.email(class="form-control") }}
+                <p id="email-error" class="text-danger"></p>
+              </div>
+
+              <div class="mb-3">
+                {{ form.companyName.label(class="form-label") }}
+                {{ form.companyName(class="form-control") }}
+                <p id="companyName-error" class="text-danger"></p>
+              </div>
+
+              <div class="mb-3">
+                {{ form.companyLocation.label(class="form-label") }}
+                {{ form.companyLocation(class="form-control") }}
+              </div>
+
+              <div class="mb-3 row justify-content-end">
+                  <input class="btn btn-primary col-sm-1 order-last" value="Next" type="button" name="goto-page2" id="goto-page2">
+              </div>
+            </div>
+
+            <div id="page-2">
+              <div class="mb-3 .form-check">
+                {{ form.freeMassTesting(class="col-sm-1 form-check-input") }}
+                {{ form.freeMassTesting.label(class="col-sm-11 form-check-label") }}
+              </div>
+
+              <div class="mb-3">
+                {{ form.freeMassTestingDetails.label(class="form-label") }}
+                {{ form.freeMassTestingDetails(class="form-control") }}
+              </div>
+
+              <div class="mb-3 .form-check">
+                {{ form.dailyHealthMonitoring(class="col-sm-1 form-check-input") }}
+                {{ form.dailyHealthMonitoring.label(class="col-sm-11 form-check-label") }}
+              </div>-
+
+              <div class="mb-3 .form-check">
+                {{ form.distancing(class="col-sm-1 form-check-input") }}
+                {{ form.distancing.label(class="col-sm-11 form-check-label") }}
+              </div>
+
+              <div class="mb-3">
+                {{ form.distancingHardToImplementArea.label(class="form-label") }}
+                {{ form.distancingHardToImplementArea(class="form-control") }}
+                <p id="distancingHardToImplement-error" class="text-danger"></p>
+              </div>
+
+              <div class="mb-3 .form-check">
+                {{ form.supplements(class="col-sm-1 form-check-input") }}
+                {{ form.supplements.label(class="col-sm-11 form-check-label") }}
+              </div>
+
+              <div class="mb-3">
+                {{ form.supplementList.label(class="form-label") }}
+                {{ form.supplementList(class="form-control") }}
+              </div>
+
+              <div class="mb-3 .form-check">
+                {{ form.mhprograms(class="col-sm-1 form-check-input") }}
+                {{ form.mhprograms.label(class="col-sm-11 form-check-label") }}
+              </div>
+
+              <div class="mb-3 .form-check">
+                {{ form.freePPE(class="col-sm-1 form-check-input") }}
+                {{ form.freePPE.label(class="col-sm-11 form-check-label") }}
+              </div>
+
+              <div class="mb-3">
+                {{ form.freePPEDetails.label(class="form-label") }}
+                {{ form.freePPEDetails(class="form-control") }}
+              </div>
+
+              <div class="mb-3 .form-check">
+                {{ form.adequateSoapAndWater(class="col-sm-1 form-check-input") }}
+                {{ form.adequateSoapAndWater.label(class="col-sm-11 form-check-label") }}
+              </div>
+
+              <div class="mb-3 .form-check">
+                {{ form.freeRubbingAlcohol(class="col-sm-1 form-check-input") }}
+                {{ form.freeRubbingAlcohol.label(class="col-sm-11 form-check-label") }}
+              </div>
+
+              <div class="mb-3 .form-check">
+                {{ form.regularDisinfection(class="col-sm-1 form-check-input") }}
+                {{ form.regularDisinfection.label(class="col-sm-11 form-check-label") }}
+              </div>
+
+              <div class="mb-3 row justify-content-end">
+                  <input class="btn btn-primary previous-page col-sm-1 order-first me-5" type="button" value="Previous">
+                  <input class="btn btn-primary col-sm-1 order-last" value="Next" type="button" name="goto-page3" id="goto-page3">
+              </div>
+            </div>
+
+            <div id="page-3">
+              <div class="mb-3">
+                {{ form.hoursPerDay.label(class="form-label") }}
+                {{ form.hoursPerDay(class="form-select") }}
+              </div>
+
+              <div class="mb-3 .form-check">
+                {{ form.overtime(class="col-sm-1 form-check-input") }}
+                {{ form.overtime.label(class="col-sm-11 form-check-label") }}
+              </div>
+
+              <div class="mb-3 .form-check">
+                {{ form.covidInformationCampaign(class="col-sm-1 form-check-input") }}
+                {{ form.covidInformationCampaign.label(class="col-sm-11 form-check-label") }}
+              </div>
+
+              <div class="mb-3">
+                {{ form.covidInformationCampaignDetails.label(class="form-label") }}
+                {{ form.covidInformationCampaignDetails(class="form-control") }}
+              </div>
+
+              <div class="mb-3 .form-check">
+                {{ form.freeSafeTransportation(class="col-sm-1 form-check-input") }}
+                {{ form.freeSafeTransportation.label(class="col-sm-11 form-check-label") }}
+              </div>
+
+              <div class="mb-3">
+                {{ form.freeSafeTransportationDetails.label(class="form-label") }}
+                {{ form.freeSafeTransportationDetails(class="form-control") }}
+              </div>
+
+              <div class="mb-3 .form-check">
+                {{ form.freeSafeAccomodation(class="col-sm-1 form-check-input") }}
+                {{ form.freeSafeAccomodation.label(class="col-sm-11 form-check-label") }}
+              </div>
+
+              <div class="mb-3">
+                {{ form.freeSafeAccomodationDetails.label(class="form-label") }}
+                {{ form.freeSafeAccomodationDetails(class="form-control") }}
+              </div>
+
+              <div class="mb-3 .form-check">
+                {{ form.freeMedicalCheckup(class="col-sm-1 form-check-input") }}
+                {{ form.freeMedicalCheckup.label(class="col-sm-11 form-check-label") }}
+              </div>
+
+              <div class="mb-3 .form-check">
+                {{ form.covidRiskAssessment(class="col-sm-1 form-check-input") }}
+                {{ form.covidRiskAssessment.label(class="col-sm-11 form-check-label") }}
+              </div>
+
+              <div class="mb-3 .form-check">
+                {{ form.isolationRoomPresent(class="col-sm-1 form-check-input") }}
+                {{ form.isolationRoomPresent.label(class="col-sm-11 form-check-label") }}
+              </div>
+
+              <div class="mb-3">
+                {{ form.actionTakenForCOVID.label(class="form-label") }}
+                {{ form.actionTakenForCOVID(class="form-control") }}
+                <p id="actionTakenForCovid-error" class="text-danger"></p>
+              </div>
+
+              <div class="mb-3 .form-check">
+                {{ form.COVIDCaseConfirmed(class="col-sm-1 form-check-input") }}
+                {{ form.COVIDCaseConfirmed.label(class="col-sm-11 form-check-label") }}
+              </div>
+
+              <div class="mb-3">
+                {{ form.numberOfCOVIDCasesConfirmed.label(class="form-label") }}
+                {{ form.numberOfCOVIDCasesConfirmed(class="form-select") }}
+              </div>
+
+              <div class="mb-3 .form-check">
+                {{ form.companyPaysForTreatment(class="col-sm-1 form-check-input") }}
+                {{ form.companyPaysForTreatment.label(class="col-sm-11 form-check-label") }}
+              </div>
+
+              <div class="mb-3 .form-check">
+                {{ form.contactTracing(class="col-sm-1 form-check-input") }}
+                {{ form.contactTracing.label(class="col-sm-11 form-check-label") }}
+              </div>
+
+              <div class="mb-3 .form-check">
+                {{ form.quarantineProcessForContacted(class="col-sm-1 form-check-input") }}
+                {{ form.quarantineProcessForContacted.label(class="col-sm-11 form-check-label") }}
+              </div>
+
+              <div class="mb-3 row justify-content-end">
+                  <input class="btn btn-primary previous-page col-sm-1 order-first me-5" value="Previous" type="button">
+                  <input class="btn btn-primary col-sm-1 order-last" value="Next" type="button" name="goto-page4" id="goto-page4">
+              </div>
+            </div> -->
+
+            <!-- <div id="page-4">
+              <div class="mb-3 .form-check">
+                {{ form.sickSalary(class="col-sm-1 form-check-input") }}
+                {{ form.sickSalary.label(class="col-sm-11 form-check-label") }}
+              </div>
+
+              <div class="mb-3 .form-check">
+                {{ form.sickHealthMonitoring(class="col-sm-1 form-check-input") }}
+                {{ form.sickHealthMonitoring.label(class="col-sm-11 form-check-label") }}
+              </div>
+
+              <div class="mb-3 .form-check">
+                {{ form.healthInsurance(class="col-sm-1 form-check-input") }}
+                {{ form.healthInsurance.label(class="col-sm-11 form-check-label") }}
+              </div>
+
+              <div class="mb-3 .form-check">
+                {{ form.hazardPay(class="col-sm-1 form-check-input") }}
+                {{ form.hazardPay.label(class="col-sm-11 form-check-label") }}
+              </div>
+
+              <div class="mb-3 .form-check">
+                {{ form.admissionOfVulnerable(class="col-sm-1 form-check-input") }}
+                {{ form.admissionOfVulnerable.label(class="col-sm-11 form-check-label") }}
+              </div>
+
+              <div class="mb-3 .form-check">
+                {{ form.OSHCommittee(class="col-sm-1 form-check-input") }}
+                {{ form.OSHCommittee.label(class="col-sm-11 form-check-label") }}
+              </div>
+
+              <div class="mb-3 .form-check">
+                {{ form.DOLEInspection(class="col-sm-1 form-check-input") }}
+                {{ form.DOLEInspection.label(class="col-sm-11 form-check-label") }}
+              </div>
+
+              <div class="mb-3 justify-content-end d-flex">
+                  <input class="btn btn-primary previous-page col-sm-1 me-5 order-first" value="Previous" type="button" name="goto-page4">
+                  {{ form.submit(class="btn btn-primary order-last col-sm-3") }}
+              </div>
+            </div> -->
+            <a href="/"><input class="btn btn-primary" type="button" value="Select Another Form"></a>
+          </form>
+
+
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  </body>
+</html>

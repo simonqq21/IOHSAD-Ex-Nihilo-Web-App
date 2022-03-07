@@ -163,7 +163,7 @@ class COVID19Survey(FlaskForm):
         ba ay nagbyahe sa labas ng iyong lungsod/munisipyo)? If yes, specify which \
         city/municipality you went to (Sabihin kung saan).")
     complaint = TextAreaField("Enter your complaint here about COVID-19 protocols* \
-        (I-type ang inyong reklamo dito ukol sa mga protocol ukol sa COVID-19*)", validators=[DataRequired(), InputRequired()])
+        (I-type ang inyong reklamo dito ukol sa mga protocol ukol sa COVID-19*)", validators=[])
     submit = SubmitField("Submit Form (Ipasa ang form)")
 
     # username = StringField("Pangalan*", validators=[DataRequired(), InputRequired()])

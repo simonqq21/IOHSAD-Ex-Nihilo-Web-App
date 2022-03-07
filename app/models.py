@@ -214,6 +214,7 @@ def addQuestionsToForm(formName, questionShortNames):
                 form.questions.append(Question(short_name=name))
                 commit()
             except Exception as err:
+                print(err)
                 print(type(err))
 
 
@@ -419,6 +420,7 @@ questions["COVID19Survey"].append("complaint")
 
 # insert forms into the db
 for fn in formnames:
+    print(fn)
     insertForm(fn, questions[fn])
 
 for formname in generalComplaintForms:
@@ -429,37 +431,7 @@ for formname in generalComplaintForms:
     addQuestionsToForm(formname, ["contactNumber"])
     addQuestionsToForm(formname, ["complaint"])
 
-addQuestionsToForm("COVID19Survey", ["username"])
-addQuestionsToForm("COVID19Survey", ["contactNumber"])
-# print()
-# query(q)
-# print()
-# testing code
-# insertForm("Form C", [])
-# insertForm("Form C", ["qA", "qB", 'qC'])
-# print()
-# print(selectAllFormNames())
-# print()
-# print(selectForm("C"))
-# print()
-# renameForm("Form C", "Form Z")
-# print(selectAllFormNames())
-# addQuestionsToForm("Form Z", ["qZ"])
-# print(selectForm("Form Z").questions)
-# deleteForm("Form C")
-# addQuestionsToForm("Form C", ["qA", "qB"])
-# addQuestionsToForm("Form C", ["qC"])
-# print(selectForm("C").questions)
-# deleteQuestions("Form C", ["qA","qB"])
-# print(selectForm("C").questions)
-
-# submitForm(date.today(), "tuser", "Form C", [("qC", "aC"), ("qB", "aB"), ("qA", "aA")])
-# submitForm(date.today(), "tuser2", "Form C", [("qC", "aC2"), ("qB", "aB2"), ("qA", "aA2")])
-# submitForm(date.today(), "tuser", "complaintForm", [("name", "Test1"), ("age", "232")])
-# submitForm(date.today(), "tuser3", "Form C", [("qB", "aB2"), ("qA", "aA2")])
-
-complaintForm = selectForm('complaintForm')
-print(complaintForm)
+# addQuestionsToForm("COVID19Survey", questions["COVID19Survey"])
 
 masterAdmin = Administrator(username = 'IOHSAD', email = 'testemail')
 masterAdmin.set_password('iohsad2022')
