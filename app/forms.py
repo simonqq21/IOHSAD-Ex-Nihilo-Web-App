@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField, SelectField, IntegerField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, \
+    TextAreaField, SelectField, IntegerField, DateField, TimeField
 from wtforms.fields import TelField, EmailField
 from wtforms.validators import DataRequired, Email, InputRequired, Optional
 
@@ -119,6 +120,127 @@ class AdminLoginForm(FlaskForm):
 
 '''
 COVID-19 Health Protocol Assessment Form
+ Are you experiencing (Nakakaranas ka ba ng):
+ fever (lagnat), cough and/or colds (ubo at/o sipon), body pains (pananakit ng katawan), sore throat (pananakit ng lalamunan/masakit lumunok)
+Have you had face-to-face contact with a probable or confirmed COVID-19 case within \
+    1 meter and for more than 15 minutes for the past 14 days? (May nakasalamuha ka \
+    ba na probable o kumpirmadong pasyente na may COVID-19 mula sa isang metrong \
+    distansya o mas malapit pa at tumagal ng mahigit 15 minuto sa nakalipas na 14 araw)?
+Have you provided direct care for a patient with probable or confirmed COVID-19 \
+    case without using proper personal protective equipment for the past 14 days? \
+    (Nag-alaga ka ba ng probable o kumpirmadong pasyente na may COVID-19 nang hindi \
+    nakasuot ng tamang personal protective equipment sa nakalipas na 14 araw?)
+Have you travelled outside the Philippines in the last 14 days (Ikaw ba ay \
+    nagbiyahe sa labas ng Pilipinas sa nakalipas na 14 na araw)?
+Have you travelled outside the current city/municipality where you reside (Ikaw \
+    ba ay nagbyahe sa labas ng iyong lungsod/munisipyo)? If yes, specify which \
+    city/municipality you went to (Sabihin kung saan).
+
+'''
+class COVID19Survey(FlaskForm):
+    username = StringField("Pangalan*", validators=[DataRequired(), InputRequired()])
+    contactNumber = TelField("Contact Number*", validators=[DataRequired(), InputRequired()])
+    fullname = StringField("Full name (Kumpletong pangngalan) (Last, Given, Middle)*", validators=[DataRequired(), InputRequired()])
+    shiftdate = DateField("Shift Date (Datos ng shift):*", validators=[DataRequired(), InputRequired()])
+    shifttime = TimeField("SHift Time (Oras ng Shift):*", validators=[DataRequired(), InputRequired()])
+    symptoms = "Are you experiencing (Nakakaranas ka ba ng):"
+    fever = BooleanField("fever (lagnat)")
+    coughcolds = BooleanField("cough and/or colds (ubo at/o sipon)")
+    bodypain = BooleanField("body pains (pananakit ng katawan)")
+    sorethroat = BooleanField("sore throat (pananakit ng lalamunan/masakit lumunok)")
+    contact = BooleanField("Have you had face-to-face contact with a probable or \
+        confirmed COVID-19 case within 1 meter and for more than 15 minutes for the \
+        past 14 days? (May nakasalamuha ka ba na probable o kumpirmadong pasyente na \
+        may COVID-19 mula sa isang metrong distansya o mas malapit pa at tumagal ng \
+        mahigit 15 minuto sa nakalipas na 14 araw)?")
+    directcare = BooleanField("Have you provided direct care for a patient with probable or confirmed COVID-19 \
+        case without using proper personal protective equipment for the past 14 days? \
+        (Nag-alaga ka ba ng probable o kumpirmadong pasyente na may COVID-19 nang hindi \
+        nakasuot ng tamang personal protective equipment sa nakalipas na 14 araw?)")
+    internationalTravel = BooleanField("Have you travelled outside the Philippines in the last 14 days (Ikaw ba ay \
+        nagbiyahe sa labas ng Pilipinas sa nakalipas na 14 na araw)?")
+    domesticTravel = BooleanField("Have you travelled outside the current city/municipality where you reside (Ikaw \
+        ba ay nagbyahe sa labas ng iyong lungsod/munisipyo)? If yes, specify which \
+        city/municipality you went to (Sabihin kung saan).")
+    complaint = TextAreaField("Enter your complaint here about COVID-19 protocols* \
+        (I-type ang inyong reklamo dito ukol sa mga protocol ukol sa COVID-19*)", validators=[DataRequired(), InputRequired()])
+    submit = SubmitField("Submit Form (Ipasa ang form)")
+
+    # username = StringField("Pangalan*", validators=[DataRequired(), InputRequired()])
+    # contactNumber = TelField("Contact Number*", validators=[DataRequired(), InputRequired()])
+    # email = EmailField("E-mail address*", validators=[DataRequired(), InputRequired()])
+    # companyName = StringField("Pangalan ng Kumpanya*", validators=[DataRequired(), InputRequired()])
+    # companyLocation = SelectField("Lokasyon ng Kumpanya*", choices=PHRegions, validators=[DataRequired(), InputRequired()])
+    # freeMassTesting = BooleanField("Nagsagawa ba ng free mass testing ang kumpanya sa hanay ng mga manggagawa?*", validators=[])
+    # freeMassTestingDetails = StringField("Kung oo, paano tinukoy ang mga dapat sumailalim sa test? Anong klaseng test \
+    #     (rapid antibody test o rt-PCR/swab test) at saan ito isinagawa?")
+    # dailyHealthMonitoring = BooleanField("Nagsasagawa ba ang kumpanya ng daily health monitoring tulad ng pag-check ng \
+    #     body temperature at pagpapasagot ng daily health questionnaire sa mga manggagawa \
+    #     bago pumasok sa loob ng lugar-paggawa*?", validators=[])
+    # distancing = BooleanField("Naipatutupad ba ang physical at social distancing sa iba’t ibang erya ng \
+    #     lugar-paggawa – production area, canteen, pantry, office, locker area, exit and \
+    #     entrance, at iba pa?*", validators=[])
+    # distancingHardToImplementArea = StringField("Saang erya sa lugar-paggawa pinakamahirap ipatupad ang physical at social distancing?*", validators=[DataRequired(), InputRequired()])
+    # supplements = BooleanField("Nagbigay ba ng libreng mga bitamina o iba pang pagkain/suplay na makatutulong \
+    #     sa pagpapalakas ng resistensya ng mga manggagawa?*", validators=[])
+    # supplementList = StringField("Kung oo, anu-ano ang mga ito?")
+    # mhprograms = BooleanField("May programa ba para sa mental health ng mga manggagawa ang kumpanya?*", default="Oo", false_values=(False, "Wala"), validators=[])
+    # freePPE = BooleanField("Nagbibigay ba ang kumpanya ng libreng personal protective equipment (PPE) sa \
+    #     mga manggagawa?*", validators=[])
+    # freePPEDetails = StringField("Anu-ano ang mga PPE na ipinamimigay at gaano kadalas palitan?")
+    # adequateSoapAndWater = BooleanField("May sapat bang suplay ng tubig at sabon sa lugar-paggawa para sa madalas na \
+    #     paghuhugas ng mga kamay ng manggagawa?*", validators=[])
+    # freeRubbingAlcohol = BooleanField("May ipanamimigay bang libreng alcohol o hand sanitizer ang kumpanya sa mga manggagawa?*", default="Oo", validators=[])
+    # regularDisinfection = BooleanField("Nagsasagawa ba ng regular na disinfection ang kumpanya sa iba’t ibang erya sa \
+    #     loob ng lugar-paggawa?*", default="Oo", validators=[])
+    # hoursPerDay = SelectField("Ilang oras ang pasok ninyo sa trabaho ngayong panahon ng pandemya?*", choices=hoursPerDayOptions, validators=[DataRequired(), InputRequired()])
+    # overtime = BooleanField("May overtime bang ipinapatupad ang kumpanya?*", validators=[])
+    # covidInformationCampaign = BooleanField("Nagsasagawa ba ng information and awareness campaign ang kumpanya hinggil sa \
+    #     COVID-19 at kung paano magiging ligtas sa impeksyon ang mga manggagawa at mapigilan \
+    #     ang pagkalat nito sa lugar-paggawa?*", validators=[])
+    # covidInformationCampaignDetails = StringField("Kung oo, ilista ang mga pamamaraan kung paano ito isinasagawa ng kumpanya.")
+    # freeSafeTransportation = BooleanField("Nagbigay ba ng libre at ligtas na transportasyon ang inyong kumpanya para sa \
+    #     mga manggagawa?*", validators=[])
+    # freeSafeTransportationDetails = StringField("Kung oo, anu-ano ito at paano naisasapraktika ang kaligtasan at social distancing \
+    #     sa byahe?")
+    # freeSafeAccomodation = BooleanField("Nagbigay ba ng libre at ligtas na akomodasyon ang inyong kumpanya para sa mga \
+    #     manggagawang malayo ang inuuwian o para malimita rin ang kanilang exposure sa coronavirus?*", validators=[])
+    # freeSafeAccomodationDetails = StringField("Kung oo, ilarawan ang akomodasyong ibinigay para sa mga manggagawa.")
+    # freeMedicalCheckup = BooleanField("Naglunsad ba ng libreng medical check-up sa hanay ng mga manggagawa?*", validators=[])
+    # covidRiskAssessment = BooleanField("Naglunsad ba ng risk assessment sa iba’t ibang erya sa lugar-paggawa para i-check \
+    #     ang bentilasyon, maayos na layout, espasyo at iba pa?*", validators=[])
+    # isolationRoomPresent = BooleanField("May isolation room ba sa lugar paggawa para sa mga manggagawang magpapakita ng \
+    #     mga sintomas ng COVID-19 sa panahon ng trabaho?*", validators=[])
+    # actionTakenForCOVID = StringField("Anu-ano ang mga hakbang na ginagawa ng management kapag may suspect na COVID \
+    #    case sa lugar-paggawa?*", validators=[DataRequired(), InputRequired()])
+    # COVIDCaseConfirmed = BooleanField("Nagkaroon na ba ng confirmed COVID case sa lugar-paggawa?*", validators=[])
+    # numberOfCOVIDCasesConfirmed = SelectField("Kung oo, ilan na ang naitalang confirmed COVID case?*", choices=caseCountOptions, validators=[DataRequired(), InputRequired()])
+    # companyPaysForTreatment = BooleanField("Sagot ba ng kumpanya ang pagpapagamot sa mga confirmed COVID case?*", validators=[])
+    # contactTracing = BooleanField("Nagsagawa ba ng contact tracing ang kumpanya nang magkaroon ng probable o confirmed \
+    #     COVID case sa lugar-paggawa?*", validators=[])
+    # quarantineProcessForContacted = BooleanField("May mga quarantine procedure ba para sa mga contact?*", validators=[])
+    # sickSalary = BooleanField("Kapag na-quarantine ang manggagawa, tuloy ba ang kanyang sahod?*", validators=[])
+    # sickHealthMonitoring = BooleanField("Kapag na-quarantine ba ang manggawa, tuluy-tuloy ba ang pagmonitor ng kumpanya \
+    #     sa kanyang kalusugan?*", validators=[])
+    # healthInsurance = BooleanField("May health insurance bang ibinigay ang kumpanya sa mga manggagawa na maaaring \
+    #     magamit para sa pagpapagamot kung sakaling magkaroon sila ng COVID-19?*", validators=[])
+    # hazardPay = BooleanField("May hazard pay bang natatanggap ang mga manggagawa?*", validators=[])
+    # admissionOfVulnerable = BooleanField("Pinapapasok ba ang bulnerableng seksyon ng mga manggagawa (may mga comorbidity \
+    #     o pre-existing illness, high risk pregnancy o 60 years old and above)?*", validators=[])
+    # OSHCommittee = BooleanField("May nakatayo bang occupational safety and health (OSH) committee?*", validators=[])
+    # DOLEInspection = BooleanField("Nagsagawa ba ng inspeksyon ang Department of Labor and Employment para subaybayan \
+    #     ang pagpapatupad ng kumpanya ng mga prevention and control measure para sa COVID-19?*", validators=[])
+    # submit = SubmitField("Submit Form (Ipasa ang form)")
+
+
+
+
+
+
+
+
+'''
+COVID-19 Health Protocol Assessment Form
  - Pangalan - StringField
  - Contact Number - TelField
  - E-mail address - EmailField
@@ -185,69 +307,3 @@ COVID-19 Health Protocol Assessment Form
  - Nagsagawa ba ng inspeksyon ang Department of Labor and Employment para subaybayan
     ang pagpapatupad ng kumpanya ng mga prevention and control measure para sa COVID-19? - BooleanField
 '''
-class COVID19Survey(FlaskForm):
-    username = StringField("Pangalan*", validators=[DataRequired(), InputRequired()])
-    contactNumber = TelField("Contact Number*", validators=[DataRequired(), InputRequired()])
-    email = EmailField("E-mail address*", validators=[DataRequired(), InputRequired()])
-    companyName = StringField("Pangalan ng Kumpanya*", validators=[DataRequired(), InputRequired()])
-    companyLocation = SelectField("Lokasyon ng Kumpanya*", choices=PHRegions, validators=[DataRequired(), InputRequired()])
-    freeMassTesting = BooleanField("Nagsagawa ba ng free mass testing ang kumpanya sa hanay ng mga manggagawa?*", validators=[])
-    freeMassTestingDetails = StringField("Kung oo, paano tinukoy ang mga dapat sumailalim sa test? Anong klaseng test \
-        (rapid antibody test o rt-PCR/swab test) at saan ito isinagawa?")
-    dailyHealthMonitoring = BooleanField("Nagsasagawa ba ang kumpanya ng daily health monitoring tulad ng pag-check ng \
-        body temperature at pagpapasagot ng daily health questionnaire sa mga manggagawa \
-        bago pumasok sa loob ng lugar-paggawa*?", validators=[])
-    distancing = BooleanField("Naipatutupad ba ang physical at social distancing sa iba’t ibang erya ng \
-        lugar-paggawa – production area, canteen, pantry, office, locker area, exit and \
-        entrance, at iba pa?*", validators=[])
-    distancingHardToImplementArea = StringField("Saang erya sa lugar-paggawa pinakamahirap ipatupad ang physical at social distancing?*", validators=[DataRequired(), InputRequired()])
-    supplements = BooleanField("Nagbigay ba ng libreng mga bitamina o iba pang pagkain/suplay na makatutulong \
-        sa pagpapalakas ng resistensya ng mga manggagawa?*", validators=[])
-    supplementList = StringField("Kung oo, anu-ano ang mga ito?")
-    mhprograms = BooleanField("May programa ba para sa mental health ng mga manggagawa ang kumpanya?*", default="Oo", false_values=(False, "Wala"), validators=[])
-    freePPE = BooleanField("Nagbibigay ba ang kumpanya ng libreng personal protective equipment (PPE) sa \
-        mga manggagawa?*", validators=[])
-    freePPEDetails = StringField("Anu-ano ang mga PPE na ipinamimigay at gaano kadalas palitan?")
-    adequateSoapAndWater = BooleanField("May sapat bang suplay ng tubig at sabon sa lugar-paggawa para sa madalas na \
-        paghuhugas ng mga kamay ng manggagawa?*", validators=[])
-    freeRubbingAlcohol = BooleanField("May ipanamimigay bang libreng alcohol o hand sanitizer ang kumpanya sa mga manggagawa?*", default="Oo", validators=[])
-    regularDisinfection = BooleanField("Nagsasagawa ba ng regular na disinfection ang kumpanya sa iba’t ibang erya sa \
-        loob ng lugar-paggawa?*", default="Oo", validators=[])
-    hoursPerDay = SelectField("Ilang oras ang pasok ninyo sa trabaho ngayong panahon ng pandemya?*", choices=hoursPerDayOptions, validators=[DataRequired(), InputRequired()])
-    overtime = BooleanField("May overtime bang ipinapatupad ang kumpanya?*", validators=[])
-    covidInformationCampaign = BooleanField("Nagsasagawa ba ng information and awareness campaign ang kumpanya hinggil sa \
-        COVID-19 at kung paano magiging ligtas sa impeksyon ang mga manggagawa at mapigilan \
-        ang pagkalat nito sa lugar-paggawa?*", validators=[])
-    covidInformationCampaignDetails = StringField("Kung oo, ilista ang mga pamamaraan kung paano ito isinasagawa ng kumpanya.")
-    freeSafeTransportation = BooleanField("Nagbigay ba ng libre at ligtas na transportasyon ang inyong kumpanya para sa \
-        mga manggagawa?*", validators=[])
-    freeSafeTransportationDetails = StringField("Kung oo, anu-ano ito at paano naisasapraktika ang kaligtasan at social distancing \
-        sa byahe?")
-    freeSafeAccomodation = BooleanField("Nagbigay ba ng libre at ligtas na akomodasyon ang inyong kumpanya para sa mga \
-        manggagawang malayo ang inuuwian o para malimita rin ang kanilang exposure sa coronavirus?*", validators=[])
-    freeSafeAccomodationDetails = StringField("Kung oo, ilarawan ang akomodasyong ibinigay para sa mga manggagawa.")
-    freeMedicalCheckup = BooleanField("Naglunsad ba ng libreng medical check-up sa hanay ng mga manggagawa?*", validators=[])
-    covidRiskAssessment = BooleanField("Naglunsad ba ng risk assessment sa iba’t ibang erya sa lugar-paggawa para i-check \
-        ang bentilasyon, maayos na layout, espasyo at iba pa?*", validators=[])
-    isolationRoomPresent = BooleanField("May isolation room ba sa lugar paggawa para sa mga manggagawang magpapakita ng \
-        mga sintomas ng COVID-19 sa panahon ng trabaho?*", validators=[])
-    actionTakenForCOVID = StringField("Anu-ano ang mga hakbang na ginagawa ng management kapag may suspect na COVID \
-       case sa lugar-paggawa?*", validators=[DataRequired(), InputRequired()])
-    COVIDCaseConfirmed = BooleanField("Nagkaroon na ba ng confirmed COVID case sa lugar-paggawa?*", validators=[])
-    numberOfCOVIDCasesConfirmed = SelectField("Kung oo, ilan na ang naitalang confirmed COVID case?*", choices=caseCountOptions, validators=[DataRequired(), InputRequired()])
-    companyPaysForTreatment = BooleanField("Sagot ba ng kumpanya ang pagpapagamot sa mga confirmed COVID case?*", validators=[])
-    contactTracing = BooleanField("Nagsagawa ba ng contact tracing ang kumpanya nang magkaroon ng probable o confirmed \
-        COVID case sa lugar-paggawa?*", validators=[])
-    quarantineProcessForContacted = BooleanField("May mga quarantine procedure ba para sa mga contact?*", validators=[])
-    sickSalary = BooleanField("Kapag na-quarantine ang manggagawa, tuloy ba ang kanyang sahod?*", validators=[])
-    sickHealthMonitoring = BooleanField("Kapag na-quarantine ba ang manggawa, tuluy-tuloy ba ang pagmonitor ng kumpanya \
-        sa kanyang kalusugan?*", validators=[])
-    healthInsurance = BooleanField("May health insurance bang ibinigay ang kumpanya sa mga manggagawa na maaaring \
-        magamit para sa pagpapagamot kung sakaling magkaroon sila ng COVID-19?*", validators=[])
-    hazardPay = BooleanField("May hazard pay bang natatanggap ang mga manggagawa?*", validators=[])
-    admissionOfVulnerable = BooleanField("Pinapapasok ba ang bulnerableng seksyon ng mga manggagawa (may mga comorbidity \
-        o pre-existing illness, high risk pregnancy o 60 years old and above)?*", validators=[])
-    OSHCommittee = BooleanField("May nakatayo bang occupational safety and health (OSH) committee?*", validators=[])
-    DOLEInspection = BooleanField("Nagsagawa ba ng inspeksyon ang Department of Labor and Employment para subaybayan \
-        ang pagpapatupad ng kumpanya ng mga prevention and control measure para sa COVID-19?*", validators=[])
-    submit = SubmitField("Submit Form (Ipasa ang form)")
