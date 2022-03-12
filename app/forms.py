@@ -138,7 +138,7 @@ Have you travelled outside the current city/municipality where you reside (Ikaw 
 
 '''
 class COVID19Survey(FlaskForm):
-    username = StringField(<b>"Pangalan*"</b>, validators=[DataRequired(), InputRequired()])
+    username = StringField("Pangalan*", validators=[DataRequired(), InputRequired()])
     contactNumber = TelField("Contact Number*", validators=[DataRequired(), InputRequired()])
     fullname = StringField("Full name (Kumpletong pangngalan) (Last, Given, Middle)*", validators=[DataRequired(), InputRequired()])
     shiftdate = DateField("Shift Date (Datos ng shift):*", validators=[DataRequired(), InputRequired()])
