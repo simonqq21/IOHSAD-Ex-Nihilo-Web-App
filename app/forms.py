@@ -141,8 +141,8 @@ class COVID19Survey(FlaskForm):
     username = StringField("Pangalan*", validators=[DataRequired(), InputRequired()])
     contactNumber = TelField("Contact Number*", validators=[DataRequired(), InputRequired()])
     fullname = StringField("Full name (Kumpletong pangngalan) (Last, Given, Middle)*", validators=[DataRequired(), InputRequired()])
-    shiftdate = DateField("Shift Date (Datos ng shift):*", validators=[DataRequired(), InputRequired()])
-    shifttime = TimeField("Shift Time (Oras ng Shift):*", validators=[DataRequired(), InputRequired()])
+    shiftdate = DateField("Shift Date (Araw ng Shift):*", validators=[DataRequired(), InputRequired()])
+    shifttime = TimeField("Shift Time (Oras ng Shift: HH:MM XM):*", validators=[DataRequired(), InputRequired()])
     symptoms = "Are you experiencing any of the following symptoms? (Nararanasan mo ba ang ilan sa mga symptoms dito?):"
     fever = BooleanField("Fever (Lagnat)")
     coughcolds = BooleanField("Cough and/or Colds (Ubo at/o Sipon)")
