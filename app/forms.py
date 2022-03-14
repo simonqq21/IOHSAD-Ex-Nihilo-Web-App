@@ -143,11 +143,11 @@ class COVID19Survey(FlaskForm):
     fullname = StringField("Full name (Kumpletong pangngalan) (Last, Given, Middle)*", validators=[DataRequired(), InputRequired()])
     shiftdate = DateField("Shift Date (Datos ng shift):*", validators=[DataRequired(), InputRequired()])
     shifttime = TimeField("Shift Time (Oras ng Shift):*", validators=[DataRequired(), InputRequired()])
-    symptoms = "Are you experiencing (Nakakaranas ka ba ng):"
-    fever = BooleanField("fever (lagnat)")
-    coughcolds = BooleanField("cough and/or colds (ubo at/o sipon)")
-    bodypain = BooleanField("body pains (pananakit ng katawan)")
-    sorethroat = BooleanField("sore throat (pananakit ng lalamunan/masakit lumunok)")
+    symptoms = "Are you experiencing any of the following symptoms? (Nararanasan mo ba ang ilan sa mga symptoms dito?):"
+    fever = BooleanField("Fever (Lagnat)")
+    coughcolds = BooleanField("Cough and/or Colds (Ubo at/o Sipon)")
+    bodypain = BooleanField("Body pains (Pananakit ng katawan)")
+    sorethroat = BooleanField("Sore throat (Pananakit ng lalamunan/masakit lumunok)")
     contact = BooleanField("Have you had face-to-face contact with a probable or \
         confirmed COVID-19 case within 1 meter and for more than 15 minutes for the \
         past 14 days? (May nakasalamuha ka ba na probable o kumpirmadong pasyente na \
@@ -162,8 +162,8 @@ class COVID19Survey(FlaskForm):
     domesticTravel = BooleanField("Have you travelled outside the current city/municipality where you reside (Ikaw \
         ba ay nagbyahe sa labas ng iyong lungsod/munisipyo)? If yes, specify which \
         city/municipality you went to (Sabihin kung saan).")
-    complaint = TextAreaField("Enter your complaint here about COVID-19 protocols* \
-        (I-type ang inyong reklamo dito ukol sa mga protocol ukol sa COVID-19*)", validators=[])
+    complaint = TextAreaField("Enter your complaint here about COVID-19 protocols in your workplace.* \
+        (I-type ang inyong reklamo dito ukol sa mga protocol ukol sa COVID-19 sa iyong pinagtatrabahuhan.*)", validators=[])
     submit = SubmitField("Submit Form (Ipasa ang form)")
 
     # username = StringField("Pangalan*", validators=[DataRequired(), InputRequired()])
