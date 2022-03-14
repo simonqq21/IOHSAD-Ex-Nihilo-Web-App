@@ -36,89 +36,85 @@
             </div>
             {{ form.hidden_tag() }}
 
-            <div class="mb-3">
-              {{ form.username.label(class="form-label") }}
-              {{ form.username(class="form-control") }}
-              <p id="username-error" class="text-danger"></p>
+            <div class="row mb-3">
+              <div class="col-sm-6">
+                {{ form.username.label(class="form-label") }}
+                {{ form.username(class="form-control") }}
+                <p id="username-error" class="text-danger"></p>
+              </div>
+  
+              <div class="row col-sm-6">
+                {{ form.contactNumber.label(class="form-label") }}
+                {{ form.contactNumber(class="form-control") }}
+                <p id="contactNumber-error" class="text-danger"></p>
+              </div>
             </div>
 
-            <div class="mb-3">
-              {{ form.contactNumber.label(class="form-label") }}
-              {{ form.contactNumber(class="form-control") }}
-              <p id="contactNumber-error" class="text-danger"></p>
-            </div>
-
-            <div class="mb-3">
+            <div class="row mb-3">
               {{ form.fullname.label(class="form-label") }}
               {{ form.fullname(class="form-control") }}
-              <p id="" class="text-danger"></p>
+              <p id="fullname-error" class="text-danger"></p>
             </div>
 
-            <div class="mb-3">
-              {{ form.shiftdate.label(class="form-label") }}
-              {{ form.shiftdate(class="form-control") }}
-              <p id="" class="text-danger"></p>
+            <div class="row mb-3">
+              <div class="col-sm-6">
+                {{ form.shiftdate.label(class="form-label") }}
+                {{ form.shiftdate(class="form-control") }}
+                <p id="shiftdate-error" class="text-danger"></p>
+              </div>
+  
+              <div class="col-sm-6">
+                {{ form.shifttime.label(class="form-label") }}
+                {{ form.shifttime(class="form-control") }}
+                <p id="shifttime-error" class="text-danger"></p>
+              </div>
             </div>
 
-            <div class="mb-3">
-              {{ form.shifttime.label(class="form-label") }}
-              {{ form.shifttime(class="form-control") }}
-              <p id="" class="text-danger"></p>
-            </div>
-
-            <div class="form-label">
+            <div class="row form-label">
               {{ form.symptoms }}
             </div>
-
-            <div class="mb-3">
-              {{ form.fever.label(class="form-label") }}
-              {{ form.fever(class="") }}
-              <p id="" class="text-danger"></p>
+            
+            <div class="form-check">
+              {{ form.fever(class="form-check-input") }}
+              {{ form.fever.label(class="form-check-label") }}
             </div>
 
-            <div class="mb-3">
-              {{ form.coughcolds.label(class="form-label") }}
-              {{ form.coughcolds(class="") }}
-              <p id="" class="text-danger"></p>
+            <div class="form-check">
+              {{ form.coughcolds(class="form-check-input") }}
+              {{ form.coughcolds.label(class="form-check-label") }}
             </div>
 
-            <div class="mb-3">
-              {{ form.bodypain.label(class="form-label") }}
-              {{ form.bodypain(class="") }}
-              <p id="" class="text-danger"></p>
+            <div class="form-check">
+              {{ form.bodypain(class="form-check-input") }}
+              {{ form.bodypain.label(class="form-check-label") }}
             </div>
 
-            <div class="mb-3">
-              {{ form.sorethroat.label(class="form-label") }}
-              {{ form.sorethroat(class="") }}
-              <p id="" class="text-danger"></p>
+            <div class="form-check">
+              {{ form.sorethroat(class="form-check-input") }}
+              {{ form.sorethroat.label(class="form-check-label") }}
+            </div>
+            
+            <div class="form-check">
+              {{ form.contact(class="form-check-input") }}
+              {{ form.contact.label(class="form-check-label") }}
             </div>
 
-            <div class="mb-3">
-              {{ form.contact.label(class="form-label") }}
-              {{ form.contact(class="") }}
-              <p id="" class="text-danger"></p>
+            <div class="form-check">
+              {{ form.directcare(class="form-check-input") }}
+              {{ form.directcare.label(class="form-check-label") }}
             </div>
 
-            <div class="mb-3">
-              {{ form.directcare.label(class="form-label") }}
-              {{ form.directcare(class="") }}
-              <p id="" class="text-danger"></p>
+            <div class="form-check">
+              {{ form.internationalTravel(class="form-check-input") }}
+              {{ form.internationalTravel.label(class="form-check-label") }}
             </div>
 
-            <div class="mb-3">
-              {{ form.internationalTravel.label(class="form-label") }}
-              {{ form.internationalTravel(class="") }}
-              <p id="" class="text-danger"></p>
+            <div class="form-check">
+              {{ form.domesticTravel(class="form-check-input") }}
+              {{ form.domesticTravel.label(class="form-check-label") }}
             </div>
 
-            <div class="mb-3">
-              {{ form.domesticTravel.label(class="form-label") }}
-              {{ form.domesticTravel(class="") }}
-              <p id="" class="text-danger"></p>
-            </div>
-
-            <div class="mb-3">
+            <div class="row mb-3">
               {{ form.complaint.label(class="form-label") }}
               {{ form.complaint(class="form-control") }}
               <p id="" class="text-danger"></p>
