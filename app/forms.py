@@ -158,10 +158,10 @@ class COVID19Survey(FlaskForm):
         (Nag-alaga ka ba ng probable o kumpirmadong pasyente na may COVID-19 nang hindi \
         nakasuot ng tamang personal protective equipment sa nakalipas na 14 araw?)")
     internationalTravel = BooleanField("Have you travelled outside the Philippines in the last 14 days (Ikaw ba ay \
-        nagbiyahe sa labas ng Pilipinas sa nakalipas na 14 na araw)?")
+        lumabas ng bansa sa nakalipas na 14 na araw)?")
     domesticTravel = BooleanField("Have you travelled outside the current city/municipality where you reside (Ikaw \
-        ba ay nagbyahe sa labas ng iyong lungsod/munisipyo)? If yes, specify which \
-        city/municipality you went to (Sabihin kung saan).")
+        ba ay nagbiyahe sa labas ng iyong lungsod/munisipyo)? If yes, specify which \
+        city/municipality you went to (Kung oo, i-type ang lungsod/munisipyong pinuntahan).")
     complaint = TextAreaField("Enter your complaint here about COVID-19 protocols in your workplace.* \
         (I-type ang inyong reklamo dito ukol sa mga protocol ukol sa COVID-19 sa iyong pinagtatrabahuhan.*)", validators=[])
     submit = SubmitField("Submit Form (Ipasa ang form)")
