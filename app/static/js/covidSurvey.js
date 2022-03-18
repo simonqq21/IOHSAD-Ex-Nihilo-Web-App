@@ -1,4 +1,15 @@
 $(document).ready(() => {
+    $("#domesticTravelDetails").hide();
+
+    $("#domesticTravel").click(function(){
+        if($(this).is(":checked")){
+            $(".domesticTravelDetail").show();
+        }
+        else{
+            $(".domesticTravelDetail").hide();
+        }
+    });
+
     /*function validateForm(){
         var username = $("#username");
         var contactNumber = $("#contactNumber");
