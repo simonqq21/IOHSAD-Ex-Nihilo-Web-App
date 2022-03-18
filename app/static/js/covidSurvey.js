@@ -1,5 +1,5 @@
 $(document).ready(() => {
-    $("#domesticTravelDetails").hide();
+    $(".domesticTravelDetail").hide();
 
     $("#domesticTravel").click(function(){
         if($(this).is(":checked")){
