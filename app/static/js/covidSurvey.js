@@ -3,10 +3,10 @@ $(document).ready(() => {
 
     $("#domesticTravel").click(function(){
         if($(this).is(":checked")){
-            $(".domesticTravelDetail").show();
+            $("#domesticTravelDetail").show();
         }
         else{
-            $(".domesticTravelDetail").hide();
+            $("#domesticTravelDetail").hide();
         }
     });
 
