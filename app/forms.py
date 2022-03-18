@@ -162,7 +162,7 @@ class COVID19Survey(FlaskForm):
     domesticTravel = BooleanField("Have you travelled outside the current city/municipality where you reside (Ikaw \
         ba ay nagbiyahe sa labas ng iyong lungsod/munisipyo)? If yes, specify which \
         city/municipality you went to (Kung oo, i-type ang lungsod/munisipyong pinuntahan).")
-    domesticTravelDetails = StringField("Lungsod/Munisipyong pinuntahan")
+    domesticTravelDetails = StringField("City/Municipality travelled to (Lungsod/Munisipyong pinuntahan)")
     complaint = TextAreaField("Enter your complaint here about COVID-19 protocols in your workplace.* \
         (I-type ang inyong reklamo dito ukol sa mga protocol ukol sa COVID-19 sa iyong pinagtatrabahuhan.*)", validators=[])
     submit = SubmitField("Submit Form (Ipasa ang form)")
