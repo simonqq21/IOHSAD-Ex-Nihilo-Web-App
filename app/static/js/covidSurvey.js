@@ -1,10 +1,11 @@
 $(document).ready(() => {
     function validateForm(){
-        var username = $("#username")
-        var contactNumber = $("#contactNumber")
+        var username = $("#username");
+        var contactNumber = $("#contactNumber");
+        var fullname = $("#fullname");
     }
     
-    function validatePage1(){
+    /*function validatePage1(){
         var username = $("#username");
         var contactNumber = $("#contactNumber");
         var email = $("#email");
@@ -40,45 +41,7 @@ $(document).ready(() => {
         }
     }
 
-    function validatePage2(){
-        var distancingHardToImplementArea = $("#distancingHardToImplementArea");
-        var errors = [];
-        if(distancingHardToImplementArea.val().trim() == ""){
-            $("#distancingHardToImplement-error").text("This answer is required and should not be blank");
-            errors.push("distancingHardToImplement");
-        }
-        else{
-            $("#distancingHardToImplement-error").text("");
-        }
-
-        if(errors.length == 0){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-
-    function validatePage3(){
-        var actionTakenForCovid = $("#actionTakenForCOVID");
-        var errors = [];
-        if(actionTakenForCovid.val().trim() == ""){
-            $("#actionTakenForCovid-error").text("This answer is required and should not be blank");
-            errors.push("actionTakenForCovid");
-        }
-        else{
-            $("#actionTakenForCovid-error").text("");
-        }
-
-        if(errors.length == 0){
-            return true;
-        }
-        else{
-            return false;
-        }
-
-    }
-
+    
     function validateEmail(email){
         var EmailRegex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
         return EmailRegex.test(email);
@@ -120,5 +83,5 @@ $(document).ready(() => {
     $(".previous-page").click(() => {
         currentPage--;
         updatePage(currentPage);
-    });
+    });*/
 });
