@@ -1,11 +1,11 @@
 $(document).ready(() => {
-    function validateForm(){
+    /*function validateForm(){
         var username = $("#username");
         var contactNumber = $("#contactNumber");
         var fullname = $("#fullname");
     }
     
-    /*function validatePage1(){
+    function validatePage1(){
         var username = $("#username");
         var contactNumber = $("#contactNumber");
         var email = $("#email");

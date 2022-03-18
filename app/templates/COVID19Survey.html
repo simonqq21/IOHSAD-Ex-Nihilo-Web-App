@@ -30,7 +30,7 @@
           {% endif %}
           {% endwith %}
 
-          <form class="col-sm-8 shadow-lg p-5" method="POST" novalidate>
+          <form class="col-sm-8 shadow-lg p-5 was-validated" method="POST" novalidate>
             <div class="form-title row">
               <h1 class="col-sm-10">COVID-19 Health Protocol Form</h1>
             </div>
@@ -38,35 +38,35 @@
 
             <div class="row mb-3">
               <div class="col-sm-6">
-                {{ form.username.label(class="form-label fw-bold") }}
+                {{ form.username.label(class="form-label fw-bold p-0") }}
                 {{ form.username(class="form-control") }}
-                <p id="username-error" class="text-danger"></p>
+                <div class="invalid-feedback">Please enter your Name</div>
               </div>
   
               <div class="row col-sm-6">
-                {{ form.contactNumber.label(class="form-label fw-bold") }}
+                {{ form.contactNumber.label(class="form-label fw-bold p-0") }}
                 {{ form.contactNumber(class="form-control") }}
-                <p id="contactNumber-error" class="text-danger"></p>
+                <div class="invalid-feedback">Please enter your Phone number</div>
               </div>
             </div>
 
             <div class="row mb-3">
-              {{ form.fullname.label(class="form-label fw-bold") }}
+              {{ form.fullname.label(class="form-label fw-bold p-0") }}
               {{ form.fullname(class="form-control") }}
-              <p id="fullname-error" class="text-danger"></p>
+              <div class="invalid-feedback">Please enter your Full Name</div>
             </div>
 
             <div class="row mb-3">
               <div class="col-sm-6">
                 {{ form.shiftdate.label(class="form-label fw-bold") }}
                 {{ form.shiftdate(class="form-control") }}
-                <p id="shiftdate-error" class="text-danger"></p>
+                <div class="invalid-feedback">Please enter a Shift Date</div>
               </div>
   
               <div class="col-sm-6">
                 {{ form.shifttime.label(class="form-label fw-bold") }}
                 {{ form.shifttime(class="form-control") }}
-                <p id="shifttime-error" class="text-danger"></p>
+                <div class="invalid-feedback">Please enter a Shift Time</div>
               </div>
             </div>
 
@@ -115,6 +115,11 @@
             </div>
 
             <div class="row mb-3">
+              {{ form.domesticTravelDetails.label(class="form-label fw-bold p-0") }}
+              {{ form.domesticTravelDetails(class="form-control") }}
+            </div>
+
+            <div class="row mb-3">
               {{ form.complaint.label(class="form-label fw-bold") }}
               {{ form.complaint(class="form-control") }}
               <p id="" class="text-danger"></p>
@@ -137,5 +142,22 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script>
+      (function () {
+        'use strict'
+        var forms = document.querySelectorAll('.needs-validation')
+        Array.prototype.slice.call(forms)
+          .forEach(function (form) {
+            form.addEventListener('submit', function (event) {
+              if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+              }
+
+              form.classList.add('was-validated')
+            }, false)
+          })
+      })()
+    </script>
   </body>
 </html>
